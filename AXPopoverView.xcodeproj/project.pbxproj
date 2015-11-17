@@ -13,6 +13,7 @@
 		01E7EAA21BFB6DC3001176A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01E7EAA01BFB6DC3001176A2 /* Main.storyboard */; };
 		01E7EAA41BFB6DC3001176A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01E7EAA31BFB6DC3001176A2 /* Assets.xcassets */; };
 		01E7EAA71BFB6DC3001176A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01E7EAA51BFB6DC3001176A2 /* LaunchScreen.storyboard */; };
+		01E7EAB11BFB6E3E001176A2 /* AXPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		01E7EAA31BFB6DC3001176A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01E7EAA61BFB6DC3001176A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01E7EAA81BFB6DC3001176A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01E7EAAF1BFB6E3E001176A2 /* AXPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXPopoverView.h; sourceTree = "<group>"; };
+		01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXPopoverView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,7 @@
 				01E7EA9B1BFB6DC3001176A2 /* AppDelegate.m */,
 				01E7EA9D1BFB6DC3001176A2 /* ViewController.h */,
 				01E7EA9E1BFB6DC3001176A2 /* ViewController.m */,
+				01E7EAAE1BFB6E3E001176A2 /* AXPopoverView */,
 				01E7EAA01BFB6DC3001176A2 /* Main.storyboard */,
 				01E7EAA31BFB6DC3001176A2 /* Assets.xcassets */,
 				01E7EAA51BFB6DC3001176A2 /* LaunchScreen.storyboard */,
@@ -77,6 +81,15 @@
 				01E7EA981BFB6DC3001176A2 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		01E7EAAE1BFB6E3E001176A2 /* AXPopoverView */ = {
+			isa = PBXGroup;
+			children = (
+				01E7EAAF1BFB6E3E001176A2 /* AXPopoverView.h */,
+				01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */,
+			);
+			path = AXPopoverView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01E7EA9F1BFB6DC3001176A2 /* ViewController.m in Sources */,
+				01E7EAB11BFB6E3E001176A2 /* AXPopoverView.m in Sources */,
 				01E7EA9C1BFB6DC3001176A2 /* AppDelegate.m in Sources */,
 				01E7EA991BFB6DC3001176A2 /* main.m in Sources */,
 			);

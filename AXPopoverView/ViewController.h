@@ -1,6 +1,6 @@
 //
 //  ViewController.h
-//  AXPopoverView
+//  AXComponents
 //
 //  Created by ai on 15/11/17.
 //  Copyright © 2015年 AiXing. All rights reserved.
