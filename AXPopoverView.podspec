@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.name         = "AXPopoverView"
   s.version      = "0.0.1"
-  s.summary      = “A popover view in iOS.”
+  s.summary      = "A popover view in iOS."
 
   s.description  = <<-DESC
                    A popover view in iOS.
