@@ -17,10 +17,10 @@ Pod::Spec.new do |s|
 
   s.name         = "AXPopoverView"
   s.version      = "0.0.1"
-  s.summary      = "A short description of AXPopoverView."
+  s.summary      = “A popover view in iOS.”
 
   s.description  = <<-DESC
-                   A longer description of AXPopoverView in Markdown format.
+                   A popover view in iOS.
 
                    * Think: Why did you write this? What is the focus? What does it do?
                    * CocoaPods will be using this to generate tags, and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                    * Finally, don't worry about the indent, CocoaPods strips it!
                    DESC
 
-  s.homepage     = "https://github.com/devedbox/AXPopoverView"
+  # s.homepage     = "https://github.com/devedbox/AXPopoverView"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/devedbox/AXPopoverView", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/devedbox/AXPopoverView.git", :tag => "0.0.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
