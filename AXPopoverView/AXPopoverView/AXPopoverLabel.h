@@ -8,6 +8,9 @@
 
 #import "AXPopoverView.h"
 
+@class AXPopoverLabel;
+typedef void(^AXPopoverLabelConfiguration)(AXPopoverLabel *popoverLabel);
+
 @interface AXPopoverLabel : AXPopoverView
 /// Title of popover label.
 @property(copy, nonatomic) NSString *title;
@@ -30,4 +33,5 @@
 @property(assign, nonatomic) CGFloat padding;
 
 + (instancetype)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail;
++ (instancetype)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverLabelConfiguration)config;
 @end

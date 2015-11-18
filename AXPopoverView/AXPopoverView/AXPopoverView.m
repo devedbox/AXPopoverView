@@ -242,7 +242,7 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
     CGRect frame = self.frame;
     self.frame = rect;
     _backgroundView.alpha = 0.0;
-    NSTimeInterval animationDutation = animated?0.5:0.0;
+    NSTimeInterval animationDutation = animated?0.35:0.0;
     [self viewWillShow:animated];
     [UIView animateWithDuration:animationDutation delay:0.05 usingSpringWithDamping:0.9 initialSpringVelocity:0.9 options:7 animations:^{
         self.hidden = NO;
@@ -295,8 +295,15 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
     }];
 }
 
+- (void)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration {
+    [self showFromView:view animated:animated completion:^{
+        [self performSelector:@selector(delayHide) withObject:nil afterDelay:duration];
+    }];
+}
+
 - (void)showFromView:(UIView *)view animated:(BOOL)animated completion:(dispatch_block_t)completion {
-    [self showInRect:view.frame animated:animated completion:completion];
+    CGRect rect = [view.superview convertRect:view.frame toView:view.window];
+    [self showInRect:rect animated:animated completion:completion];
 }
 
 - (void)delayHide {
@@ -359,8 +366,7 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
 }
 
 - (AXPopoverArrowDirection)directionWithRect:(CGRect)rect {
-    CGRect currentRect = [_showWindow convertRect:rect fromWindow:[UIApplication sharedApplication].keyWindow];
-    UIEdgeInsets margins = UIEdgeInsetsMake(currentRect.origin.y, currentRect.origin.x, _showWindow.bounds.size.height - CGRectGetMaxY(currentRect), _showWindow.bounds.size.width - CGRectGetMaxX(currentRect));
+    UIEdgeInsets margins = UIEdgeInsetsMake(rect.origin.y, rect.origin.x, _showWindow.bounds.size.height - CGRectGetMaxY(rect), _showWindow.bounds.size.width - CGRectGetMaxX(rect));
     if ([_priority isEqualToString:AXPopoverPriorityHorizontal]) {
         if (margins.left > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 左边显示
             return AXPopoverArrowDirectionRight;

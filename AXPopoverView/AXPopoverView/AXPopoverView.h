@@ -95,6 +95,7 @@ typedef NS_ENUM(NSUInteger, AXPopoverArrowDirection) {
 - (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(dispatch_block_t)completion;
 
 - (void)showInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration;
+- (void)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration;
 - (void)showFromView:(UIView *)view animated:(BOOL)animated completion:(dispatch_block_t)completion;
 
 - (void)viewWillShow:(BOOL)animated;

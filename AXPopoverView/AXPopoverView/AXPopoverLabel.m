@@ -93,7 +93,7 @@
     if (animated) {
         _titleLabel.alpha = 0.0;
         _detailLabel.alpha = 0.0;
-        [UIView animateWithDuration:0.25 delay:0.25 options:7 animations:^{
+        [UIView animateWithDuration:0.25 delay:0.1 options:7 animations:^{
             _titleLabel.alpha = 1.0;
             _detailLabel.alpha = 1.0;
         } completion:nil];
@@ -186,7 +186,19 @@
     AXPopoverLabel *label = [[AXPopoverLabel alloc] initWithFrame:CGRectZero];
     label.title = title;
     label.detail = detail;
-    [label showInRect:view.frame animated:animated duration:duration];
+    [label showFromView:view animated:animated duration:duration];
+    return label;
+}
+
++ (instancetype)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverLabelConfiguration)config
+{
+    AXPopoverLabel *label = [[AXPopoverLabel alloc] initWithFrame:CGRectZero];
+    label.title = title;
+    label.detail = detail;
+    if (config) {
+        config(label);
+    }
+    [label showFromView:view animated:animated duration:duration];
     return label;
 }
 @end
