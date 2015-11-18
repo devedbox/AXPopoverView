@@ -163,7 +163,7 @@
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+    _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     return _titleLabel;
 }
 
@@ -177,7 +177,7 @@
     _detailLabel.backgroundColor = [UIColor clearColor];
     _detailLabel.textAlignment = NSTextAlignmentCenter;
     _detailLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+    _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     return _detailLabel;
 }
 #pragma mark - Public

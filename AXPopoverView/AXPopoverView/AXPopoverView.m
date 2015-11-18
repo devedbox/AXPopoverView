@@ -240,7 +240,29 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
     [_showWindow addSubview:self];
     [self layoutSubviews];
     CGRect frame = self.frame;
-    self.frame = rect;
+    AXPopoverArrowDirection direction = [self directionWithRect:rect];
+    CGRect originalFrame = CGRectMake(0, 0, 1, 1);
+    switch (direction) {
+        case AXPopoverArrowDirectionBottom:
+            originalFrame.origin.x = CGRectGetMidX(rect);
+            originalFrame.origin.y = CGRectGetMinY(rect) - CGRectGetHeight(originalFrame);
+            break;
+        case AXPopoverArrowDirectionLeft:
+            originalFrame.origin.x = CGRectGetMaxX(rect) + CGRectGetWidth(originalFrame);
+            originalFrame.origin.y = CGRectGetMidY(rect);
+            break;
+        case AXPopoverArrowDirectionRight:
+            originalFrame.origin.x = CGRectGetMinX(rect) - CGRectGetWidth(originalFrame);
+            originalFrame.origin.y = CGRectGetMidY(rect);
+            break;
+        case AXPopoverArrowDirectionTop:
+            originalFrame.origin.x = CGRectGetMidX(rect);
+            originalFrame.origin.y = CGRectGetMaxY(rect) + CGRectGetHeight(originalFrame);
+            break;
+        default:
+            break;
+    }
+    self.frame = originalFrame;
     _backgroundView.alpha = 0.0;
     NSTimeInterval animationDutation = animated?0.35:0.0;
     [self viewWillShow:animated];
