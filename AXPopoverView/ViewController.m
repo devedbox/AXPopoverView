@@ -38,7 +38,7 @@
      */
 //    _popoverLabel.detail = @"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速";
 //    [_popoverLabel showInRect:sender.frame animated:YES duration:2.0];
-    AXPopoverLabel *label = [AXPopoverLabel showFromView:sender animated:YES duration:2.0 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速"];
+     [AXPopoverLabel showFromView:sender animated:YES duration:2.0 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速"];
 //    label.titleFont = [UIFont systemFontOfSize:18];
 //    label.detailFont = [UIFont systemFontOfSize:16];
 }
