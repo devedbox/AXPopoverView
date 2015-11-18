@@ -14,6 +14,7 @@
 		01E7EAA41BFB6DC3001176A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01E7EAA31BFB6DC3001176A2 /* Assets.xcassets */; };
 		01E7EAA71BFB6DC3001176A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01E7EAA51BFB6DC3001176A2 /* LaunchScreen.storyboard */; };
 		01E7EAB11BFB6E3E001176A2 /* AXPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */; };
+		01E7EAB41BFC0FEF001176A2 /* AXPopoverLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E7EAB31BFC0FEF001176A2 /* AXPopoverLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		01E7EAA81BFB6DC3001176A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01E7EAAF1BFB6E3E001176A2 /* AXPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXPopoverView.h; sourceTree = "<group>"; };
 		01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXPopoverView.m; sourceTree = "<group>"; };
+		01E7EAB21BFC0FEF001176A2 /* AXPopoverLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXPopoverLabel.h; sourceTree = "<group>"; };
+		01E7EAB31BFC0FEF001176A2 /* AXPopoverLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXPopoverLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,8 @@
 			children = (
 				01E7EAAF1BFB6E3E001176A2 /* AXPopoverView.h */,
 				01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */,
+				01E7EAB21BFC0FEF001176A2 /* AXPopoverLabel.h */,
+				01E7EAB31BFC0FEF001176A2 /* AXPopoverLabel.m */,
 			);
 			path = AXPopoverView;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 				01E7EA9F1BFB6DC3001176A2 /* ViewController.m in Sources */,
 				01E7EAB11BFB6E3E001176A2 /* AXPopoverView.m in Sources */,
 				01E7EA9C1BFB6DC3001176A2 /* AppDelegate.m in Sources */,
+				01E7EAB41BFC0FEF001176A2 /* AXPopoverLabel.m in Sources */,
 				01E7EA991BFB6DC3001176A2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
