@@ -26,7 +26,7 @@ typedef void(^AXPopoverLabelConfiguration)(AXPopoverLabel *popoverLabel);
 @property(strong, nonatomic) UIColor *detailTextColor;
 /// Prefered width of detail label. Defaults:
 /// (screenWidth - (contentViewInsets.left + contentViewInsets.right))
-@property(assign, nonatomic) CGFloat preferedWidth;
+@property(assign, nonatomic) CGFloat preferredWidth;
 /// Content insets. Defaults to {0, 0, 0, 0}
 @property(assign, nonatomic) UIEdgeInsets contentInsets;
 /// Padding of labels. Defaults to 4.
@@ -34,4 +34,7 @@ typedef void(^AXPopoverLabelConfiguration)(AXPopoverLabel *popoverLabel);
 
 + (instancetype)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail;
 + (instancetype)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverLabelConfiguration)config;
+
++ (instancetype)showInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail;
++ (instancetype)showInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverLabelConfiguration)config;
 @end

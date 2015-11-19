@@ -53,6 +53,8 @@ UIKIT_EXTERN NSString *const AXPopoverPriorityVertical;
 @end
 /// Enum of arrow direction.
 typedef NS_ENUM(NSUInteger, AXPopoverArrowDirection) {
+    /// Arrow on any direction.
+    AXPopoverArrowDirectionAny,
     /// Arrow on the top.
     AXPopoverArrowDirectionTop,
     /// Arrow on the left.
@@ -87,7 +89,9 @@ typedef NS_ENUM(NSUInteger, AXPopoverArrowDirection) {
 /// Delegate.
 @property(assign, nonatomic) id<AXPopoverViewDelegate>delegate;
 /// Direction of arrow.
-@property(assign, nonatomic)   AXPopoverArrowDirection arrowDirection;
+@property(readonly, nonatomic)   AXPopoverArrowDirection arrowDirection;
+/// Prefered direction of arrow.
+@property(assign, nonatomic)     AXPopoverArrowDirection preferredArrowDirection;
 /// Should remove from super view when hidden or not.
 @property(assign, nonatomic) BOOL removeFromSuperViewOnHide;
 

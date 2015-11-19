@@ -41,7 +41,7 @@
     _detailFont = [UIFont systemFontOfSize:12];
     _titleTextColor = [UIColor colorWithWhite:0 alpha:0.7];
     _detailTextColor = [UIColor colorWithWhite:0 alpha:0.5];
-    _preferedWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - (self.contentViewInsets.left + self.contentViewInsets.right + self.offsets.x);
+    _preferredWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - (self.contentViewInsets.left + self.contentViewInsets.right + self.offsets.x);
     _contentInsets = UIEdgeInsetsZero;
     _padding = 4;
     [self.contentView addSubview:self.titleLabel];
@@ -60,12 +60,12 @@
     
     CGSize size = CGSizeZero;
     if (_detailLabel.text.length > 0) {
-        size = [_detailLabel.text boundingRectWithSize:CGSizeMake(_preferedWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:_detailLabel.font} context:nil].size;
+        size = [_detailLabel.text boundingRectWithSize:CGSizeMake(_preferredWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:_detailLabel.font} context:nil].size;
     }
     rect_detail.size = CGSizeMake(ceil(size.width), ceil(size.height));
     rect_detail.origin.x = _contentInsets.left;
     if (_titleLabel.text.length > 0) {
-        rect_title.size.width = MIN(CGRectGetWidth(rect_title), _preferedWidth);
+        rect_title.size.width = MIN(CGRectGetWidth(rect_title), _preferredWidth);
         rect_title.size.width = MAX(CGRectGetWidth(rect_title), CGRectGetWidth(rect_detail));
         rect_title.origin.y = _contentInsets.top;
         rect_title.origin.x = rect_detail.origin.x;
@@ -93,7 +93,12 @@
     if (animated) {
         _titleLabel.alpha = 0.0;
         _detailLabel.alpha = 0.0;
-        [UIView animateWithDuration:0.25 delay:0.1 options:7 animations:^{
+    }
+}
+
+- (void)viewDidShow:(BOOL)animated {
+    if (animated) {
+        [UIView animateWithDuration:0.25 delay:0.0 options:7 animations:^{
             _titleLabel.alpha = 1.0;
             _detailLabel.alpha = 1.0;
         } completion:nil];
@@ -136,8 +141,8 @@
     _detailLabel.textColor = detailTextColor;
 }
 
-- (void)setPreferedWidth:(CGFloat)preferedWidth {
-    _preferedWidth = preferedWidth;
+- (void)setPreferredWidth:(CGFloat)preferredWidth {
+    _preferredWidth = preferredWidth;
     [self setNeedsLayout];
 }
 
@@ -181,13 +186,26 @@
     return _detailLabel;
 }
 #pragma mark - Public
-+ (instancetype)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail
++ (instancetype)showInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail
+{
+    return [self showInRect:rect animated:animated duration:duration title:title detail:detail configuration:nil];
+}
+
++ (instancetype)showInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverLabelConfiguration)config
 {
     AXPopoverLabel *label = [[AXPopoverLabel alloc] initWithFrame:CGRectZero];
     label.title = title;
     label.detail = detail;
-    [label showFromView:view animated:animated duration:duration];
+    if (config) {
+        config(label);
+    }
+    [label showInRect:rect animated:animated duration:duration];
     return label;
+}
+
++ (instancetype)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail
+{
+    return [self showFromView:view animated:animated duration:duration title:title detail:detail configuration:nil];
 }
 
 + (instancetype)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverLabelConfiguration)config

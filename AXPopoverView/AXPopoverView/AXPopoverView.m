@@ -50,6 +50,7 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
     _arrowConstant = 10;
     _offsets = CGPointMake(20, 20);
     _arrowDirection = AXPopoverArrowDirectionBottom;
+    _preferredArrowDirection = AXPopoverArrowDirectionAny;
     _arrowPosition = .5;
     _priority = AXPopoverPriorityVertical;
     _dimBackground = NO;
@@ -389,26 +390,36 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
 
 - (AXPopoverArrowDirection)directionWithRect:(CGRect)rect {
     UIEdgeInsets margins = UIEdgeInsetsMake(rect.origin.y, rect.origin.x, _showWindow.bounds.size.height - CGRectGetMaxY(rect), _showWindow.bounds.size.width - CGRectGetMaxX(rect));
+    NSMutableArray *availableDirections = [NSMutableArray array];
     if ([_priority isEqualToString:AXPopoverPriorityHorizontal]) {
         if (margins.left > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 左边显示
-            return AXPopoverArrowDirectionRight;
-        } else if (margins.right > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 右边显示
-            return AXPopoverArrowDirectionLeft;
-        } else if (margins.top > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// 优先在上方显示
-            return AXPopoverArrowDirectionBottom;
-        } else if (margins.bottom > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// 下方显示
-            return AXPopoverArrowDirectionTop;
+            [availableDirections addObject:@(AXPopoverArrowDirectionRight)];
+        } if (margins.right > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 右边显示
+            [availableDirections addObject:@(AXPopoverArrowDirectionLeft)];
+        } if (margins.top > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// 优先在上方显示
+            [availableDirections addObject:@(AXPopoverArrowDirectionBottom)];
+        } if (margins.bottom > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// 下方显示
+            [availableDirections addObject:@(AXPopoverArrowDirectionTop)];
         }
     } else {
         if (margins.top > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// 优先在上方显示
-            return AXPopoverArrowDirectionBottom;
-        } else if (margins.bottom > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// 下方显示
-            return AXPopoverArrowDirectionTop;
-        } else if (margins.left > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 左边显示
-            return AXPopoverArrowDirectionRight;
-        } else if (margins.right > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 右边显示
-            return AXPopoverArrowDirectionLeft;
+            [availableDirections addObject:@(AXPopoverArrowDirectionBottom)];
+        } if (margins.bottom > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// 下方显示
+            [availableDirections addObject:@(AXPopoverArrowDirectionTop)];
+        } if (margins.left > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 左边显示
+            [availableDirections addObject:@(AXPopoverArrowDirectionRight)];
+        } if (margins.right > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 右边显示
+            [availableDirections addObject:@(AXPopoverArrowDirectionLeft)];
         }
+    }
+    if (availableDirections.count > 0) {
+        if (_preferredArrowDirection != AXPopoverArrowDirectionAny) {
+            if ([availableDirections containsObject:@(_preferredArrowDirection)]) {
+                return _preferredArrowDirection;
+            } else
+                return [[availableDirections firstObject] integerValue];
+        } else
+            return [[availableDirections firstObject] integerValue];
     }
     return AXPopoverArrowDirectionTop;
 }
