@@ -91,6 +91,7 @@
 }
 
 - (void)viewWillShow:(BOOL)animated {
+    [super viewWillShow:animated];
     if (animated && _fadeContentEnabled) {
         _titleLabel.alpha = 0.0;
         _detailLabel.alpha = 0.0;
@@ -98,6 +99,7 @@
 }
 
 - (void)viewDidShow:(BOOL)animated {
+    [super viewDidShow:animated];
     if (animated && _fadeContentEnabled) {
         [UIView animateWithDuration:0.25 delay:0.0 options:7 animations:^{
             _titleLabel.alpha = 1.0;

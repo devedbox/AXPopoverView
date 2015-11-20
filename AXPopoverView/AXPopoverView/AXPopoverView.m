@@ -382,6 +382,8 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
     [_previousKeyWindow makeKeyAndVisible];
     self.alpha = 1.0;
     self.hidden = YES;
+    self.layer.anchorPoint = CGPointMake(0.5, 0.5);
+    [self setNeedsLayout];
     _backgroundView.hidden = YES;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     if (_removeFromSuperViewOnHide) {
