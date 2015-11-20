@@ -44,6 +44,7 @@
     _preferredWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - (self.contentViewInsets.left + self.contentViewInsets.right + self.offsets.x);
     _contentInsets = UIEdgeInsetsZero;
     _padding = 4;
+    _fadeContentEnabled = NO;
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.detailLabel];
 }
@@ -90,14 +91,14 @@
 }
 
 - (void)viewWillShow:(BOOL)animated {
-    if (animated) {
+    if (animated && _fadeContentEnabled) {
         _titleLabel.alpha = 0.0;
         _detailLabel.alpha = 0.0;
     }
 }
 
 - (void)viewDidShow:(BOOL)animated {
-    if (animated) {
+    if (animated && _fadeContentEnabled) {
         [UIView animateWithDuration:0.25 delay:0.0 options:7 animations:^{
             _titleLabel.alpha = 1.0;
             _detailLabel.alpha = 1.0;

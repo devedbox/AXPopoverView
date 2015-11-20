@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+NS_ASSUME_NONNULL_BEGIN
 UIKIT_EXTERN NSString *const AXPopoverPriorityHorizontal;
 UIKIT_EXTERN NSString *const AXPopoverPriorityVertical;
 
-@class AXPopoverView;
+@class AXPopoverView, AXPopoverViewAnimator;
 @protocol AXPopoverViewDelegate <NSObject>
 @optional
 /// Called when popover view will show with animation.
@@ -64,6 +64,8 @@ typedef NS_ENUM(NSUInteger, AXPopoverArrowDirection) {
     /// Arrow on the right.
     AXPopoverArrowDirectionRight
 };
+
+typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated, CGRect targetRect);
 ///
 @interface AXPopoverView : UIView
 /// Origin of frame when display the view.
@@ -84,6 +86,10 @@ typedef NS_ENUM(NSUInteger, AXPopoverArrowDirection) {
 @property(readonly, nonatomic) UIView *contentView;
 /// Corner radius of arrow.
 @property(assign, nonatomic)   CGFloat arrowCornerRadius UI_APPEARANCE_SELECTOR;
+/// Position of arrow.
+@property(readonly, nonatomic) CGPoint arrowPosition;
+/// Animated from origin point.
+@property(readonly, nonatomic) CGPoint animatedFromPoint;
 /// Insets of content view.
 @property(readonly, nonatomic) UIEdgeInsets contentViewInsets;
 /// Delegate.
@@ -96,12 +102,15 @@ typedef NS_ENUM(NSUInteger, AXPopoverArrowDirection) {
 @property(assign, nonatomic) BOOL removeFromSuperViewOnHide;
 /// Background drawing color
 @property(strong, nonatomic) UIColor *backgroundDrawingColor UI_APPEARANCE_SELECTOR;
-- (void)showInRect:(CGRect)rect animated:(BOOL)animated completion:(dispatch_block_t)completion;
-- (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(dispatch_block_t)completion;
+/// Animator.
+@property(strong, nonatomic) AXPopoverViewAnimator *animator UI_APPEARANCE_SELECTOR;
+
+- (void)showInRect:(CGRect)rect animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
+- (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(nullable dispatch_block_t)completion;
 
 - (void)showInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration;
 - (void)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration;
-- (void)showFromView:(UIView *)view animated:(BOOL)animated completion:(dispatch_block_t)completion;
+- (void)showFromView:(UIView *)view animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
 
 - (void)viewWillShow:(BOOL)animated;
 - (void)viewShowing:(BOOL)animated;
@@ -112,3 +121,11 @@ typedef NS_ENUM(NSUInteger, AXPopoverArrowDirection) {
 
 - (instancetype)initWithCoder __attribute__((unavailable("AXPopoverBubbleView cannot be created by coder")));
 @end
+@interface AXPopoverViewAnimator : NSObject
+/// Showing animation block
+@property(copy, nonatomic) AXPopoverViewAnimation showing;
+/// Hiding animation block
+@property(copy, nonatomic) AXPopoverViewAnimation hiding;
++ (instancetype)animatorWithShowing:(nullable AXPopoverViewAnimation)showing hiding:(nullable AXPopoverViewAnimation)hiding;
+@end
+NS_ASSUME_NONNULL_END

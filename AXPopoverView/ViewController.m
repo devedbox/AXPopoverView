@@ -40,6 +40,20 @@
 //    [_popoverLabel showInRect:sender.frame animated:YES duration:2.0];
      [AXPopoverLabel showFromView:sender animated:YES duration:2.0 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速" configuration:^(AXPopoverLabel *popoverLabel) {
          popoverLabel.preferredArrowDirection = AXPopoverArrowDirectionTop;
+//         popoverLabel.showing = ^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect) {
+//             if (animated) {
+//                 CGRect fromFrame = CGRectZero;
+//                 fromFrame.origin = popoverView.animatedFromPoint;
+//                 popoverView.transform = CGAffineTransformMakeScale(0, 0);
+//                 popoverView.layer.anchorPoint = popoverView.arrowPosition;
+//                 [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.6 initialSpringVelocity:0.6 options:7 animations:^{
+//                     popoverView.transform = CGAffineTransformIdentity;
+//                 } completion:^(BOOL finish) {
+//                     // Call `viewDidShow:` when the animation finished.
+//                     if (finish) [popoverView viewDidShow:animated];
+//                 }];
+//             }
+//         };
      }];
 //    label.titleFont = [UIFont systemFontOfSize:18];
 //    label.detailFont = [UIFont systemFontOfSize:16];

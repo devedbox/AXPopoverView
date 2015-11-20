@@ -31,6 +31,8 @@ typedef void(^AXPopoverLabelConfiguration)(AXPopoverLabel *popoverLabel);
 @property(assign, nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
 /// Padding of labels. Defaults to 4.
 @property(assign, nonatomic) CGFloat padding UI_APPEARANCE_SELECTOR;
+/// Fade the content. Defaults to NO.
+@property(assign, nonatomic) BOOL fadeContentEnabled;
 
 + (instancetype)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail;
 + (instancetype)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverLabelConfiguration)config;

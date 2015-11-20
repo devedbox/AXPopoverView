@@ -20,8 +20,24 @@
     // Override point for customization after application launch.
     [[AXPopoverLabel appearance] setBackgroundColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];
     [[AXPopoverLabel appearance] setBackgroundDrawingColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];
+    [[AXPopoverLabel appearance] setPreferredArrowDirection:AXPopoverArrowDirectionTop];
     [[AXPopoverLabel appearance] setTitleTextColor:[UIColor whiteColor]];
     [[AXPopoverLabel appearance] setDetailTextColor:[UIColor whiteColor]];
+    [[AXPopoverLabel appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView * _Nonnull popoverView, BOOL animated, CGRect targetRect) {
+        if (animated) {
+            CGRect fromFrame = CGRectZero;
+            fromFrame.origin = popoverView.animatedFromPoint;
+            popoverView.transform = CGAffineTransformMakeScale(0, 0);
+            popoverView.layer.anchorPoint = popoverView.arrowPosition;
+            [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^{
+                popoverView.transform = CGAffineTransformIdentity;
+            } completion:^(BOOL finish) {
+                // Call `viewDidShow:` when the animation finished.
+                if (finish) [popoverView viewDidShow:animated];
+            }];
+        }
+    } hiding:nil]];
+    [[AXPopoverView appearance] setPreferredArrowDirection:AXPopoverArrowDirectionTop];
     return YES;
 }
 
