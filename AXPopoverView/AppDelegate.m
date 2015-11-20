@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "AXPopoverLabel.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[AXPopoverLabel appearance] setBackgroundColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];
+    [[AXPopoverLabel appearance] setBackgroundDrawingColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];
+    [[AXPopoverLabel appearance] setTitleTextColor:[UIColor whiteColor]];
+    [[AXPopoverLabel appearance] setDetailTextColor:[UIColor whiteColor]];
     return YES;
 }
 

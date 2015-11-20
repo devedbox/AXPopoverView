@@ -226,6 +226,10 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
     [self setNeedsDisplay];
 }
 
+- (UIColor *)backgroundColor {
+    return _backgroundDrawingColor;
+}
+
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
     [super setBackgroundColor:[UIColor clearColor]];
     _backgroundDrawingColor = backgroundColor;

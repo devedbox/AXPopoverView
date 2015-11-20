@@ -67,23 +67,23 @@ typedef NS_ENUM(NSUInteger, AXPopoverArrowDirection) {
 ///
 @interface AXPopoverView : UIView
 /// Origin of frame when display the view.
-@property(assign, nonatomic) CGPoint offsets;
+@property(assign, nonatomic) CGPoint offsets UI_APPEARANCE_SELECTOR;
 /// Min size of popover view.
 @property(readonly, nonatomic) CGSize minSize;
 /// Arrow direction priority.
-@property(copy, nonatomic)   NSString *priority;
+@property(copy, nonatomic)   NSString *priority UI_APPEARANCE_SELECTOR;
 /// Angle of arrrow. Defaults to 90.
-@property(assign, nonatomic) CGFloat arrowAngle;
+@property(assign, nonatomic) CGFloat arrowAngle UI_APPEARANCE_SELECTOR;
 /// Dim the background or not. Defaults to not.
 @property(assign, nonatomic) BOOL dimBackground;
 /// Corner radius of popover view.
-@property(assign, nonatomic) CGFloat cornerRadius;
+@property(assign, nonatomic) CGFloat cornerRadius UI_APPEARANCE_SELECTOR;
 /// Arrow length.
-@property(assign, nonatomic) CGFloat arrowConstant;
+@property(assign, nonatomic) CGFloat arrowConstant UI_APPEARANCE_SELECTOR;
 /// Conent view.
 @property(readonly, nonatomic) UIView *contentView;
 /// Corner radius of arrow.
-@property(assign, nonatomic)   CGFloat arrowCornerRadius;
+@property(assign, nonatomic)   CGFloat arrowCornerRadius UI_APPEARANCE_SELECTOR;
 /// Insets of content view.
 @property(readonly, nonatomic) UIEdgeInsets contentViewInsets;
 /// Delegate.
@@ -91,10 +91,11 @@ typedef NS_ENUM(NSUInteger, AXPopoverArrowDirection) {
 /// Direction of arrow.
 @property(readonly, nonatomic)   AXPopoverArrowDirection arrowDirection;
 /// Prefered direction of arrow.
-@property(assign, nonatomic)     AXPopoverArrowDirection preferredArrowDirection;
+@property(assign, nonatomic)     AXPopoverArrowDirection preferredArrowDirection UI_APPEARANCE_SELECTOR;
 /// Should remove from super view when hidden or not.
 @property(assign, nonatomic) BOOL removeFromSuperViewOnHide;
-
+/// Background drawing color
+@property(strong, nonatomic) UIColor *backgroundDrawingColor UI_APPEARANCE_SELECTOR;
 - (void)showInRect:(CGRect)rect animated:(BOOL)animated completion:(dispatch_block_t)completion;
 - (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(dispatch_block_t)completion;
 
