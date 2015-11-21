@@ -41,7 +41,7 @@
     _detailFont = [UIFont systemFontOfSize:12];
     _titleTextColor = [UIColor colorWithWhite:0 alpha:0.7];
     _detailTextColor = [UIColor colorWithWhite:0 alpha:0.5];
-    _preferredWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - (self.contentViewInsets.left + self.contentViewInsets.right + self.offsets.x);
+    _preferredWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - (self.contentViewInsets.left + self.contentViewInsets.right + self.offsets.x*2);
     _contentInsets = UIEdgeInsetsZero;
     _padding = 4;
     _fadeContentEnabled = NO;

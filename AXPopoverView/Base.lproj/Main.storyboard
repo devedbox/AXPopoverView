@@ -75,73 +75,73 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Uy-00-kXL">
-                                <rect key="frame" x="277" y="285" width="46" height="30"/>
+                                <rect key="frame" x="285" y="285" width="30" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="显示"/>
                                 <connections>
                                     <action selector="topLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IPm-MM-7n1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XaL-4q-rwr">
-                                <rect key="frame" x="277" y="153" width="46" height="30"/>
+                                <rect key="frame" x="285" y="153" width="30" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="显示"/>
                                 <connections>
                                     <action selector="topLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u3L-QC-mxv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKV-kh-fhe">
-                                <rect key="frame" x="396" y="153" width="46" height="30"/>
+                                <rect key="frame" x="388" y="153" width="30" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="显示"/>
                                 <connections>
                                     <action selector="topLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mXW-i6-4D6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apJ-FJ-aAB">
-                                <rect key="frame" x="20" y="285" width="46" height="30"/>
+                                <rect key="frame" x="20" y="285" width="30" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="显示"/>
                                 <connections>
                                     <action selector="topLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="afB-gP-rDr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxz-GX-b9N">
-                                <rect key="frame" x="534" y="285" width="46" height="30"/>
+                                <rect key="frame" x="550" y="285" width="30" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="显示"/>
                                 <connections>
                                     <action selector="topLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="okY-WO-YuQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ypb-iW-m5U">
-                                <rect key="frame" x="23" y="58" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ypb-iW-m5U">
+                                <rect key="frame" x="23" y="58" width="30" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="显示"/>
                                 <connections>
                                     <action selector="topLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oU1-iR-BMc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g94-rC-Sa8">
-                                <rect key="frame" x="534" y="58" width="46" height="30"/>
+                                <rect key="frame" x="550" y="58" width="30" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="显示"/>
                                 <connections>
                                     <action selector="topLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IF1-zE-wgH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjA-YC-PTE">
-                                <rect key="frame" x="534" y="512" width="46" height="30"/>
+                                <rect key="frame" x="550" y="512" width="30" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="显示"/>
                                 <connections>
                                     <action selector="topLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UOa-rG-DEF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Bl-nf-wG5">
-                                <rect key="frame" x="20" y="512" width="46" height="30"/>
+                                <rect key="frame" x="20" y="512" width="30" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="显示"/>
                                 <connections>
                                     <action selector="topLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dHv-bf-SH9"/>
                                 </connections>
