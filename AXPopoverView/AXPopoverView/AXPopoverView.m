@@ -19,6 +19,8 @@
     dispatch_block_t _hidesCompletion;
 }
 @property(weak, nonatomic) UIWindow *previousKeyWindow;
+@property(weak, nonatomic) UITapGestureRecognizer *tap;
+@property(weak, nonatomic) UIPanGestureRecognizer *pan;
 @end
 
 NSString *const AXPopoverPriorityHorizontal = @"AXPopoverPriorityHorizontal";
@@ -64,6 +66,10 @@ UIWindow static *_popoverWindow;
     _animator = [[AXPopoverViewAnimator alloc] init];
     [self addSubview:self.contentView];
     [self setUpWindow];
+}
+
+- (void)dealloc {
+    [self removeGestures];
 }
 
 + (UIWindow *)sharedPopoverWindow {
@@ -367,6 +373,7 @@ UIWindow static *_popoverWindow;
 }
 
 - (void)viewWillShow:(BOOL)animated {
+    [self setUpWindow];
     if (_delegate && [_delegate respondsToSelector:@selector(popoverViewWillShow:animated:)]) {
         [_delegate popoverViewWillShow:self animated:animated];
     }
@@ -393,16 +400,16 @@ UIWindow static *_popoverWindow;
     }
 }
 - (void)viewDidHide:(BOOL)animated {
-    [_previousKeyWindow makeKeyAndVisible];
     self.alpha = 1.0;
     self.hidden = YES;
     self.layer.anchorPoint = CGPointMake(0.5, 0.5);
     [self setNeedsLayout];
     _backgroundView.hidden = YES;
+    [_backgroundView removeFromSuperview];
+    [self removeFromSuperview];
+    [_previousKeyWindow makeKeyAndVisible];
+    [self removeGestures];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    if (_removeFromSuperViewOnHide) {
-        [self removeFromSuperview];
-    }
     if (_hidesCompletion) _hidesCompletion();
     if (_delegate && [_delegate respondsToSelector:@selector(popoverViewDidHide:animated:)]) {
         [_delegate popoverViewDidHide:self animated:animated];
@@ -428,6 +435,8 @@ UIWindow static *_popoverWindow;
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestures:)];
     [self.popoverWindow addGestureRecognizer:tap];
     [self.popoverWindow addGestureRecognizer:pan];
+    _tap = tap;
+    _pan = pan;
 }
 
 - (AXPopoverArrowDirection)directionWithRect:(CGRect)rect {
@@ -614,6 +623,13 @@ UIWindow static *_popoverWindow;
         CGContextAddLineToPoint(cxt, CGRectGetMaxX(self.bounds) - width + constantX, Yconstant - constantY);
         CGContextAddArcToPoint(cxt, CGRectGetMaxX(self.bounds) - width, Yconstant, CGRectGetMaxX(self.bounds) - width, Yconstant + constant, _arrowCornerRadius);
     }
+}
+
+- (void)removeGestures {
+    [self.popoverWindow removeGestureRecognizer:self.tap];
+    [self.popoverWindow removeGestureRecognizer:self.pan];
+    self.tap = nil;
+    self.pan = nil;
 }
 @end
 @implementation AXPopoverViewAnimator

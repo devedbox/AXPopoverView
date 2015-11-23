@@ -103,7 +103,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// Prefered direction of arrow.
 @property(assign, nonatomic)     AXPopoverArrowDirection preferredArrowDirection UI_APPEARANCE_SELECTOR;
 /// Should remove from super view when hidden or not.
-@property(assign, nonatomic) BOOL removeFromSuperViewOnHide;
+@property(assign, nonatomic) BOOL removeFromSuperViewOnHide __deprecated_msg("Default is YES forever.");
 /// Background drawing color
 @property(strong, nonatomic) UIColor *backgroundDrawingColor UI_APPEARANCE_SELECTOR;
 /// Animator.
