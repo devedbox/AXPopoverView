@@ -11,6 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 UIKIT_EXTERN NSString *const AXPopoverPriorityHorizontal;
 UIKIT_EXTERN NSString *const AXPopoverPriorityVertical;
 
+#ifndef AXP_REQUIRES_SUPER
+#define AXP_REQUIRES_SUPER __attribute((objc_requires_super))
+#endif
+
 @class AXPopoverView, AXPopoverViewAnimator;
 @protocol AXPopoverViewDelegate <NSObject>
 @optional
@@ -104,21 +108,93 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 @property(strong, nonatomic) UIColor *backgroundDrawingColor UI_APPEARANCE_SELECTOR;
 /// Animator.
 @property(strong, nonatomic) AXPopoverViewAnimator *animator UI_APPEARANCE_SELECTOR;
-
+/// Show the popover view in a rect in the new popover window.
+/// @discusstion the rect is a specific rect in the popover window which is normlly same as the application
+///              key window.
+///
+/// @param rect       the rect in the popover winow.
+/// @param animated   a boolean value to decide show popover view with or without animation.
+/// @param completion a completion call back block when the shows animation finished.
 - (void)showInRect:(CGRect)rect animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
+/// Hide the showing popover view with a delay time internal.
+///
+/// @param animated a boolean value to decide show popover view with or without animation.
+/// @param delay    a double value to descrip delay time time internal.
+/// @param completion a completion call back block when the hides animation finished.
 - (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(nullable dispatch_block_t)completion;
-
+/// Show the popover view in a rect in the new popover window with a constant time internal.
+/// @discusstion Show the popover view with a time dutation, and from the popover view shows completely on,
+///              the popover view will hide automaticly after the time duration.
+///
+/// @param rect     the rect in the popover window.
+/// @param animated a boolean value to decide show popover view with or without animation.
+/// @param duration a time internal duration the popover shows constants.
 - (void)showInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration;
+/// Show the popover view from a view in the application key and main window with a time duration.
+/// @discusstion This method is suggested cause the frame of `view` will be convered to the popover window
+///              automaticly.
+///
+/// @param view a view in the application window.
+/// @param animated a boolean value to decide show popover view with or without animation.
+/// @param duration a time internal duration the popover shows constants.
 - (void)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration;
+/// Show the popover view from a view in the application key and main window with a completion call back block.
+/// @discusstion This method is suggested cause the frame of `view` will be convered to the popover window
+///              automaticly.
+///
+/// @param view a view in the application window.
+/// @param animated   a boolean value to decide show popover view with or without animation.
+/// @param completion a completion call back block when the shows animation finished.
 - (void)showFromView:(UIView *)view animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
-
-- (void)viewWillShow:(BOOL)animated;
-- (void)viewShowing:(BOOL)animated;
-- (void)viewDidShow:(BOOL)animated;
-- (void)viewWillHide:(BOOL)animated;
-- (void)viewHiding:(BOOL)animated;
-- (void)viewDidHide:(BOOL)animated;
-
+//
+//
+// These methods is called during popover view's showing or hiding blcok. If overriding a custom antion of animation,
+// you need to call `super` first.
+//
+//
+/// View will show with a animated value.
+/// @discusstion Called when the popover view will show. The `animated` value descrip the style of popover view's
+///              showing with animation. If animated is `YES`, popover shows with animation. Otherwise, popover view
+///              shows without animation.
+///
+/// @param animated a boolean value of popover view showing with or without animation.
+- (void)viewWillShow:(BOOL)animated AXP_REQUIRES_SUPER;
+/// View is in showing with a animated value.
+/// @discusstion Called when the popover view is in showing. The `animated` value descrip the style of popover view's
+///              showing with animation. If animated is `YES`, popover shows with animation. Otherwise, popover view
+///              shows without animation.
+///
+/// @param animated a boolean value of popover view showing with or without animation.
+- (void)viewShowing:(BOOL)animated AXP_REQUIRES_SUPER;
+/// View did show with a animated value.
+/// @discusstion Called when the popover view did show. The `animated` value descrip the style of popover view's
+///              showing with animation. If animated is `YES`, popover shows with animation. Otherwise, popover view
+///              shows without animation.
+///
+/// @param animated a boolean value of popover view showing with or without animation.
+- (void)viewDidShow:(BOOL)animated AXP_REQUIRES_SUPER;
+/// View will hide with a animated value.
+/// @discusstion Called when the popover view will hide. The `animated` value descrip the style of popover view's
+///              showing with animation. If animated is `YES`, popover shows with animation. Otherwise, popover view
+///              shows without animation.
+///
+/// @param animated a boolean value of popover view showing with or without animation.
+- (void)viewWillHide:(BOOL)animated AXP_REQUIRES_SUPER;
+/// View is in hiding with a animated value.
+/// @discusstion Called when the popover view is in hiding. The `animated` value descrip the style of popover view's
+///              showing with animation. If animated is `YES`, popover shows with animation. Otherwise, popover view
+///              shows without animation.
+///
+/// @param animated a boolean value of popover view showing with or without animation.
+- (void)viewHiding:(BOOL)animated AXP_REQUIRES_SUPER;
+/// View did hide with a animated value.
+/// @discusstion Called when the popover view did hide. The `animated` value descrip the style of popover view's
+///              showing with animation. If animated is `YES`, popover shows with animation. Otherwise, popover view
+///              shows without animation.
+///
+/// @param animated a boolean value of popover view showing with or without animation.
+- (void)viewDidHide:(BOOL)animated AXP_REQUIRES_SUPER;
+/// Deprecated initize selector.
 - (instancetype)initWithCoder __attribute__((unavailable("AXPopoverBubbleView cannot be created by coder")));
 @end
 @interface AXPopoverViewAnimator : NSObject
