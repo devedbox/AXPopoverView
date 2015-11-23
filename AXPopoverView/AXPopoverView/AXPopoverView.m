@@ -11,7 +11,6 @@
 @interface AXPopoverView()
 {
     UIView   *_contentView;
-    UIWindow *_showWindow;
     UIView   *_backgroundView;
     CGPoint   _arrowPosition;
     CGRect    _targetRect;
@@ -24,6 +23,8 @@
 
 NSString *const AXPopoverPriorityHorizontal = @"AXPopoverPriorityHorizontal";
 NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
+
+UIWindow static *_popoverWindow;
 
 @implementation AXPopoverView
 - (instancetype)init {
@@ -63,6 +64,16 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
     _animator = [[AXPopoverViewAnimator alloc] init];
     [self addSubview:self.contentView];
     [self setUpWindow];
+}
+
++ (UIWindow *)sharedPopoverWindow {
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _popoverWindow = [[self alloc] init];
+        _popoverWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        _popoverWindow.userInteractionEnabled = YES;
+    });
+    return _popoverWindow;
 }
 #pragma mark - Override
 
@@ -223,6 +234,10 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
     return originalFrame.origin;
 }
 
+- (UIWindow *)popoverWindow {
+    return [[self class] sharedPopoverWindow];
+}
+
 #pragma mark - Setters
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     _cornerRadius = cornerRadius;
@@ -269,8 +284,8 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
 {
     _targetRect = rect;
     _previousKeyWindow = [UIApplication sharedApplication].keyWindow;
-    [_showWindow makeKeyAndVisible];
-    [_showWindow addSubview:self];
+    [self.popoverWindow makeKeyAndVisible];
+    [self.popoverWindow addSubview:self];
     [self layoutSubviews];
     _showsCompletion = [completion copy];
     if (!_animator.showing) {
@@ -403,23 +418,21 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
 #pragma mark - Helper
 
 - (void)setUpWindow {
-    _showWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    _showWindow.userInteractionEnabled = YES;
-    _backgroundView = [[UIView alloc] initWithFrame:_showWindow.bounds];
+    _backgroundView = [[UIView alloc] initWithFrame:self.popoverWindow.bounds];
     _backgroundView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
     _backgroundView.userInteractionEnabled = NO;
     _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [_showWindow addSubview:_backgroundView];
+    [self.popoverWindow addSubview:_backgroundView];
     _backgroundView.hidden = YES;
     _backgroundView.alpha = 0.0;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestures:)];
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestures:)];
-    [_showWindow addGestureRecognizer:tap];
-    [_showWindow addGestureRecognizer:pan];
+    [self.popoverWindow addGestureRecognizer:tap];
+    [self.popoverWindow addGestureRecognizer:pan];
 }
 
 - (AXPopoverArrowDirection)directionWithRect:(CGRect)rect {
-    UIEdgeInsets margins = UIEdgeInsetsMake(rect.origin.y, rect.origin.x, _showWindow.bounds.size.height - CGRectGetMaxY(rect), _showWindow.bounds.size.width - CGRectGetMaxX(rect));
+    UIEdgeInsets margins = UIEdgeInsetsMake(rect.origin.y, rect.origin.x, self.popoverWindow.bounds.size.height - CGRectGetMaxY(rect), self.popoverWindow.bounds.size.width - CGRectGetMaxX(rect));
     NSMutableArray *availableDirections = [NSMutableArray array];
     if ([_priority isEqualToString:AXPopoverPriorityHorizontal]) {
         if (margins.left > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 左边显示
@@ -466,7 +479,7 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
             rect.origin.y = CGRectGetMaxY(rct);
             _arrowPosition.y = 0;
         }
-        if (CGRectGetMidX(rct) >= CGRectGetWidth(rect)/2 + _offsets.x && CGRectGetWidth(_showWindow.bounds) - CGRectGetMidX(rct) >= CGRectGetWidth(rect)/2 + _offsets.x) {
+        if (CGRectGetMidX(rct) >= CGRectGetWidth(rect)/2 + _offsets.x && CGRectGetWidth(self.popoverWindow.bounds) - CGRectGetMidX(rct) >= CGRectGetWidth(rect)/2 + _offsets.x) {
             // arrow in the middle
             _arrowPosition.x = .5;
             rect.origin.x = (CGRectGetWidth(rct) - CGRectGetWidth(rect))/2 + rct.origin.x;
@@ -474,10 +487,10 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
             // arrow in the middle left
             rect.origin.x = _offsets.x;
             _arrowPosition.x = (CGRectGetMidX(rct) - _offsets.x)/CGRectGetWidth(rect);
-        } else if (CGRectGetWidth(_showWindow.bounds) - CGRectGetMidX(rct) < CGRectGetWidth(rect)/2 + _offsets.x) {
+        } else if (CGRectGetWidth(self.popoverWindow.bounds) - CGRectGetMidX(rct) < CGRectGetWidth(rect)/2 + _offsets.x) {
             // arrow in the middle right
-            rect.origin.x = CGRectGetWidth(_showWindow.bounds) - (CGRectGetWidth(rect) + _offsets.x);
-            _arrowPosition.x = (CGRectGetWidth(rect) - (CGRectGetWidth(_showWindow.bounds) - CGRectGetMidX(rct) - _offsets.x))/CGRectGetWidth(rect);
+            rect.origin.x = CGRectGetWidth(self.popoverWindow.bounds) - (CGRectGetWidth(rect) + _offsets.x);
+            _arrowPosition.x = (CGRectGetWidth(rect) - (CGRectGetWidth(self.popoverWindow.bounds) - CGRectGetMidX(rct) - _offsets.x))/CGRectGetWidth(rect);
         }
     } else if (direction == AXPopoverArrowDirectionLeft | direction == AXPopoverArrowDirectionRight) {
         if (direction == AXPopoverArrowDirectionRight) {
@@ -487,7 +500,7 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
             rect.origin.x = CGRectGetMaxX(rct);
             _arrowPosition.x = 0;
         }
-        if (CGRectGetMidY(rct) >= CGRectGetHeight(rect)/2 + _offsets.y && CGRectGetHeight(_showWindow.bounds) - CGRectGetMidY(rct) >= CGRectGetHeight(rect)/2 + _offsets.y) {
+        if (CGRectGetMidY(rct) >= CGRectGetHeight(rect)/2 + _offsets.y && CGRectGetHeight(self.popoverWindow.bounds) - CGRectGetMidY(rct) >= CGRectGetHeight(rect)/2 + _offsets.y) {
             // arrow in the middle
             _arrowPosition.y = .5;
             rect.origin.y = (CGRectGetHeight(rct) - CGRectGetHeight(rect))/2 + rct.origin.y;
@@ -495,10 +508,10 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
             // arrow in the middle top
             rect.origin.y = _offsets.y;
             _arrowPosition.y = (CGRectGetMidY(rct) - _offsets.y)/CGRectGetHeight(rect);
-        } else if (CGRectGetHeight(_showWindow.bounds) - CGRectGetMidY(rct) < CGRectGetHeight(rect)/2 + _offsets.y) {
+        } else if (CGRectGetHeight(self.popoverWindow.bounds) - CGRectGetMidY(rct) < CGRectGetHeight(rect)/2 + _offsets.y) {
             // arrow in the middle bottom
-            rect.origin.y = CGRectGetHeight(_showWindow.bounds) - (CGRectGetHeight(rect) + _offsets.y);
-            _arrowPosition.y = (CGRectGetHeight(rect) - (CGRectGetHeight(_showWindow.bounds) - CGRectGetMidY(rct) - _offsets.y))/CGRectGetHeight(rect);
+            rect.origin.y = CGRectGetHeight(self.popoverWindow.bounds) - (CGRectGetHeight(rect) + _offsets.y);
+            _arrowPosition.y = (CGRectGetHeight(rect) - (CGRectGetHeight(self.popoverWindow.bounds) - CGRectGetMidY(rct) - _offsets.y))/CGRectGetHeight(rect);
         }
     }
     [self setNeedsDisplay];

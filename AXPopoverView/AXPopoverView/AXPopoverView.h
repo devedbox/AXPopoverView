@@ -108,6 +108,8 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 @property(strong, nonatomic) UIColor *backgroundDrawingColor UI_APPEARANCE_SELECTOR;
 /// Animator.
 @property(strong, nonatomic) AXPopoverViewAnimator *animator UI_APPEARANCE_SELECTOR;
+/// Popover window.
+@property(readonly, nonatomic) UIWindow *popoverWindow;
 /// Show the popover view in a rect in the new popover window.
 /// @discusstion the rect is a specific rect in the popover window which is normlly same as the application
 ///              key window.
