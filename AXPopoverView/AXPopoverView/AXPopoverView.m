@@ -69,7 +69,6 @@ UIWindow static *_popoverWindow;
 + (UIWindow *)sharedPopoverWindow {
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
-        _popoverWindow = [[self alloc] init];
         _popoverWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _popoverWindow.userInteractionEnabled = YES;
     });

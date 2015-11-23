@@ -38,6 +38,10 @@
         }
     } hiding:nil]];
     [[AXPopoverView appearance] setPreferredArrowDirection:AXPopoverArrowDirectionTop];
+    if (!_window) {
+        _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    }
+    [_window makeKeyAndVisible];
     return YES;
 }
 
