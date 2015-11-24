@@ -7,6 +7,7 @@
 //
 
 #import "AXPopoverView.h"
+#import <objc/runtime.h>
 
 @interface AXPopoverView()
 {
@@ -18,7 +19,7 @@
     dispatch_block_t _showsCompletion;
     dispatch_block_t _hidesCompletion;
 }
-@property(weak, nonatomic) UIWindow *previousKeyWindow;
+@property(weak, nonatomic) UIWindow *previousKeyWindow __deprecated;
 @property(weak, nonatomic) UITapGestureRecognizer *tap;
 @property(weak, nonatomic) UIPanGestureRecognizer *pan;
 @end
@@ -69,7 +70,7 @@ UIWindow static *_popoverWindow;
 }
 
 - (void)dealloc {
-    [self removeGestures];
+    [self.popoverWindow unregisterPopoverView:self];
 }
 
 + (UIWindow *)sharedPopoverWindow {
@@ -77,6 +78,8 @@ UIWindow static *_popoverWindow;
     dispatch_once(&oncePredicate, ^{
         _popoverWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _popoverWindow.userInteractionEnabled = YES;
+        [_popoverWindow addGestureRecognizer:_popoverWindow.tap];
+        [_popoverWindow addGestureRecognizer:_popoverWindow.pan];
     });
     return _popoverWindow;
 }
@@ -288,9 +291,11 @@ UIWindow static *_popoverWindow;
 - (void)showInRect:(CGRect)rect animated:(BOOL)animated completion:(dispatch_block_t)completion
 {
     _targetRect = rect;
-    _previousKeyWindow = [UIApplication sharedApplication].keyWindow;
-    [self.popoverWindow makeKeyAndVisible];
-    [self.popoverWindow addSubview:self];
+    if (!self.popoverWindow.isKeyWindow) {
+        [self.popoverWindow setAppKeyWindow:[UIApplication sharedApplication].keyWindow];
+        [self.popoverWindow makeKeyAndVisible];
+    }
+    [self.popoverWindow registerPopoverView:self];
     [self layoutSubviews];
     _showsCompletion = [completion copy];
     if (!_animator.showing) {
@@ -373,7 +378,6 @@ UIWindow static *_popoverWindow;
 }
 
 - (void)viewWillShow:(BOOL)animated {
-    [self setUpWindow];
     if (_delegate && [_delegate respondsToSelector:@selector(popoverViewWillShow:animated:)]) {
         [_delegate popoverViewWillShow:self animated:animated];
     }
@@ -401,15 +405,14 @@ UIWindow static *_popoverWindow;
 }
 - (void)viewDidHide:(BOOL)animated {
     self.alpha = 1.0;
-    self.hidden = YES;
+    _backgroundView.alpha = 1.0;
     self.layer.anchorPoint = CGPointMake(0.5, 0.5);
     [self setNeedsLayout];
-    _backgroundView.hidden = YES;
-    [_backgroundView removeFromSuperview];
-    [self removeFromSuperview];
-    [_previousKeyWindow makeKeyAndVisible];
-    [self removeGestures];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self.popoverWindow unregisterPopoverView:self];
+    if (self.popoverWindow.referenceCount == 0) {
+        [self.popoverWindow.appKeyWindow makeKeyAndVisible];
+    }
     if (_hidesCompletion) _hidesCompletion();
     if (_delegate && [_delegate respondsToSelector:@selector(popoverViewDidHide:animated:)]) {
         [_delegate popoverViewDidHide:self animated:animated];
@@ -417,7 +420,7 @@ UIWindow static *_popoverWindow;
 }
 
 #pragma mark - Actions
-- (void)handleGestures:(id)sender {
+- (void)handleGestures:(id)sender __deprecated {
     [self hideAnimated:YES afterDelay:0.1f completion:nil];
 }
 
@@ -431,12 +434,6 @@ UIWindow static *_popoverWindow;
     [self.popoverWindow addSubview:_backgroundView];
     _backgroundView.hidden = YES;
     _backgroundView.alpha = 0.0;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestures:)];
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestures:)];
-    [self.popoverWindow addGestureRecognizer:tap];
-    [self.popoverWindow addGestureRecognizer:pan];
-    _tap = tap;
-    _pan = pan;
 }
 
 - (AXPopoverArrowDirection)directionWithRect:(CGRect)rect {
@@ -625,7 +622,7 @@ UIWindow static *_popoverWindow;
     }
 }
 
-- (void)removeGestures {
+- (void)removeGestures __deprecated {
     [self.popoverWindow removeGestureRecognizer:self.tap];
     [self.popoverWindow removeGestureRecognizer:self.pan];
     self.tap = nil;
@@ -644,5 +641,90 @@ UIWindow static *_popoverWindow;
 + (instancetype)animatorWithShowing:(AXPopoverViewAnimation)showing hiding:(AXPopoverViewAnimation)hiding
 {
     return [[self alloc] initWithShowing:showing hiding:hiding];
+}
+@end
+@implementation UIWindow(AXPopover)
+#pragma mark - Getters
+- (NSUInteger)referenceCount {
+    return [self.registeredPopoverViews count];
+}
+
+- (UITapGestureRecognizer *)tap {
+    UITapGestureRecognizer *tap = objc_getAssociatedObject(self, _cmd);
+    if (!tap) {
+        tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+        objc_setAssociatedObject(self, _cmd, tap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return tap;
+}
+
+- (UIPanGestureRecognizer *)pan {
+    UIPanGestureRecognizer *pan = objc_getAssociatedObject(self, _cmd);
+    if (!pan) {
+        pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+        objc_setAssociatedObject(self, _cmd, pan, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return pan;
+}
+
+- (NSMutableArray *)registeredPopoverViews {
+    NSMutableArray *views = objc_getAssociatedObject(self, _cmd);
+    if (!views) {
+        views = [NSMutableArray array];
+        objc_setAssociatedObject(self, _cmd, views, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return views;
+}
+
+- (UIWindow *)appKeyWindow {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+#pragma mark - Setters
+- (void)setAppKeyWindow:(UIWindow *)window {
+    objc_setAssociatedObject(self, @selector(appKeyWindow), window, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+#pragma mark - Actions
+- (void)handleGesture:(id)sender {
+    if (self.referenceCount == 0) {
+        
+    }
+    NSArray *registeredViews = [[self registeredPopoverViews] copy];
+    if ([registeredViews count] > 0) {
+        if ([registeredViews.lastObject isKindOfClass:[AXPopoverView class]]) {
+            AXPopoverView *popoverView = [registeredViews lastObject];
+            if (popoverView.superview == self) {
+                [popoverView hideAnimated:YES afterDelay:0 completion:nil];
+            }
+        }
+    }
+}
+
+- (void)registerPopoverView:(AXPopoverView *)popoverView {
+    if (popoverView.superview == self) {
+        @synchronized(self) {
+            [self bringSubviewToFront:popoverView.backgroundView];
+            [self bringSubviewToFront:popoverView];
+            [self.registeredPopoverViews removeObject:popoverView];
+            [self.registeredPopoverViews addObject:popoverView];
+        }
+    } else {
+        @synchronized(self) {
+            [self addSubview:popoverView.backgroundView];
+            [self addSubview:popoverView];
+            [self.registeredPopoverViews addObject:popoverView];
+        }
+    }
+}
+
+- (void)unregisterPopoverView:(AXPopoverView *)popoverView {
+    if (popoverView.superview == self) {
+        [popoverView removeFromSuperview];
+        [popoverView.backgroundView removeFromSuperview];
+        @synchronized(self) {
+            [self.registeredPopoverViews removeObject:popoverView];
+        }
+    }
 }
 @end

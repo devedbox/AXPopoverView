@@ -57,6 +57,7 @@
      }];
 //    label.titleFont = [UIFont systemFontOfSize:18];
 //    label.detailFont = [UIFont systemFontOfSize:16];
+    [AXPopoverLabel showFromView:sender animated:YES duration:3.0 title:@"这是第二个" detail:@"测试窗口"];
 }
 
 - (IBAction)topRight:(UIButton *)sender {
