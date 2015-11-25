@@ -23,6 +23,7 @@
     [[AXPopoverLabel appearance] setPreferredArrowDirection:AXPopoverArrowDirectionTop];
     [[AXPopoverLabel appearance] setTitleTextColor:[UIColor whiteColor]];
     [[AXPopoverLabel appearance] setDetailTextColor:[UIColor whiteColor]];
+    [[AXPopoverLabel appearance] setArrowConstant:6];
     [[AXPopoverLabel appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView * _Nonnull popoverView, BOOL animated, CGRect targetRect) {
         if (animated) {
             CGRect fromFrame = CGRectZero;

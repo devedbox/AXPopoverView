@@ -11,6 +11,7 @@
 
 @interface AXPopoverView()
 {
+    @protected
     UIView   *_contentView;
     UIView   *_backgroundView;
     CGPoint   _arrowPosition;
@@ -18,10 +19,13 @@
     UIColor  *_backgroundDrawingColor;
     dispatch_block_t _showsCompletion;
     dispatch_block_t _hidesCompletion;
+    BOOL _isShowing;
+    BOOL _isHiding;
 }
 @property(weak, nonatomic) UIWindow *previousKeyWindow __deprecated;
-@property(weak, nonatomic) UITapGestureRecognizer *tap;
-@property(weak, nonatomic) UIPanGestureRecognizer *pan;
+@property(weak, nonatomic) UITapGestureRecognizer *tap __deprecated;
+@property(weak, nonatomic) UIPanGestureRecognizer *pan __deprecated;
+@property(weak, nonatomic) UIScrollView *scrollView;
 @end
 
 NSString *const AXPopoverPriorityHorizontal = @"AXPopoverPriorityHorizontal";
@@ -65,12 +69,16 @@ UIWindow static *_popoverWindow;
     _backgroundDrawingColor = [UIColor colorWithRed:0.996f green:0.867f blue:0.522f alpha:1.00f];
     _removeFromSuperViewOnHide = YES;
     _animator = [[AXPopoverViewAnimator alloc] init];
+    _showsOnPopoverWindow = YES;
+    _lockBackground = NO;
+    _hideOnTouch = YES;
     [self addSubview:self.contentView];
     [self setUpWindow];
 }
 
 - (void)dealloc {
     [self.popoverWindow unregisterPopoverView:self];
+    [self unregisterScrollView];
 }
 
 + (UIWindow *)sharedPopoverWindow {
@@ -87,6 +95,16 @@ UIWindow static *_popoverWindow;
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *hitView = [super hitTest:point withEvent:event];
+    if (!self.showsOnPopoverWindow) {
+        if (_hideOnTouch) {
+            if (point.x < 0 || point.y < 0 || point.x > CGRectGetWidth(self.frame) || point.y > CGRectGetHeight(self.frame)) {
+                [self hideAnimated:YES afterDelay:0.05 completion:nil];
+            }
+        }
+        if (_lockBackground) {
+            return self;
+        }
+    }
     return hitView;
 }
 
@@ -166,6 +184,14 @@ UIWindow static *_popoverWindow;
     rect.size = CGSizeMake(CGRectGetWidth(self.bounds) - (contentInsets.left + contentInsets.right), CGRectGetHeight(self.bounds) - (contentInsets.top + contentInsets.bottom));
     _contentView.frame = rect;
     [self updateFrameWithRect:_targetRect];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"contentOffset"]) {
+        CGPoint point = [[change objectForKey:NSKeyValueChangeNewKey] CGPointValue];
+        [self updatePositionWithScrollViewOffSets:point];
+    }
 }
 
 #pragma mark - Getters
@@ -290,11 +316,8 @@ UIWindow static *_popoverWindow;
 #pragma mark - Shows&Hides
 - (void)showInRect:(CGRect)rect animated:(BOOL)animated completion:(dispatch_block_t)completion
 {
+    if (_isShowing) return;
     _targetRect = rect;
-    if (!self.popoverWindow.isKeyWindow) {
-        [self.popoverWindow setAppKeyWindow:[UIApplication sharedApplication].keyWindow];
-        [self.popoverWindow makeKeyAndVisible];
-    }
     [self.popoverWindow registerPopoverView:self];
     [self layoutSubviews];
     _showsCompletion = [completion copy];
@@ -334,6 +357,7 @@ UIWindow static *_popoverWindow;
 
 - (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(dispatch_block_t)completion
 {
+    if (_isHiding) return;
     NSTimeInterval animationDuration = animated?0.25:0.0;
     _hidesCompletion = [completion copy];
     [self viewWillHide:animated];
@@ -378,6 +402,7 @@ UIWindow static *_popoverWindow;
 }
 
 - (void)viewWillShow:(BOOL)animated {
+    _isShowing = YES;
     if (_delegate && [_delegate respondsToSelector:@selector(popoverViewWillShow:animated:)]) {
         [_delegate popoverViewWillShow:self animated:animated];
     }
@@ -388,12 +413,14 @@ UIWindow static *_popoverWindow;
     }
 }
 - (void)viewDidShow:(BOOL)animated {
+    _isShowing = NO;
     if (_showsCompletion) _showsCompletion();
     if (_delegate && [_delegate respondsToSelector:@selector(popoverViewDidShow:animated:)]) {
         [_delegate popoverViewDidShow:self animated:animated];
     }
 }
 - (void)viewWillHide:(BOOL)animated {
+    _isHiding = YES;
     if (_delegate && [_delegate respondsToSelector:@selector(popoverViewWillHide:animated:)]) {
         [_delegate popoverViewWillHide:self animated:animated];
     }
@@ -404,19 +431,51 @@ UIWindow static *_popoverWindow;
     }
 }
 - (void)viewDidHide:(BOOL)animated {
+    _isHiding = NO;
     self.alpha = 1.0;
     _backgroundView.alpha = 1.0;
     self.layer.anchorPoint = CGPointMake(0.5, 0.5);
     [self setNeedsLayout];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [self.popoverWindow unregisterPopoverView:self];
-    if (self.popoverWindow.referenceCount == 0) {
-        [self.popoverWindow.appKeyWindow makeKeyAndVisible];
-    }
     if (_hidesCompletion) _hidesCompletion();
     if (_delegate && [_delegate respondsToSelector:@selector(popoverViewDidHide:animated:)]) {
         [_delegate popoverViewDidHide:self animated:animated];
     }
+}
+
++ (void)hideVisiblePopoverViewsAnimated:(BOOL)animated
+{
+    NSMutableArray *popoverViews = [NSMutableArray array];
+    if (_popoverWindow.appKeyWindow != nil) {
+        for (UIView *view in _popoverWindow.appKeyWindow.subviews) {
+            if ([view isKindOfClass:[AXPopoverView class]]) {
+                [popoverViews addObject:view];
+            }
+        }
+    }
+    for (UIView *view in _popoverWindow.subviews) {
+        if ([view isKindOfClass:[AXPopoverView class]]) {
+            [popoverViews addObject:view];
+        }
+    }
+    for (AXPopoverView *popoverView in popoverViews) {
+        [popoverView hideAnimated:animated afterDelay:0.0 completion:nil];
+    }
+}
+
+#pragma mark - Scroll view support
+- (void)registerScrollView:(UIScrollView *)scrollView {
+    if (_scrollView == scrollView) return;
+    [self unregisterScrollView];
+    _scrollView = scrollView;
+    [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)unregisterScrollView {
+    [_scrollView removeObserver:self forKeyPath:@"contentOffset"];
+    self.transform = CGAffineTransformIdentity;
+    _scrollView = nil;
 }
 
 #pragma mark - Actions
@@ -622,6 +681,11 @@ UIWindow static *_popoverWindow;
     }
 }
 
+- (void)updatePositionWithScrollViewOffSets:(CGPoint) offset {
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(-(offset.x + _scrollView.contentInset.left), -(offset.y + _scrollView.contentInset.top));
+    self.transform = transform;
+}
+
 - (void)removeGestures __deprecated {
     [self.popoverWindow removeGestureRecognizer:self.tap];
     [self.popoverWindow removeGestureRecognizer:self.pan];
@@ -687,9 +751,6 @@ UIWindow static *_popoverWindow;
 
 #pragma mark - Actions
 - (void)handleGesture:(id)sender {
-    if (self.referenceCount == 0) {
-        
-    }
     NSArray *registeredViews = [[self registeredPopoverViews] copy];
     if ([registeredViews count] > 0) {
         if ([registeredViews.lastObject isKindOfClass:[AXPopoverView class]]) {
@@ -702,29 +763,50 @@ UIWindow static *_popoverWindow;
 }
 
 - (void)registerPopoverView:(AXPopoverView *)popoverView {
-    if (popoverView.superview == self) {
-        @synchronized(self) {
-            [self bringSubviewToFront:popoverView.backgroundView];
-            [self bringSubviewToFront:popoverView];
-            [self.registeredPopoverViews removeObject:popoverView];
-            [self.registeredPopoverViews addObject:popoverView];
+    if (!self.isKeyWindow) self.appKeyWindow = [UIApplication sharedApplication].keyWindow;
+    
+    if (popoverView.showsOnPopoverWindow) {
+        if (popoverView.superview == self) {
+            @synchronized(self) {
+                [self bringSubviewToFront:popoverView.backgroundView];
+                [self bringSubviewToFront:popoverView];
+                [self.registeredPopoverViews removeObject:popoverView];
+                [self.registeredPopoverViews addObject:popoverView];
+            }
+        } else {
+            @synchronized(self) {
+                [self addSubview:popoverView.backgroundView];
+                [self addSubview:popoverView];
+                [self.registeredPopoverViews addObject:popoverView];
+            }
         }
+        if (!self.isKeyWindow) [self makeKeyAndVisible];
     } else {
-        @synchronized(self) {
-            [self addSubview:popoverView.backgroundView];
-            [self addSubview:popoverView];
-            [self.registeredPopoverViews addObject:popoverView];
+        if (popoverView.superview == self.appKeyWindow) {
+            @synchronized(self) {
+                [self.appKeyWindow bringSubviewToFront:popoverView.backgroundView];
+                [self.appKeyWindow bringSubviewToFront:popoverView];
+                [self.registeredPopoverViews removeObject:popoverView];
+                [self.registeredPopoverViews addObject:popoverView];
+            }
+        } else {
+            @synchronized(self) {
+                [self.appKeyWindow addSubview:popoverView.backgroundView];
+                [self.appKeyWindow addSubview:popoverView];
+                [self.registeredPopoverViews addObject:popoverView];
+            }
         }
+        if (!self.appKeyWindow.isKeyWindow) [self.appKeyWindow makeKeyAndVisible];
     }
 }
 
 - (void)unregisterPopoverView:(AXPopoverView *)popoverView {
-    if (popoverView.superview == self) {
-        [popoverView removeFromSuperview];
-        [popoverView.backgroundView removeFromSuperview];
-        @synchronized(self) {
-            [self.registeredPopoverViews removeObject:popoverView];
-        }
+    [popoverView removeFromSuperview];
+    [popoverView.backgroundView removeFromSuperview];
+    @synchronized(self) {
+        [self.registeredPopoverViews removeObject:popoverView];
     }
+    if (popoverView.showsOnPopoverWindow && self.isKeyWindow && self.referenceCount == 0) [self.appKeyWindow makeKeyAndVisible];
+    [self setAppKeyWindow:nil];
 }
 @end

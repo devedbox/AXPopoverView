@@ -80,8 +80,17 @@ typedef NS_ENUM(NSUInteger, AXPopoverArrowDirection) {
     /// Arrow on the right.
     AXPopoverArrowDirectionRight
 };
-
+/// Popover view animation block.
+/// @discusstion Using this block to customize showing/hiding animation of popover view.
+///
+/// @param popoverView the popover view to animate.
+/// @param animated    a boolean value to decide show popover view with or without animation.
+/// @param targetRect  the target rect in the window to show popover view.
+///
+/// @return Void
 typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated, CGRect targetRect);
+///
+/// AXPopoverView.
 ///
 @interface AXPopoverView : UIView
 /// Origin of frame when display the view.
@@ -115,10 +124,23 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// Prefered direction of arrow.
 @property(assign, nonatomic)     AXPopoverArrowDirection preferredArrowDirection UI_APPEARANCE_SELECTOR;
 /// Should remove from super view when hidden or not.
-@property(assign, nonatomic) BOOL removeFromSuperViewOnHide __deprecated_msg("Default is YES forever.");
+@property(assign, nonatomic, getter=isRemoveFromSuperViewOnHide) BOOL removeFromSuperViewOnHide __deprecated_msg("Default is YES forever.");
+/// Shows on popover window.
+/// @discusstion If `showsOnPopoverWindow` is `YES`, the popover view will show on a new window.
+///              If `showsOnPopoverWindow` is `NO`, the popover view will show on the application
+///              main window. Defaults to `YES`.
+@property(assign, nonatomic, getter=isShowsOnPopoverWindow) BOOL showsOnPopoverWindow;
+/// Lock background.
+/// @discusstion If shows window is `popoverWindow`, the `lockBackground` is always `YES`.
+///              `LockBackground` set to `YES/NO` will work only when shows window is `APP Window`.
+///              Set to `YES` to forbid touch area outside the `popoverView`.
+///              Set to `NO` to allow touch area outside the `popoverView`.
+@property(assign, nonatomic, getter=isLockBackground) BOOL lockBackground;
+/// Hide the popover view on touch when `lockBackground` is `YES`.
+@property(assign, nonatomic, getter=isHideOnTouch) BOOL hideOnTouch;
 /// Background drawing color
 @property(strong, nonatomic) UIColor *backgroundDrawingColor UI_APPEARANCE_SELECTOR;
-/// Animator.
+/// Animator of show/hide animation.
 @property(strong, nonatomic) AXPopoverViewAnimator *animator UI_APPEARANCE_SELECTOR;
 /// Popover window.
 @property(readonly, nonatomic) UIWindow *popoverWindow;
@@ -232,6 +254,22 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 ///
 /// @return Void
 - (void)viewDidHide:(BOOL)animated AXP_REQUIRES_SUPER;
+/// Hide all visible popover views is the window(both `popoverWindow` and `APP window`).
+/// @discusstion Call this methods to hide all the popover views which is not referenced.
+///
+/// @param animated a boolean value of popover view showing with or without animation.
+///
+/// @return Void
++ (void)hideVisiblePopoverViewsAnimated:(BOOL)animated;
+/// Register a scroll veiw and follow the scrolling.
+///
+/// @param scrollView a scroll view to be registered.
+///
+/// @return Void
+- (void)registerScrollView:(UIScrollView *)scrollView;
+/// Unregister the following.
+- (void)unregisterScrollView;
+#pragma mark - Deprecated
 /// Deprecated initize selector.
 - (instancetype)initWithCoder __attribute__((unavailable("`AXPopoverView` cannot be created by coder")));
 @end
@@ -258,7 +296,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// Registered popover views.
 @property(readonly, nonatomic) NSMutableArray *registeredPopoverViews;
 /// Application main key window.
-@property(assign, nonatomic)   UIWindow *appKeyWindow;
+@property(assign, nonatomic, nullable) UIWindow *appKeyWindow;
 /// Register a popover view and added to the popover window.
 ///
 /// @param popoverView a popover view to be registered.

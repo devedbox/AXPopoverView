@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		019F4EE31C054CED00A7633C /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F4EE21C054CED00A7633C /* TableViewController.m */; };
+		019F4EE61C0557A300A7633C /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F4EE51C0557A300A7633C /* ScrollViewController.m */; };
 		01E7EA991BFB6DC3001176A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E7EA981BFB6DC3001176A2 /* main.m */; };
 		01E7EA9C1BFB6DC3001176A2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E7EA9B1BFB6DC3001176A2 /* AppDelegate.m */; };
 		01E7EA9F1BFB6DC3001176A2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E7EA9E1BFB6DC3001176A2 /* ViewController.m */; };
@@ -18,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		019F4EE11C054CED00A7633C /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		019F4EE21C054CED00A7633C /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		019F4EE41C0557A300A7633C /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
+		019F4EE51C0557A300A7633C /* ScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewController.m; sourceTree = "<group>"; };
 		01E7EA941BFB6DC3001176A2 /* AXPopoverView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AXPopoverView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01E7EA981BFB6DC3001176A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		01E7EA9A1BFB6DC3001176A2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -68,6 +74,10 @@
 				01E7EA9B1BFB6DC3001176A2 /* AppDelegate.m */,
 				01E7EA9D1BFB6DC3001176A2 /* ViewController.h */,
 				01E7EA9E1BFB6DC3001176A2 /* ViewController.m */,
+				019F4EE11C054CED00A7633C /* TableViewController.h */,
+				019F4EE21C054CED00A7633C /* TableViewController.m */,
+				019F4EE41C0557A300A7633C /* ScrollViewController.h */,
+				019F4EE51C0557A300A7633C /* ScrollViewController.m */,
 				01E7EAAE1BFB6E3E001176A2 /* AXPopoverView */,
 				01E7EAA01BFB6DC3001176A2 /* Main.storyboard */,
 				01E7EAA31BFB6DC3001176A2 /* Assets.xcassets */,
@@ -167,7 +177,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				019F4EE61C0557A300A7633C /* ScrollViewController.m in Sources */,
 				01E7EA9F1BFB6DC3001176A2 /* ViewController.m in Sources */,
+				019F4EE31C054CED00A7633C /* TableViewController.m in Sources */,
 				01E7EAB11BFB6E3E001176A2 /* AXPopoverView.m in Sources */,
 				01E7EA9C1BFB6DC3001176A2 /* AppDelegate.m in Sources */,
 				01E7EAB41BFC0FEF001176A2 /* AXPopoverLabel.m in Sources */,
@@ -318,6 +330,7 @@
 				01E7EAAD1BFB6DC3001176A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
