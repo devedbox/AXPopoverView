@@ -26,6 +26,11 @@
 @property(weak, nonatomic) UITapGestureRecognizer *tap __deprecated;
 @property(weak, nonatomic) UIPanGestureRecognizer *pan __deprecated;
 @property(weak, nonatomic) UIScrollView *scrollView;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+@property(strong, nonatomic) UIVisualEffectView *effectView;
+#else
+@property(strong, nonatomic) UIToolbar *effectBar;
+#endif
 @end
 
 NSString *const AXPopoverPriorityHorizontal = @"AXPopoverPriorityHorizontal";
@@ -72,6 +77,12 @@ UIWindow static *_popoverWindow;
     _showsOnPopoverWindow = YES;
     _lockBackground = NO;
     _hideOnTouch = YES;
+    _translucent = YES;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+    [self addSubview:self.effectView];
+#else
+    [self addSubview:self.effectBar];
+#endif
     [self addSubview:self.contentView];
     [self setUpWindow];
 }
@@ -159,7 +170,19 @@ UIWindow static *_popoverWindow;
     CGContextAddLineToPoint(cxt, CGRectGetMinX(rect) + leftOffsets, CGRectGetMinY(rect) + _cornerRadius + topOffsets);
     // top left arc drawing
     CGContextAddArcToPoint(cxt, CGRectGetMinX(rect) + leftOffsets, CGRectGetMinY(rect) + topOffsets, CGRectGetMinX(rect) + _cornerRadius + leftOffsets, CGRectGetMinY(rect) + topOffsets, _cornerRadius);
-    CGContextFillPath(cxt);
+    if (_translucent) {
+        CGPathRef bubblePath = CGContextCopyPath(cxt);
+        CAShapeLayer *maskLayer = [CAShapeLayer layer];
+        maskLayer.path = bubblePath;
+        
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+        _effectView.layer.mask = maskLayer;
+#else
+        _effectBar.layer.mask = maskLayer;
+#endif
+    } else {
+        CGContextFillPath(cxt);
+    }
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
@@ -195,6 +218,30 @@ UIWindow static *_popoverWindow;
 }
 
 #pragma mark - Getters
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+- (UIVisualEffectView *)effectView {
+    if (_effectView) return _effectView;
+    _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+    _effectView.frame = self.bounds;
+    _effectView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    return _effectView;
+}
+#else
+- (UIToolbar *)effectBar {
+    if (_effectBar) return _effectBar;
+    _effectBar = [[UIToolbar alloc] initWithFrame:self.bounds];
+    for (UIView *view in [_effectBar subviews]) {
+        if ([view isKindOfClass:[UIImageView class]] && [[view subviews] count] == 0) {
+            [view setHidden:YES];
+        }
+    }
+    _effectBar.barStyle = UIBarStyleBlack;
+    _effectBar.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    return _effectBar;
+}
+#endif
+
 - (UIView *)contentView {
     if (_contentView) return _contentView;
     _contentView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -311,6 +358,31 @@ UIWindow static *_popoverWindow;
     [super setBackgroundColor:[UIColor clearColor]];
     _backgroundDrawingColor = backgroundColor;
     [self setNeedsDisplay];
+}
+
+- (void)setTranslucent:(BOOL)translucent {
+    _translucent = translucent;
+    [self setNeedsDisplay];
+}
+
+- (void)setTranslucentStyle:(AXPopoverTranslucentStyle)translucentStyle {
+    _translucentStyle = translucentStyle;
+    switch (_translucentStyle) {
+        case AXPopoverTranslucentLight:
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+            _effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+#else
+            _effectBar.barStyle = UIBarStyleDefault;
+#endif
+            break;
+        default:
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+            _effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+#else
+            _effectBar.barStyle = UIBarStyleBlack;
+#endif
+            break;
+    }
 }
 
 #pragma mark - Shows&Hides

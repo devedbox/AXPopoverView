@@ -43,6 +43,11 @@
         _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     }
     [_window makeKeyAndVisible];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:_window.bounds];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.image = [UIImage imageNamed:@"test.jpg"];
+    [_window addSubview:imageView];
+    [_window insertSubview:imageView atIndex:0];
     return YES;
 }
 

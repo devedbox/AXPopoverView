@@ -80,6 +80,13 @@ typedef NS_ENUM(NSUInteger, AXPopoverArrowDirection) {
     /// Arrow on the right.
     AXPopoverArrowDirectionRight
 };
+/// Enum of translucent style.
+typedef NS_ENUM(NSUInteger, AXPopoverTranslucentStyle) {
+    /// Default(Dark) translucent style.
+    AXPopoverTranslucentDefault,
+    /// Light translucent style.
+    AXPopoverTranslucentLight
+};
 /// Popover view animation block.
 /// @discusstion Using this block to customize showing/hiding animation of popover view.
 ///
@@ -125,6 +132,10 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 @property(assign, nonatomic)     AXPopoverArrowDirection preferredArrowDirection UI_APPEARANCE_SELECTOR;
 /// Should remove from super view when hidden or not.
 @property(assign, nonatomic, getter=isRemoveFromSuperViewOnHide) BOOL removeFromSuperViewOnHide __deprecated_msg("Default is YES forever.");
+/// Translucent the popover view. Do this will ignore the background of popover view. Defaults to `YES`.
+@property(assign, nonatomic, getter=isTranslucent) BOOL translucent;
+/// Translucent style.
+@property(assign, nonatomic) AXPopoverTranslucentStyle translucentStyle;
 /// Shows on popover window.
 /// @discusstion If `showsOnPopoverWindow` is `YES`, the popover view will show on a new window.
 ///              If `showsOnPopoverWindow` is `NO`, the popover view will show on the application
