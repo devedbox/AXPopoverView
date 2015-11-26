@@ -402,7 +402,7 @@ UIWindow static *_popoverWindow;
     _targetRect = rect;
     [self.popoverWindow registerPopoverView:self];
     [self layoutSubviews];
-    _showsCompletion = [completion copy];
+    if (completion) _showsCompletion = [completion copy];
     if (!_animator.showing) {
         self.layer.anchorPoint = self.arrowPosition;
         self.transform = CGAffineTransformMakeScale(0.f, 0.f);
@@ -441,7 +441,7 @@ UIWindow static *_popoverWindow;
 {
     if (_isHiding) return;
     NSTimeInterval animationDuration = animated?0.25:0.0;
-    _hidesCompletion = [completion copy];
+    if (completion) _hidesCompletion = [completion copy];
     [self viewWillHide:animated];
     if (!_animator.hiding) {
         [UIView animateWithDuration:animationDuration animations:^{
