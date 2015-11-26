@@ -360,12 +360,14 @@ UIWindow static *_popoverWindow;
     if (translucent) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
         [self insertSubview:self.effectView atIndex:0];
+        [_effectView.contentView addSubview:_contentView];
 #else
         [self insertSubview:self.effectBar atIndex:0];
 #endif
     } else {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
         [self.effectView removeFromSuperview];
+        [self addSubview:self.contentView];
 #else
         [self.effectBar removeFromSuperview];
 #endif
