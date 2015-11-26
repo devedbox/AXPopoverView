@@ -135,7 +135,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// Translucent the popover view. Do this will ignore the background of popover view. Defaults to `YES`.
 @property(assign, nonatomic, getter=isTranslucent) BOOL translucent;
 /// Translucent style.
-@property(assign, nonatomic) AXPopoverTranslucentStyle translucentStyle;
+@property(assign, nonatomic) AXPopoverTranslucentStyle translucentStyle UI_APPEARANCE_SELECTOR;
 /// Shows on popover window.
 /// @discusstion If `showsOnPopoverWindow` is `YES`, the popover view will show on a new window.
 ///              If `showsOnPopoverWindow` is `NO`, the popover view will show on the application

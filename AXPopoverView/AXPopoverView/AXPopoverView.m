@@ -77,12 +77,7 @@ UIWindow static *_popoverWindow;
     _showsOnPopoverWindow = YES;
     _lockBackground = NO;
     _hideOnTouch = YES;
-    _translucent = YES;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
-    [self addSubview:self.effectView];
-#else
-    [self addSubview:self.effectBar];
-#endif
+    self.translucent = YES;
     [self addSubview:self.contentView];
     [self setUpWindow];
 }
@@ -362,6 +357,19 @@ UIWindow static *_popoverWindow;
 
 - (void)setTranslucent:(BOOL)translucent {
     _translucent = translucent;
+    if (translucent) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+        [self insertSubview:self.effectView atIndex:0];
+#else
+        [self insertSubview:self.effectBar atIndex:0];
+#endif
+    } else {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+        [self.effectView removeFromSuperview];
+#else
+        [self.effectBar removeFromSuperview];
+#endif
+    }
     [self setNeedsDisplay];
 }
 
