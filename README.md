@@ -9,6 +9,14 @@
 [![](http://7xop5v.com1.z0.glb.clouddn.com/movement.gif)](http://7xop5v.com1.z0.glb.clouddn.com/movement.gif)
 [![](http://7xop5v.com1.z0.glb.clouddn.com/movement_2.gif)](http://7xop5v.com1.z0.glb.clouddn.com/movement_2.gif)
 
+## Features
+>* Popover animation
+>* Customizable
+>* Translucent blur effect support
+>* Customizable animator block support
+>* UI_APPEARANCE_SELECTOR configuration
+>* Scrollable
+
 ## Requirements
 
 `AXPopoverView` works on any iOS version. It depends on the following Apple frameworks, which should already be included with most Xcode templates:
