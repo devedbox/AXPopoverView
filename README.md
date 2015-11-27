@@ -2,8 +2,6 @@
 
 # AXPopoverView[![Build Status](https://travis-ci.org/devedbox/AXPopoverView.svg?branch=master)](https://travis-ci.org/devedbox/AXPopoverView)
 
-标签（空格分隔）：popover UIView UILabel iOS Objective-C
----
 ##Summary
 `AXPopoverView` is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. `AXPopoverLabel` is an enample how to use custom view to customize the popover view. The popover view (mostly used as `AXPopoverLabel`) is a convenient and hommization way for developer to use.
 
@@ -100,19 +98,6 @@ popoverLabel.translucent = NO;
 popoverLabel.preferredArrowDirection = AXPopoverArrowDirectionTop;
 popoverLabel.translucentStyle = AXPopoverTranslucentLight;
 [popoverLabel showFromView:sender animated:YES duration:2.0];
-```
-
-If you need to configure the HUD you can do this by using the MBProgressHUD reference that showHUDAddedTo:animated: returns. 
-
-```objective-c
-MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-hud.mode = MBProgressHUDModeAnnularDeterminate;
-hud.labelText = @"Loading";
-[self doSomethingInBackgroundWithProgressCallback:^(float progress) {
-hud.progress = progress;
-} completionCallback:^{
-[hud hide:YES];
-}];
 ```
 ###UI Updates
 
