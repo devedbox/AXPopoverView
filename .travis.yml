@@ -1,4 +1,3 @@
 language: objective-c
 script:
   - xctool -workspace AXPopoverView.xcworkspace -scheme AXPopoverView -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-  - xctool test -workspace AXPopoverView.xcworkspace -scheme AXPopoverView -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
