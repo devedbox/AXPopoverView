@@ -1,4 +1,4 @@
 language: objective-c
-xcode_workspace: AXPopoverView.xcworkspace
-xcode_scheme: AXPopoverView
-xcode_sdk: iphonesimulator
+script:
+  - xctool -workspace AXPopoverView.xcworkspace -scheme AXPopoverView -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  - xctool test -workspace AXPopoverView.xcworkspace -scheme AXPopoverView -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
