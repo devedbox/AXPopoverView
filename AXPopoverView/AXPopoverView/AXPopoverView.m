@@ -22,15 +22,26 @@
     BOOL _isShowing;
     BOOL _isHiding;
 }
+/// Previous app key window.
 @property(weak, nonatomic) UIWindow *previousKeyWindow __deprecated;
+/// Tap gesture.
 @property(weak, nonatomic) UITapGestureRecognizer *tap __deprecated;
+/// Pan gesture.
 @property(weak, nonatomic) UIPanGestureRecognizer *pan __deprecated;
+/// Scroll view.
 @property(weak, nonatomic) UIScrollView *scrollView;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+/// Blur effect view.
 @property(strong, nonatomic) UIVisualEffectView *effectView;
 #else
+/// Blur effect bar.
 @property(strong, nonatomic) UIToolbar *effectBar;
 #endif
+#pragma mark - Label
+/// Title label
+@property(strong, nonatomic) UILabel *titleLabel;
+/// Detail label
+@property(strong, nonatomic) UILabel *detailLabel;
 @end
 
 NSString *const AXPopoverPriorityHorizontal = @"AXPopoverPriorityHorizontal";
@@ -80,6 +91,10 @@ UIWindow static *_popoverWindow;
     self.translucent = YES;
     [self addSubview:self.contentView];
     [self setUpWindow];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    [self performSelector:@selector(initializerLabel) withObject:nil];
+#pragma clang diagnostic pop
 }
 
 - (void)dealloc {
@@ -185,22 +200,53 @@ UIWindow static *_popoverWindow;
     CGSize minSize = [self minSize];
     susize.width = MAX(susize.width, minSize.width);
     susize.height = MAX(susize.height, minSize.height);
+    if (_title.length > 0 || _detail.length > 0) {
+        [self layoutSubviews];
+        susize.width = MAX(susize.width, self.bounds.size.width);
+        susize.height = MAX(susize.width, self.bounds.size.height);
+    }
     return susize;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    CGRect rect_title = _titleLabel.frame;
+    CGRect rect_detail = _detailLabel.frame;
+    
+    CGSize size = CGSizeZero;
+    if (_detailLabel.text.length > 0) {
+        size = [_detailLabel.text boundingRectWithSize:CGSizeMake(self.preferredWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:_detailLabel.font} context:nil].size;
+    }
+    rect_detail.size = CGSizeMake(ceil(size.width), ceil(size.height));
+    rect_detail.origin.x = self.contentInsets.left;
+    if (_titleLabel.text.length > 0) {
+        rect_title.size.width = MIN(CGRectGetWidth(rect_title), self.preferredWidth);
+        rect_title.size.width = MAX(CGRectGetWidth(rect_title), CGRectGetWidth(rect_detail));
+        rect_title.origin.y = self.contentInsets.top;
+        rect_title.origin.x = rect_detail.origin.x;
+        if (_detailLabel.text.length > 0) {
+            rect_detail.origin.y = CGRectGetMaxY(rect_title) + self.padding;
+        } else {
+            rect_detail.origin.y = CGRectGetMaxY(rect_title);
+        }
+    } else {
+        rect_detail.origin.y = self.contentInsets.top;
+    }
+    _titleLabel.frame = rect_title;
+    _detailLabel.frame = rect_detail;
+    CGRect rect_content = self.contentView.frame;
     CGRect rect_self = self.frame;
+    rect_content.size.height = CGRectGetMaxY(rect_detail) + self.contentInsets.bottom;
+    rect_content.size.width = MAX(CGRectGetWidth(rect_title), CGRectGetWidth(rect_detail)) + self.contentInsets.left+self.contentInsets.right;
+    rect_self.size = CGSizeMake(rect_content.size.width + self.contentViewInsets.left + self.contentViewInsets.right, rect_content.size.height + self.contentViewInsets.top + self.contentViewInsets.bottom);
     CGSize minSize = self.minSize;
     rect_self.size.width = MAX(CGRectGetWidth(rect_self), minSize.width);
     rect_self.size.height = MAX(CGRectGetHeight(rect_self), minSize.height);
     self.frame = rect_self;
     UIEdgeInsets contentInsets = self.contentViewInsets;
-    CGRect rect = _contentView.frame;
-    rect.origin.x = contentInsets.left;
-    rect.origin.y = contentInsets.top;
-    rect.size = CGSizeMake(CGRectGetWidth(self.bounds) - (contentInsets.left + contentInsets.right), CGRectGetHeight(self.bounds) - (contentInsets.top + contentInsets.bottom));
-    _contentView.frame = rect;
+    rect_content.origin.x = contentInsets.left;
+    rect_content.origin.y = contentInsets.top;
+    _contentView.frame = rect_content;
     [self updateFrameWithRect:_targetRect];
 }
 
@@ -314,6 +360,35 @@ UIWindow static *_popoverWindow;
     return [[self class] sharedPopoverWindow];
 }
 
+#pragma mark - Labels getters
+- (UILabel *)titleLabel {
+    if (_titleLabel) return _titleLabel;
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _titleLabel.textColor = self.titleTextColor;
+    _titleLabel.font = self.titleFont;
+    _titleLabel.text = self.title;
+    _titleLabel.numberOfLines = 1;
+    _titleLabel.backgroundColor = [UIColor clearColor];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+    return _titleLabel;
+}
+
+- (UILabel *)detailLabel {
+    if (_detailLabel) return _detailLabel;
+    _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _detailLabel.textColor = self.detailTextColor;
+    _detailLabel.font = self.detailFont;
+    _detailLabel.text = self.detail;
+    _detailLabel.numberOfLines = 0;
+    _detailLabel.backgroundColor = [UIColor clearColor];
+    _detailLabel.textAlignment = NSTextAlignmentCenter;
+    _detailLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _detailLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+    return _detailLabel;
+}
+
 #pragma mark - Setters
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     _cornerRadius = cornerRadius;
@@ -393,6 +468,57 @@ UIWindow static *_popoverWindow;
 #endif
             break;
     }
+}
+
+#pragma mark - Labels setters
+
+- (void)setTitle:(NSString *)title {
+    _title = [title copy];
+    _titleLabel.text = title;
+    [_titleLabel sizeToFit];
+}
+
+- (void)setDetail:(NSString *)detail {
+    _detail = [detail copy];
+    _detailLabel.text = detail;
+    [_detailLabel sizeToFit];
+}
+
+- (void)setTitleFont:(UIFont *)titleFont {
+    _titleFont = titleFont;
+    _titleLabel.font = titleFont;
+    [self setNeedsLayout];
+}
+
+- (void)setDetailFont:(UIFont *)detailFont {
+    _detailFont = detailFont;
+    _detailLabel.font = detailFont;
+    [self setNeedsLayout];
+}
+
+- (void)setTitleTextColor:(UIColor *)titleTextColor {
+    _titleTextColor = titleTextColor;
+    _titleLabel.textColor = titleTextColor;
+}
+
+- (void)setDetailTextColor:(UIColor *)detailTextColor {
+    _detailTextColor = detailTextColor;
+    _detailLabel.textColor = detailTextColor;
+}
+
+- (void)setPreferredWidth:(CGFloat)preferredWidth {
+    _preferredWidth = preferredWidth;
+    [self setNeedsLayout];
+}
+
+- (void)setContentInsets:(UIEdgeInsets)contentInsets {
+    _contentInsets = contentInsets;
+    [self setNeedsLayout];
+}
+
+- (void)setPadding:(CGFloat)padding {
+    _padding = padding;
+    [self setNeedsLayout];
 }
 
 #pragma mark - Shows&Hides
@@ -796,6 +922,54 @@ UIWindow static *_popoverWindow;
     [self.popoverWindow removeGestureRecognizer:self.pan];
     self.tap = nil;
     self.pan = nil;
+}
+@end
+@implementation AXPopoverView (Label)
+- (void)initializerLabel {
+    _titleFont = [UIFont systemFontOfSize:14];
+    _detailFont = [UIFont systemFontOfSize:12];
+    _titleTextColor = [UIColor colorWithWhite:0 alpha:0.7];
+    _detailTextColor = [UIColor colorWithWhite:0 alpha:0.5];
+    _preferredWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - (self.contentViewInsets.left + self.contentViewInsets.right + self.offsets.x*2);
+    _contentInsets = UIEdgeInsetsZero;
+    _padding = 4;
+    _fadeContentEnabled = NO;
+    [_contentView addSubview:self.titleLabel];
+    [_contentView addSubview:self.detailLabel];
+}
+#pragma mark - Public
++ (instancetype)showLabelInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail
+{
+    return [self showLabelInRect:rect animated:animated duration:duration title:title detail:detail configuration:nil];
+}
+
++ (instancetype)showLabelInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(nullable AXPopoverViewConfiguration)config
+{
+    AXPopoverView *label = [[AXPopoverView alloc] initWithFrame:CGRectZero];
+    label.title = title;
+    label.detail = detail;
+    if (config) {
+        config(label);
+    }
+    [label showInRect:rect animated:animated duration:duration];
+    return label;
+}
+
++ (instancetype)showLabelFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail
+{
+    return [self showLabelFromView:view animated:animated duration:duration title:title detail:detail configuration:nil];
+}
+
++ (instancetype)showLabelFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(nullable AXPopoverViewConfiguration)config
+{
+    AXPopoverView *label = [[AXPopoverView alloc] initWithFrame:CGRectZero];
+    label.title = title;
+    label.detail = detail;
+    if (config) {
+        config(label);
+    }
+    [label showFromView:view animated:animated duration:duration];
+    return label;
 }
 @end
 @implementation AXPopoverViewAnimator

@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "AXPopoverLabel.h"
+#import "AXPopoverView.h"
 
 @interface AppDelegate ()
 
@@ -18,14 +18,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [[AXPopoverLabel appearance] setBackgroundColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];
-    [[AXPopoverLabel appearance] setBackgroundDrawingColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];
-    [[AXPopoverLabel appearance] setPreferredArrowDirection:AXPopoverArrowDirectionTop];
-    [[AXPopoverLabel appearance] setTitleTextColor:[UIColor whiteColor]];
-    [[AXPopoverLabel appearance] setDetailTextColor:[UIColor whiteColor]];
-    [[AXPopoverLabel appearance] setArrowConstant:6];
-    [[AXPopoverLabel appearance] setTranslucentStyle:AXPopoverTranslucentDefault];
-    [[AXPopoverLabel appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView * _Nonnull popoverView, BOOL animated, CGRect targetRect) {
+    [[AXPopoverView appearance] setBackgroundColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];
+    [[AXPopoverView appearance] setBackgroundDrawingColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];
+    [[AXPopoverView appearance] setPreferredArrowDirection:AXPopoverArrowDirectionTop];
+    [[AXPopoverView appearance] setTitleTextColor:[UIColor whiteColor]];
+    [[AXPopoverView appearance] setDetailTextColor:[UIColor whiteColor]];
+    [[AXPopoverView appearance] setArrowConstant:6];
+    [[AXPopoverView appearance] setTranslucentStyle:AXPopoverTranslucentDefault];
+    [[AXPopoverView appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView * _Nonnull popoverView, BOOL animated, CGRect targetRect) {
         if (animated) {
             CGRect fromFrame = CGRectZero;
             fromFrame.origin = popoverView.animatedFromPoint;

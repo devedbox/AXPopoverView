@@ -7,7 +7,7 @@
 //
 
 #import "TableViewController.h"
-#import "AXPopoverLabel.h"
+#import "AXPopoverView.h"
 
 @interface TableViewController ()
 
@@ -31,97 +31,31 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//#warning Incomplete implementation, return the number of sections
-//    return 0;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//#warning Incomplete implementation, return the number of rows
-//    return 0;
-//}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [AXPopoverLabel showFromView:cell.detailTextLabel animated:YES duration:2.5 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車" configuration:^(AXPopoverLabel *popoverLabel) {
-        popoverLabel.preferredWidth = 200;
-        popoverLabel.showsOnPopoverWindow = NO;
-        [popoverLabel registerScrollView:tableView];
-//        popoverLabel.lockBackground = YES;
-        popoverLabel.hideOnTouch = NO;
+    [AXPopoverView showLabelFromView:cell.detailTextLabel animated:YES duration:2.5 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車" configuration:^(AXPopoverView *popoverView) {
+        popoverView.preferredWidth = 200;
+        popoverView.showsOnPopoverWindow = NO;
+        [popoverView registerScrollView:tableView];
+        popoverView.hideOnTouch = NO;
         switch (indexPath.row) {
             case 0:// 上边显示
-                popoverLabel.preferredArrowDirection = AXPopoverArrowDirectionBottom;
+                popoverView.preferredArrowDirection = AXPopoverArrowDirectionBottom;
                 break;
             case 1:// 下边显示
-                popoverLabel.preferredArrowDirection = AXPopoverArrowDirectionTop;
+                popoverView.preferredArrowDirection = AXPopoverArrowDirectionTop;
                 break;
             case 2:// 左边显示
-                popoverLabel.preferredArrowDirection = AXPopoverArrowDirectionRight;
+                popoverView.preferredArrowDirection = AXPopoverArrowDirectionRight;
                 break;
             case 3:// 右边显示
-                popoverLabel.preferredArrowDirection = AXPopoverArrowDirectionLeft;
+                popoverView.preferredArrowDirection = AXPopoverArrowDirectionLeft;
                 break;
             default:// 任意方向显示
-                popoverLabel.preferredArrowDirection = AXPopoverArrowDirectionAny;
+                popoverView.preferredArrowDirection = AXPopoverArrowDirectionAny;
                 break;
         }
     }];

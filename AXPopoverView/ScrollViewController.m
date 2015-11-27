@@ -7,12 +7,12 @@
 //
 
 #import "ScrollViewController.h"
-#import "AXPopoverLabel.h"
+#import "AXPopoverView.h"
 
 @interface ScrollViewController ()
 @property(weak, nonatomic) IBOutlet UIView *showsView;
 @property(weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property(strong, nonatomic) AXPopoverLabel *popoverLabel;
+@property(strong, nonatomic) AXPopoverView *popoverView;
 @end
 
 @implementation ScrollViewController
@@ -30,7 +30,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [AXPopoverLabel hideVisiblePopoverViewsAnimated:NO];
+    [AXPopoverView hideVisiblePopoverViewsAnimated:NO];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showPopoverView) object:nil];
 }
 
@@ -41,19 +41,19 @@
 
 - (IBAction)registering:(UISwitch *)sender {
     if (sender.isOn) {
-        [_popoverLabel registerScrollView:_scrollView];
+        [_popoverView registerScrollView:_scrollView];
     } else {
-        [_popoverLabel unregisterScrollView];
+        [_popoverView unregisterScrollView];
     }
 }
 
 #pragma mark - Shows
 - (void)showPopoverView {
-    _popoverLabel = [AXPopoverLabel showFromView:_showsView animated:YES duration:CGFLOAT_MAX title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車" configuration:^(AXPopoverLabel *popoverLabel) {
-        popoverLabel.preferredWidth = 200;
-        popoverLabel.showsOnPopoverWindow = NO;
-        popoverLabel.hideOnTouch = NO;
-        [popoverLabel registerScrollView:_scrollView];
+    _popoverView = [AXPopoverView showLabelFromView:_showsView animated:YES duration:CGFLOAT_MAX title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車" configuration:^(AXPopoverView *popoverView) {
+        popoverView.preferredWidth = 200;
+        popoverView.showsOnPopoverWindow = NO;
+        popoverView.hideOnTouch = NO;
+        [popoverView registerScrollView:_scrollView];
     }];
 }
 @end

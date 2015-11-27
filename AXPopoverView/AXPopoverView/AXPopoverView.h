@@ -7,15 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
-NS_ASSUME_NONNULL_BEGIN
-UIKIT_EXTERN NSString *const AXPopoverPriorityHorizontal;
-UIKIT_EXTERN NSString *const AXPopoverPriorityVertical;
-
+#import <CoreGraphics/CoreGraphics.h>
 #ifndef AXP_REQUIRES_SUPER
 #define AXP_REQUIRES_SUPER __attribute((objc_requires_super))
 #endif
-
+NS_ASSUME_NONNULL_BEGIN
+/// Popover arrow direction priority in horizontal.
+UIKIT_EXTERN NSString *const AXPopoverPriorityHorizontal;
+/// Popover arrow direction priority in vertical.
+UIKIT_EXTERN NSString *const AXPopoverPriorityVertical;
+//
 @class AXPopoverView, AXPopoverViewAnimator;
+/// Configuration call back block to configure popover view when popover view will show.
+///
+/// @param popoverView a popover view will show.
+/// @return Void
+typedef void(^AXPopoverViewConfiguration)(AXPopoverView *popoverView);
+///
+/// AXPopoverViewDelegate
+///
 @protocol AXPopoverViewDelegate <NSObject>
 @optional
 /// Called when popover view will show with animation.
@@ -100,6 +110,11 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// AXPopoverView.
 ///
 @interface AXPopoverView : UIView
+//
+// ---------------------------------------------------------------------------------------
+//  @name Base view properties.
+// ---------------------------------------------------------------------------------------
+//
 /// Origin of frame when display the view.
 @property(assign, nonatomic) CGPoint offsets UI_APPEARANCE_SELECTOR;
 /// Min size of popover view.
@@ -131,7 +146,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// Prefered direction of arrow.
 @property(assign, nonatomic)     AXPopoverArrowDirection preferredArrowDirection UI_APPEARANCE_SELECTOR;
 /// Should remove from super view when hidden or not.
-@property(assign, nonatomic, getter=isRemoveFromSuperViewOnHide) BOOL removeFromSuperViewOnHide __deprecated_msg("Default is YES forever.");
+@property(assign, nonatomic, getter=isRemoveFromSuperViewOnHide) BOOL removeFromSuperViewOnHide __deprecated_msg(" Default is always YES.");
 /// Translucent the popover view. Do this will ignore the background of popover view. Defaults to `YES`.
 @property(assign, nonatomic, getter=isTranslucent) BOOL translucent;
 /// Translucent style.
@@ -161,6 +176,33 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 @property(copy, nonatomic) dispatch_block_t showsCompletion;
 /// Hides completion block.
 @property(copy, nonatomic) dispatch_block_t hidesCompletion;
+//
+// ---------------------------------------------------------------------------------------
+//  @name Labels properties.
+// ---------------------------------------------------------------------------------------
+//
+/// Title of popover label.
+@property(copy, nonatomic) NSString *title;
+/// Detail of popover label.
+@property(copy, nonatomic) NSString *detail;
+/// Font of title label. Defaults to system 14.
+@property(strong, nonatomic) UIFont *titleFont UI_APPEARANCE_SELECTOR;
+/// Title label text color.
+@property(strong, nonatomic) UIColor *titleTextColor UI_APPEARANCE_SELECTOR;
+/// Font of detail label. Defaults to system 12.
+@property(strong, nonatomic) UIFont *detailFont UI_APPEARANCE_SELECTOR;
+/// Detail label text color.
+@property(strong, nonatomic) UIColor *detailTextColor UI_APPEARANCE_SELECTOR;
+/// Prefered width of detail label. Defaults:
+/// (screenWidth - (contentViewInsets.left + contentViewInsets.right))
+@property(assign, nonatomic) CGFloat preferredWidth UI_APPEARANCE_SELECTOR;
+/// Content insets. Defaults to {0, 0, 0, 0}
+@property(assign, nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
+/// Padding of labels. Defaults to 4.
+@property(assign, nonatomic) CGFloat padding UI_APPEARANCE_SELECTOR;
+/// Fade the content. Defaults to NO.
+@property(assign, nonatomic) BOOL fadeContentEnabled __deprecated_msg(" Fade content is always disable.");
+#pragma mark - Methods
 /// Show the popover view in a rect in the new popover window.
 /// @discusstion the rect is a specific rect in the popover window which is normlly same as the application
 ///              key window.
@@ -287,6 +329,59 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 #pragma mark - Deprecated
 /// Deprecated initize selector.
 - (instancetype)initWithCoder __attribute__((unavailable("`AXPopoverView` cannot be created by coder")));
+@end
+@interface AXPopoverView (Label)
+//
+// ---------------------------------------------------------------------------------------
+//  @name Labels show methods.
+// ---------------------------------------------------------------------------------------
+//
+/// Show the popover label from a view in the application key and main window with a constant time internal.
+/// @discusstion This method is suggested cause the frame of `view` will be convered to the popover window
+///              automaticly.
+///
+/// @param view a view in the application window.
+/// @param animated a boolean value to decide show popover view with or without animation.
+/// @param duration a time internal duration the popover shows constants.
+/// @param title title of title label.
+/// @param content of detail label.
+///
+/// @return Void
++ (instancetype)showLabelFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail;
+/// Show the popover label from a view in the application key and main window with a constant time internal and a configuration block.
+/// @discusstion This method is suggested cause the frame of `view` will be convered to the popover window
+///              automaticly.
+///
+/// @param view a view in the application window.
+/// @param animated a boolean value to decide show popover view with or without animation.
+/// @param duration a time internal duration the popover shows constants.
+/// @param title title of title label.
+/// @param content of detail label.
+///
+/// @return Void
++ (instancetype)showLabelFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(nullable AXPopoverViewConfiguration)config;
+/// Show the popover label from a rect in the application key and main window with a constant time internal.
+/// @discusstion This method is suggested cause the frame of `view` will be convered to the popover window
+///              automaticly.
+///
+/// @param rect     the rect in the popover winow.
+/// @param animated a boolean value to decide show popover view with or without animation.
+/// @param duration a time internal duration the popover shows constants.
+/// @param title title of title label.
+/// @param content of detail label.
+///
+/// @return Void
++ (instancetype)showLabelInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail;
+/// Show the popover label from a rect in the application key and main window with a constant time internal and a configuration block.
+///
+/// @param rect     the rect in the popover winow.
+/// @param animated a boolean value to decide show popover view with or without animation.
+/// @param duration a time internal duration the popover shows constants.
+/// @param title title of title label.
+/// @param content of detail label.
+///
+/// @return Void
++ (instancetype)showLabelInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(nullable AXPopoverViewConfiguration)config;
 @end
 @interface AXPopoverViewAnimator : NSObject
 /// Showing animation block
