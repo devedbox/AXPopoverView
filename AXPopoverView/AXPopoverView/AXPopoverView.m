@@ -440,12 +440,34 @@ UIWindow static *_popoverWindow;
 - (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(dispatch_block_t)completion
 {
     if (_isHiding) return;
+    UIView *view;
+    if (_translucent) {// using snapshot
+        if (_showsOnPopoverWindow) {
+            view = [self.popoverWindow resizableSnapshotViewFromRect:self.frame afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
+        } else {
+            view = [self.popoverWindow.appKeyWindow resizableSnapshotViewFromRect:self.frame afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
+        }
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+        view.layer.mask = self.effectView.layer.mask;
+#else
+        view.layer.mask = self.effectBar.layer.mask;
+#endif
+        view.frame = self.frame;
+        if (_showsOnPopoverWindow) {
+            [self.popoverWindow addSubview:view];
+        } else {
+            [self.popoverWindow.appKeyWindow addSubview:view];
+        }
+        self.hidden = YES;
+    } else {
+        view = self;
+    }
     NSTimeInterval animationDuration = animated?0.25:0.0;
     if (completion) _hidesCompletion = [completion copy];
     [self viewWillHide:animated];
     if (!_animator.hiding) {
         [UIView animateWithDuration:animationDuration animations:^{
-            self.alpha = 0.0;
+            view.alpha = 0.0;
             [self viewHiding:animated];
         } completion:^(BOOL finished) {
             if (finished) {
@@ -515,6 +537,7 @@ UIWindow static *_popoverWindow;
 - (void)viewDidHide:(BOOL)animated {
     _isHiding = NO;
     self.alpha = 1.0;
+    self.hidden = NO;
     _backgroundView.alpha = 1.0;
     self.layer.anchorPoint = CGPointMake(0.5, 0.5);
     [self setNeedsLayout];
