@@ -321,6 +321,51 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 ///
 /// @return Void
 - (void)showFromView:(UIView *)view animated:(BOOL)animated completion:(dispatch_block_t)completion;
+/// Added a background task is executing in a new thread, popover view will hide when finished.
+///
+/// This method also takes care of autorelease pools so your method does not have to be concerned with setting up a
+/// pool.
+///
+/// @param method The method to be executed while the HUD is shown. This method will be executed in a new thread.
+/// @param target The object that the target method belongs to.
+/// @param object An optional object to be passed to the method.
+/// @param animated If set to YES the HUD will (dis)appear using the current animationType. If set to NO the HUD will not use
+/// animations while (dis)appearing.
+///
+/// @return Void
+- (void)addExecuting:(SEL)method onTarget:(id)target withObject:(id)object;
+#if NS_BLOCKS_AVAILABLE
+/// Added a block is executing on a background queue, popover view will hide when finished.
+///
+/// @see showAnimated:whileExecutingBlock:onQueue:completionBlock:
+///
+/// @return Void
+- (void)addExecutingBlock:(dispatch_block_t)block;
+/// Added a block is executing on a background queue, popover view will hide when finished.
+///
+/// @see showAnimated:whileExecutingBlock:onQueue:completionBlock:
+///
+/// @return Void
+- (void)addExecutingBlock:(dispatch_block_t)block completionBlock:(dispatch_block_t)completion;
+/// Added a block is executing on the specified dispatch queue, popover view will hide when finished.
+///
+/// @see showAnimated:whileExecutingBlock:onQueue:completionBlock:
+///
+/// @return Void
+- (void)addExecutingBlock:(dispatch_block_t)block onQueue:(dispatch_queue_t)queue;
+/// Added a block is executing on the specified dispatch queue, executes completion block on the main queue, popover view will hide when finished.
+///
+/// @param animated If set to YES the HUD will (dis)appear using the current animationType. If set to NO the HUD will
+/// not use animations while (dis)appearing.
+/// @param block The block to be executed while the HUD is shown.
+/// @param queue The dispatch queue on which the block should be executed.
+/// @param completion The block to be executed on completion.
+///
+/// @see completionBlock
+///
+/// @return Void
+- (void)addExecutingBlock:(dispatch_block_t)block onQueue:(dispatch_queue_t)queue completionBlock:(dispatch_block_t)completion;
+#endif
 //
 //
 // These methods is called during popover view's showing or hiding blcok. If overriding a custom antion of animation,

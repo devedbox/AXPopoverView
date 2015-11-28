@@ -12,6 +12,7 @@
 @interface ViewController ()
 @property(strong, nonatomic) AXPopoverView *popoverView;
 @property(strong, nonatomic) AXPopoverView *popoverLabel;
+@property(strong, nonatomic) AXPopoverView *popover;
 @end
 
 @implementation ViewController
@@ -37,7 +38,7 @@
 }
 #pragma mark - Actions
 - (IBAction)topLeft:(UIButton *)sender {
-     [AXPopoverView showLabelFromView:sender animated:YES duration:10.0 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速" configuration:^(AXPopoverView *popoverView) {
+     _popover = [AXPopoverView showLabelFromView:sender animated:YES duration:10.0 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速" configuration:^(AXPopoverView *popoverView) {
          popoverView.showsOnPopoverWindow = NO;
          popoverView.translucent = YES;
          popoverView.preferredArrowDirection = AXPopoverArrowDirectionTop;
@@ -48,24 +49,28 @@
          popoverView.indicatorColor = [UIColor blackColor];
          popoverView.items = @[@"你好"];
          popoverView.itemHandler = ^(UIButton *sender, NSUInteger index) {
-             NSLog(@"button item index: %ld", index);
+             [AXPopoverView showLabelInRect:CGRectMake(self.view.bounds.size.width*.5-5, 20, 10, 10) animated:YES duration:2.5 title:@"消息" detail:@"你好，这是点击｀你好｀之后的消息" configuration:^(AXPopoverView *popoverView2) {
+                 popoverView2.showsOnPopoverWindow = NO;
+                 popoverView2.translucent = YES;
+                 popoverView2.preferredArrowDirection = AXPopoverArrowDirectionTop;
+                 popoverView2.translucentStyle = AXPopoverTranslucentLight;
+                 popoverView2.titleTextColor = [UIColor blackColor];
+                 popoverView2.detailTextColor = [UIColor blackColor];
+             }];
          };
          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             popoverView.headerMode = AXPopoverDeterminate;
-             popoverView.progress = 0.4;
+             popoverView.headerMode = AXPopoverDeterminateAnnularEnabled;
              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                 popoverView.headerMode = AXPopoverDeterminateAnnularEnabled;
-                 popoverView.progress = 0.6;
+                 popoverView.headerMode = AXPopoverDeterminate;
                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                      popoverView.headerMode = AXPopoverDeterminateHorizontalBar;
-                     popoverView.progress = 0.8;
                      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                          popoverView.headerMode = AXPopoverCustomView;
                      });
                  });
              });
          });
-         popoverView.progress = 0.3;
+         [popoverView addExecuting:@selector(myTask) onTarget:self withObject:nil];
      }];
 }
 
@@ -81,4 +86,13 @@
     [_popoverView showInRect:sender.frame animated:YES completion:nil];
 }
 
+- (void)myTask {
+    float progress = 0.0f;
+    while (progress < 1.0f)
+    {
+        progress += 0.005f;
+        _popover.progress = progress;
+        usleep(50000);
+    }
+}
 @end

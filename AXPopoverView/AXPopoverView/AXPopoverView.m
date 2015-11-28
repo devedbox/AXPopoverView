@@ -25,7 +25,14 @@
 
 #import "AXPopoverView.h"
 #import <objc/runtime.h>
-
+#ifndef AX_POPOVER_MAIN_THREAD
+#define AX_POPOVER_MAIN_THREAD(block) \
+if ([NSThread isMainThread]) {\
+    block();\
+} else {\
+    dispatch_async(dispatch_get_main_queue(), block);\
+}
+#endif
 @interface AXPopoverView()
 {
     @protected
@@ -38,6 +45,9 @@
     dispatch_block_t _hidesCompletion;
     BOOL _isShowing;
     BOOL _isHiding;
+    SEL _method;
+    id _target;
+    id _object;
 }
 /// Previous app key window.
 @property(weak, nonatomic) UIWindow *previousKeyWindow __deprecated;
@@ -446,32 +456,50 @@ UIWindow static *_popoverWindow;
 #pragma mark - Setters
 - (void)setCornerRadius:(CGFloat)cornerRadius {
     _cornerRadius = cornerRadius;
-    [self setNeedsDisplay];
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        [self setNeedsDisplay];
+    });
 }
 
 - (void)setArrowAngle:(CGFloat)arrowAngle {
     _arrowAngle = arrowAngle;
-    [self setNeedsDisplay];
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        [self setNeedsDisplay];
+    });
 }
 
 - (void)setArrowConstant:(CGFloat)arrowConstant {
     _arrowConstant = arrowConstant;
-    [self setNeedsDisplay];
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        [self setNeedsDisplay];
+    });
 }
 
 - (void)setArrowCornerRadius:(CGFloat)arrowCornerRadius {
     _arrowCornerRadius = arrowCornerRadius;
-    [self setNeedsDisplay];
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        [self setNeedsDisplay];
+    });
 }
 
 - (void)setArrowDirection:(AXPopoverArrowDirection)arrowDirection {
     _arrowDirection = arrowDirection;
-    [self setNeedsDisplay];
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        [self setNeedsDisplay];
+    });
 }
 
 - (void)setPriority:(NSString *)priority {
     _priority = [priority copy];
-    [self setNeedsDisplay];
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        [self setNeedsDisplay];
+    });
 }
 
 - (UIColor *)backgroundColor {
@@ -481,114 +509,149 @@ UIWindow static *_popoverWindow;
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
     [super setBackgroundColor:[UIColor clearColor]];
     _backgroundDrawingColor = backgroundColor;
-    [self setNeedsDisplay];
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        [self setNeedsDisplay];
+    });
 }
 
 - (void)setTranslucent:(BOOL)translucent {
     _translucent = translucent;
-    if (translucent) {
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        if (translucent) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
-        [self insertSubview:self.effectView atIndex:0];
-        [_effectView.contentView addSubview:_contentView];
+            [self insertSubview:self.effectView atIndex:0];
+            [_effectView.contentView addSubview:_contentView];
 #else
-        [self insertSubview:self.effectBar atIndex:0];
+            [self insertSubview:self.effectBar atIndex:0];
 #endif
-    } else {
+        } else {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
-        [self.effectView removeFromSuperview];
-        [self addSubview:self.contentView];
+            [self.effectView removeFromSuperview];
+            [self addSubview:self.contentView];
 #else
-        [self.effectBar removeFromSuperview];
+            [self.effectBar removeFromSuperview];
 #endif
-    }
-    [self setNeedsDisplay];
+        }
+        [self setNeedsDisplay];
+    });
 }
 
 - (void)setTranslucentStyle:(AXPopoverTranslucentStyle)translucentStyle {
     _translucentStyle = translucentStyle;
-    switch (_translucentStyle) {
-        case AXPopoverTranslucentLight:
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        switch (_translucentStyle) {
+            case AXPopoverTranslucentLight:
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
-            _effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+                _effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
 #else
-            _effectBar.barStyle = UIBarStyleDefault;
+                _effectBar.barStyle = UIBarStyleDefault;
 #endif
-            break;
-        default:
+                break;
+            default:
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
-            _effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+                _effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
 #else
-            _effectBar.barStyle = UIBarStyleBlack;
+                _effectBar.barStyle = UIBarStyleBlack;
 #endif
-            break;
-    }
+                break;
+        }
+    });
 }
 
 - (void)setHeaderView:(UIView *)headerView {
     if (_headerView) [_headerView removeFromSuperview];
     _headerView = headerView;
-    [_contentView addSubview:_headerView];
-    [self setNeedsLayout];
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        [_contentView addSubview:_headerView];
+        [self setNeedsLayout];
+    });
 }
 
 - (void)setFooterView:(UIView *)footerView {
     if (_footerView) [_footerView removeFromSuperview];
     _footerView = footerView;
-    [_contentView addSubview:_footerView];
-    [self setNeedsLayout];
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        [_contentView addSubview:_footerView];
+        [self setNeedsLayout];
+    });
 }
 
 #pragma mark - Labels setters
 
 - (void)setTitle:(NSString *)title {
     _title = [title copy];
-    _titleLabel.text = title;
-    [_titleLabel sizeToFit];
-    [self setNeedsLayout];
+    AX_POPOVER_MAIN_THREAD(^(){
+        _titleLabel.text = title;
+        [_titleLabel sizeToFit];
+        [self setNeedsLayout];
+    });
 }
 
 - (void)setDetail:(NSString *)detail {
     _detail = [detail copy];
-    _detailLabel.text = detail;
-    [_detailLabel sizeToFit];
-    [self setNeedsLayout];
+    AX_POPOVER_MAIN_THREAD(^(){
+        _detailLabel.text = detail;
+        [_detailLabel sizeToFit];
+        [self setNeedsLayout];
+    });
 }
 
 - (void)setTitleFont:(UIFont *)titleFont {
     _titleFont = titleFont;
-    _titleLabel.font = titleFont;
-    [self setNeedsLayout];
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        _titleLabel.font = titleFont;
+        [self setNeedsLayout];
+    });
 }
 
 - (void)setDetailFont:(UIFont *)detailFont {
     _detailFont = detailFont;
-    _detailLabel.font = detailFont;
-    [self setNeedsLayout];
+    
+    AX_POPOVER_MAIN_THREAD(^(){
+        _detailLabel.font = detailFont;
+        [self setNeedsLayout];
+    });
 }
 
 - (void)setTitleTextColor:(UIColor *)titleTextColor {
     _titleTextColor = titleTextColor;
-    _titleLabel.textColor = titleTextColor;
+    AX_POPOVER_MAIN_THREAD(^(){
+        _titleLabel.textColor = titleTextColor;
+    });
 }
 
 - (void)setDetailTextColor:(UIColor *)detailTextColor {
     _detailTextColor = detailTextColor;
-    _detailLabel.textColor = detailTextColor;
+    AX_POPOVER_MAIN_THREAD(^(){
+        _detailLabel.textColor = detailTextColor;
+    });
 }
 
 - (void)setPreferredWidth:(CGFloat)preferredWidth {
     _preferredWidth = preferredWidth;
-    [self setNeedsLayout];
+    AX_POPOVER_MAIN_THREAD(^(){
+        [self setNeedsLayout];
+    });
 }
 
 - (void)setContentInsets:(UIEdgeInsets)contentInsets {
     _contentInsets = contentInsets;
-    [self setNeedsLayout];
+    AX_POPOVER_MAIN_THREAD(^(){
+        [self setNeedsLayout];
+    });
 }
 
 - (void)setPadding:(CGFloat)padding {
     _padding = padding;
-    [self setNeedsLayout];
+    AX_POPOVER_MAIN_THREAD(^(){
+        [self setNeedsLayout];
+    });
 }
 
 #pragma mark - Custom view setters
@@ -599,34 +662,42 @@ UIWindow static *_popoverWindow;
 
 - (void)setIndicatorColor:(UIColor *)indicatorColor {
     _indicatorColor = indicatorColor;
-    if ([_headerView isKindOfClass:[UIActivityIndicatorView class]]) {
-        [_headerView setValue:_indicatorColor forKeyPath:@"color"];
-    } else if([_headerView isKindOfClass:[AXPopoverBarProgressView class]]) {
-        [_headerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"lineColor"];
-        [_headerView setValue:_indicatorColor forKeyPath:@"progressColor"];
-    } else if ([_headerView isKindOfClass:[AXPopoverCircleProgressView class]]) {
-        [_headerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"progressColor"];
-        [_headerView setValue:_indicatorColor forKeyPath:@"progressBgnColor"];
-    }
-    if ([_footerView isKindOfClass:[UIActivityIndicatorView class]]) {
-        [_footerView setValue:_indicatorColor forKeyPath:@"color"];
-    } else if([_footerView isKindOfClass:[AXPopoverBarProgressView class]]) {
-        [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"lineColor"];
-        [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.1] forKeyPath:@"progressColor"];
-    } else if ([_footerView isKindOfClass:[AXPopoverCircleProgressView class]]) {
-        [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"progressColor"];
-        [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.1] forKeyPath:@"progressBgnColor"];
-    }
+    AX_POPOVER_MAIN_THREAD(^(){
+        if ([_headerView isKindOfClass:[UIActivityIndicatorView class]]) {
+            [_headerView setValue:_indicatorColor forKeyPath:@"color"];
+        } else if([_headerView isKindOfClass:[AXPopoverBarProgressView class]]) {
+            [_headerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"lineColor"];
+            [_headerView setValue:_indicatorColor forKeyPath:@"progressColor"];
+        } else if ([_headerView isKindOfClass:[AXPopoverCircleProgressView class]]) {
+            [_headerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"progressColor"];
+            [_headerView setValue:_indicatorColor forKeyPath:@"progressBgnColor"];
+        }
+        if ([_footerView isKindOfClass:[UIActivityIndicatorView class]]) {
+            [_footerView setValue:_indicatorColor forKeyPath:@"color"];
+        } else if([_footerView isKindOfClass:[AXPopoverBarProgressView class]]) {
+            [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"lineColor"];
+            [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.1] forKeyPath:@"progressColor"];
+        } else if ([_footerView isKindOfClass:[AXPopoverCircleProgressView class]]) {
+            [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"progressColor"];
+            [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.1] forKeyPath:@"progressBgnColor"];
+        }
+    });
 }
 
 - (void)setProgress:(CGFloat)progress {
     _progress = progress;
-    if ([_headerView isKindOfClass:[AXPopoverCircleProgressView class]] || [_headerView isKindOfClass:[AXPopoverBarProgressView class]]) {
-        [_headerView setValue:@(_progress) forKeyPath:@"progress"];
-    }
-    if ([_footerView isKindOfClass:[AXPopoverCircleProgressView class]] || [_footerView isKindOfClass:[AXPopoverBarProgressView class]]) {
-        [_footerView setValue:@(_progress) forKeyPath:@"progress"];
-    }
+    AX_POPOVER_MAIN_THREAD(^(){
+        if ([_headerView isKindOfClass:[AXPopoverCircleProgressView class]] || [_headerView isKindOfClass:[AXPopoverBarProgressView class]]) {
+            if ([_headerView respondsToSelector:@selector(setProgress:)]) {
+                [_headerView setValue:@(_progress) forKeyPath:@"progress"];
+            }
+        }
+        if ([_footerView isKindOfClass:[AXPopoverCircleProgressView class]] || [_footerView isKindOfClass:[AXPopoverBarProgressView class]]) {
+            if ([_footerView respondsToSelector:@selector(setProgress:)]) {
+                [_footerView setValue:@(_progress) forKeyPath:@"progress"];
+            }
+        }
+    });
 }
 #pragma mark - Additional buttons
 
@@ -832,6 +903,64 @@ UIWindow static *_popoverWindow;
     for (AXPopoverView *popoverView in popoverViews) {
         [popoverView hideAnimated:animated afterDelay:0.0 completion:nil];
     }
+}
+
+#pragma mark - Threading
+
+- (void)addExecuting:(SEL)method onTarget:(id)target withObject:(id)object {
+    _method = method;
+    _target = target;
+    _object = object;
+    // Launch execution in new thread
+    [NSThread detachNewThreadSelector:@selector(launchExecution) toTarget:self withObject:nil];
+}
+
+#if NS_BLOCKS_AVAILABLE
+
+- (void)addExecutingBlock:(dispatch_block_t)block {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    [self addExecutingBlock:block onQueue:queue completionBlock:NULL];
+}
+
+- (void)addExecutingBlock:(dispatch_block_t)block completionBlock:(dispatch_block_t)completion {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    [self addExecutingBlock:block onQueue:queue completionBlock:completion];
+}
+
+- (void)addExecutingBlock:(dispatch_block_t)block onQueue:(dispatch_queue_t)queue {
+    [self addExecutingBlock:block onQueue:queue completionBlock:NULL];
+}
+
+- (void)addExecutingBlock:(dispatch_block_t)block onQueue:(dispatch_queue_t)queue
+     completionBlock:(dispatch_block_t)completion {
+    dispatch_async(queue, ^(void) {
+        block();
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            [self cleanUp];
+        });
+    });
+}
+
+#endif
+
+- (void)launchExecution {
+    @autoreleasepool {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        // Start executing the requested task
+        [_target performSelector:_method withObject:_object];
+#pragma clang diagnostic pop
+        // Task completed, update view in main thread (note: view operations should
+        // be done only in the main thread)
+        [self performSelectorOnMainThread:@selector(cleanUp) withObject:nil waitUntilDone:NO];
+    }
+}
+
+- (void)cleanUp {
+    _method = NULL;
+    _target = nil;
+    _object = nil;
+    [self hideAnimated:YES afterDelay:0.f completion:NULL];
 }
 
 #pragma mark - Scroll view support
@@ -1068,17 +1197,17 @@ UIWindow static *_popoverWindow;
         case AXPopoverDeterminate:
         {
             AXPopoverCircleProgressView *progressView = [[AXPopoverCircleProgressView alloc] init];
+            progressView.annularEnabled = NO;
             progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.8];
             progressView.progressBgnColor = [_indicatorColor colorWithAlphaComponent:0.1];
-            progressView.annularEnabled = NO;
             return progressView;
         }
         case AXPopoverDeterminateAnnularEnabled:
         {
             AXPopoverCircleProgressView *progressView = [[AXPopoverCircleProgressView alloc] init];
+            progressView.annularEnabled = YES;
             progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.8];
             progressView.progressBgnColor = [_indicatorColor colorWithAlphaComponent:0.1];
-            progressView.annularEnabled = YES;
             return progressView;
         }
         case AXPopoverDeterminateHorizontalBar:
@@ -1482,14 +1611,14 @@ UIWindow static *_popoverWindow;
         // draw background
         [_progressColor setStroke];
         [_progressBgnColor setFill];
-        CGContextSetLineWidth(context, 2.0);
+        CGContextSetLineWidth(context, 2.0f);
         CGContextFillEllipseInRect(context, circleRect);
         CGContextStrokeEllipseInRect(context, circleRect);
-        // draw progress
+        // Draw progress
         CGPoint center = CGPointMake(allRect.size.width / 2, allRect.size.height / 2);
-        CGFloat radius = (allRect.size.width - 4.0) / 2;
-        CGFloat startAngle = -(M_PI / 2);
-        CGFloat endAngle = _progress * 2.0 * M_PI + startAngle;
+        CGFloat radius = (allRect.size.width - 4) / 2;
+        CGFloat startAngle = - ((float)M_PI / 2); // 90 degrees
+        CGFloat endAngle = (self.progress * 2 * (float)M_PI) + startAngle;
         [_progressColor setFill];
         CGContextMoveToPoint(context, center.x, center.y);
         CGContextAddArc(context, center.x, center.y, radius, startAngle, endAngle, 0);
