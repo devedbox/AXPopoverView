@@ -1096,6 +1096,7 @@ UIWindow static *_popoverWindow;
 #endif
 
 - (UIView *)additionalButtonsViewWithItems:(NSArray *)items {
+    if (!items || items.count == 0) return nil;
     CGFloat prefredButtonWidth = (_preferredWidth-_padding*(items.count -1))/items.count;
     if (prefredButtonWidth<_minWidthOfButtons) {
         prefredButtonWidth = _minWidthOfButtons;
