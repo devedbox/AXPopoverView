@@ -11,7 +11,6 @@
 #ifndef AXP_REQUIRES_SUPER
 #define AXP_REQUIRES_SUPER __attribute((objc_requires_super))
 #endif
-NS_ASSUME_NONNULL_BEGIN
 /// Popover arrow direction priority in horizontal.
 UIKIT_EXTERN NSString *const AXPopoverPriorityHorizontal;
 /// Popover arrow direction priority in vertical.
@@ -212,7 +211,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// @param completion a completion call back block when the shows animation finished.
 ///
 /// @return Void
-- (void)showInRect:(CGRect)rect animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
+- (void)showInRect:(CGRect)rect animated:(BOOL)animated completion:(dispatch_block_t)completion;
 /// Hide the showing popover view with a delay time internal.
 ///
 /// @param animated a boolean value to decide show popover view with or without animation.
@@ -220,7 +219,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// @param completion a completion call back block when the hides animation finished.
 ///
 /// @return Void
-- (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(nullable dispatch_block_t)completion;
+- (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(dispatch_block_t)completion;
 /// Show the popover view in a rect in the new popover window with a constant time internal.
 /// @discusstion Show the popover view with a time dutation, and from the popover view shows completely on,
 ///              the popover view will hide automaticly after the time duration.
@@ -250,7 +249,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// @param completion a completion call back block when the shows animation finished.
 ///
 /// @return Void
-- (void)showFromView:(UIView *)view animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
+- (void)showFromView:(UIView *)view animated:(BOOL)animated completion:(dispatch_block_t)completion;
 //
 //
 // These methods is called during popover view's showing or hiding blcok. If overriding a custom antion of animation,
@@ -359,7 +358,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// @param content of detail label.
 ///
 /// @return Void
-+ (instancetype)showLabelFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(nullable AXPopoverViewConfiguration)config;
++ (instancetype)showLabelFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverViewConfiguration)config;
 /// Show the popover label from a rect in the application key and main window with a constant time internal.
 /// @discusstion This method is suggested cause the frame of `view` will be convered to the popover window
 ///              automaticly.
@@ -381,7 +380,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// @param content of detail label.
 ///
 /// @return Void
-+ (instancetype)showLabelInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(nullable AXPopoverViewConfiguration)config;
++ (instancetype)showLabelInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverViewConfiguration)config;
 @end
 @interface AXPopoverViewAnimator : NSObject
 /// Showing animation block
@@ -394,7 +393,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// @param hiding  a hiding animation block.
 ///
 /// @return An animator contains showing and hiding animation block.
-+ (instancetype)animatorWithShowing:(nullable AXPopoverViewAnimation)showing hiding:(nullable AXPopoverViewAnimation)hiding;
++ (instancetype)animatorWithShowing:(AXPopoverViewAnimation)showing hiding:(AXPopoverViewAnimation)hiding;
 @end
 @interface UIWindow(AXPopover)
 /// Reference count.
@@ -406,7 +405,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// Registered popover views.
 @property(readonly, nonatomic) NSMutableArray *registeredPopoverViews;
 /// Application main key window.
-@property(assign, nonatomic, nullable) UIWindow *appKeyWindow;
+@property(assign, nonatomic) UIWindow *appKeyWindow;
 /// Register a popover view and added to the popover window.
 ///
 /// @param popoverView a popover view to be registered.
@@ -420,4 +419,3 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 /// @return Void
 - (void)unregisterPopoverView:(AXPopoverView *)popoverView;
 @end
-NS_ASSUME_NONNULL_END
