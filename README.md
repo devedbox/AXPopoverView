@@ -1,6 +1,6 @@
 
 
-# AXPopoverView[![Build Status](https://travis-ci.org/devedbox/AXPopoverView.svg?branch=master)](https://travis-ci.org/devedbox/AXPopoverView)
+# AXPopoverView[![Build Status](https://travis-ci.org/devedbox/AXPopoverView.svg?branch=master)](https://travis-ci.org/devedbox/AXPopoverView)[![Version](https://img.shields.io/cocoapods/v/AXPopoverView.svg?style=flat)](http://cocoapods.org/pods/AXPopoverView)[![License](https://img.shields.io/cocoapods/l/AXPopoverView.svg?style=flat)](http://cocoapods.org/pods/AXPopoverView)[![Platform](https://img.shields.io/cocoapods/p/AXPopoverView.svg?style=flat)](http://cocoapods.org/pods/AXPopoverView)
 
 ##Summary
 `AXPopoverView` is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. `AXPopoverView` contains how to use custom view to customize the popover view. The popover view (mostly used as `Label` or `Other`) is a convenient and hommization way for developer to use.
