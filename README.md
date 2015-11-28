@@ -141,6 +141,7 @@ Added:
 >* 2. progress view.
 >* 3. button items.
 >* 4. custom header view and footer view for customization.
+
 Updated pod spec file to `0.3.0`
 
 

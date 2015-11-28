@@ -25,6 +25,7 @@
     [[AXPopoverView appearance] setDetailTextColor:[UIColor whiteColor]];
     [[AXPopoverView appearance] setArrowConstant:6];
     [[AXPopoverView appearance] setTranslucentStyle:AXPopoverTranslucentDefault];
+    [[AXPopoverView appearance] setItemTintColor:[[UIColor blackColor] colorWithAlphaComponent:0.8]];
     [[AXPopoverView appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView * _Nonnull popoverView, BOOL animated, CGRect targetRect) {
         if (animated) {
             CGRect fromFrame = CGRectZero;

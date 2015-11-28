@@ -16,11 +16,11 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "AXPopoverView"
-  s.version      = "0.3.1"
-  s.summary      = "A popover view in iOS."
+  s.version      = "0.3.2"
+  s.summary      = "`AXPopoverView` is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. `AXPopoverView` contains how to use custom view to customize the popover view. The popover view (mostly used as `Label` or `Other`) is a convenient and hommization way for developer to use."
 
   s.description  = <<-DESC
-                   `AXPopoverView` is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. `AXPopoverLabel` is an enample how to use custom view to customize the popover view. The popover view (mostly used as `AXPopoverLabel`) is a convenient and hommization way for developer to use.
+                   `AXPopoverView` is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. `AXPopoverView` contains how to use custom view to customize the popover view. The popover view (mostly used as `Label` or `Other`) is a convenient and hommization way for developer to use.
 
                    * Think: Why did you write this? What is the focus? What does it do?
                    * CocoaPods will be using this to generate tags, and improve search results.
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/devedbox/AXPopoverView.git", :tag => "0.3.1" }
+  s.source       = { :git => "https://github.com/devedbox/AXPopoverView.git", :tag => "0.3.2" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

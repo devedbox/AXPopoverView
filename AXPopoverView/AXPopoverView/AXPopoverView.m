@@ -544,12 +544,14 @@ UIWindow static *_popoverWindow;
     _title = [title copy];
     _titleLabel.text = title;
     [_titleLabel sizeToFit];
+    [self setNeedsLayout];
 }
 
 - (void)setDetail:(NSString *)detail {
     _detail = [detail copy];
     _detailLabel.text = detail;
     [_detailLabel sizeToFit];
+    [self setNeedsLayout];
 }
 
 - (void)setTitleFont:(UIFont *)titleFont {
