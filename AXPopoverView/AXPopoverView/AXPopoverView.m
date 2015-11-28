@@ -1,10 +1,27 @@
 //
-//  AXPopoverBubbleView.m
+//  AXPopoverView.m
 //  AXPopoverView
 //
-//  Created by ai on 15/11/16.
+//  Created by AiXing on 15/11/16.
 //  Copyright © 2015年 AiXing. All rights reserved.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
 
 #import "AXPopoverView.h"
 #import <objc/runtime.h>
@@ -91,10 +108,24 @@ UIWindow static *_popoverWindow;
     self.translucent = YES;
     [self addSubview:self.contentView];
     [self setUpWindow];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-    [self performSelector:@selector(initializerLabel) withObject:nil];
-#pragma clang diagnostic pop
+    _titleFont = [UIFont systemFontOfSize:14];
+    _detailFont = [UIFont systemFontOfSize:12];
+    _titleTextColor = [UIColor colorWithWhite:0 alpha:0.7];
+    _detailTextColor = [UIColor colorWithWhite:0 alpha:0.5];
+    _preferredWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - (self.contentViewInsets.left + self.contentViewInsets.right + self.offsets.x*2);
+    _contentInsets = UIEdgeInsetsZero;
+    _padding = 4;
+    _fadeContentEnabled = NO;
+    
+    _indicatorColor = [UIColor whiteColor];
+    _heightOfButtons = 30;
+    _minWidthOfButtons = 44;
+    _itemTintColor = [UIColor whiteColor];
+    _itemFont = _detailFont;
+    _itemCornerRadius = 3.0;
+    
+    [_contentView addSubview:self.titleLabel];
+    [_contentView addSubview:self.detailLabel];
 }
 
 - (void)dealloc {
@@ -210,34 +241,57 @@ UIWindow static *_popoverWindow;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    CGRect rect_title = _titleLabel.frame;
+    CGFloat totalHeight = .0;
+    CGFloat totalWidth = .0;
+    CGRect rect_header = _headerView.frame;
+    rect_header.origin.y = _contentInsets.top;
+    totalWidth = MAX(totalWidth, CGRectGetWidth(rect_header));
+    totalHeight += CGRectGetMaxY(rect_header);
     CGRect rect_detail = _detailLabel.frame;
-    
-    CGSize size = CGSizeZero;
+    CGSize detailSize = CGSizeZero;
     if (_detailLabel.text.length > 0) {
-        size = [_detailLabel.text boundingRectWithSize:CGSizeMake(self.preferredWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:_detailLabel.font} context:nil].size;
+        detailSize = [_detailLabel.text boundingRectWithSize:CGSizeMake(self.preferredWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:_detailLabel.font} context:nil].size;
     }
-    rect_detail.size = CGSizeMake(ceil(size.width), ceil(size.height));
-    rect_detail.origin.x = self.contentInsets.left;
+    rect_detail.size = CGSizeMake(ceil(detailSize.width), ceil(detailSize.height));
+    totalWidth = MAX(totalWidth, CGRectGetWidth(rect_detail));
+    CGRect rect_title = _titleLabel.frame;
     if (_titleLabel.text.length > 0) {
-        rect_title.size.width = MIN(CGRectGetWidth(rect_title), self.preferredWidth);
+        rect_title.size.width = MIN(CGRectGetWidth(rect_title), _preferredWidth);
         rect_title.size.width = MAX(CGRectGetWidth(rect_title), CGRectGetWidth(rect_detail));
-        rect_title.origin.y = self.contentInsets.top;
-        rect_title.origin.x = rect_detail.origin.x;
-        if (_detailLabel.text.length > 0) {
-            rect_detail.origin.y = CGRectGetMaxY(rect_title) + self.padding;
-        } else {
-            rect_detail.origin.y = CGRectGetMaxY(rect_title);
-        }
-    } else {
-        rect_detail.origin.y = self.contentInsets.top;
+        totalWidth = MAX(totalWidth, CGRectGetWidth(rect_title));
+        totalHeight+=_padding;
+        rect_title.origin.y = totalHeight;
+        totalHeight+=CGRectGetHeight(rect_title);
     }
+    if (_detailLabel.text.length > 0) {
+        totalHeight+=_padding;
+        rect_detail.origin.y = totalHeight;
+        totalHeight+=CGRectGetHeight(rect_detail);
+    }
+    CGRect rect_footer = _footerView.frame;
+    totalWidth=MAX(totalWidth, CGRectGetWidth(rect_footer));
+    if (_footerView!= nil) {
+        totalHeight+=_padding;
+    }
+    rect_footer.origin.y = totalHeight;
+    totalHeight+=CGRectGetHeight(rect_footer);
+    
+    if (totalWidth>_preferredWidth) {
+        totalWidth = _preferredWidth;
+    }
+    rect_header.origin.x = totalWidth*.5-CGRectGetWidth(rect_header)*.5;
+    rect_title.origin.x = totalWidth*.5-CGRectGetWidth(rect_title)*.5;
+    rect_detail.origin.x = totalWidth*.5-CGRectGetWidth(rect_detail)*.5;
+    rect_footer.origin.x = totalWidth*.5-CGRectGetWidth(rect_footer)*.5;
+    
     _titleLabel.frame = rect_title;
     _detailLabel.frame = rect_detail;
+    _headerView.frame = rect_header;
+    _footerView.frame = rect_footer;
     CGRect rect_content = self.contentView.frame;
     CGRect rect_self = self.frame;
-    rect_content.size.height = CGRectGetMaxY(rect_detail) + self.contentInsets.bottom;
-    rect_content.size.width = MAX(CGRectGetWidth(rect_title), CGRectGetWidth(rect_detail)) + self.contentInsets.left+self.contentInsets.right;
+    rect_content.size.height = totalHeight + self.contentInsets.bottom;
+    rect_content.size.width = totalWidth + self.contentInsets.left+self.contentInsets.right;
     rect_self.size = CGSizeMake(rect_content.size.width + self.contentViewInsets.left + self.contentViewInsets.right, rect_content.size.height + self.contentViewInsets.top + self.contentViewInsets.bottom);
     CGSize minSize = self.minSize;
     rect_self.size.width = MAX(CGRectGetWidth(rect_self), minSize.width);
@@ -470,6 +524,20 @@ UIWindow static *_popoverWindow;
     }
 }
 
+- (void)setHeaderView:(UIView *)headerView {
+    if (_headerView) [_headerView removeFromSuperview];
+    _headerView = headerView;
+    [_contentView addSubview:_headerView];
+    [self setNeedsLayout];
+}
+
+- (void)setFooterView:(UIView *)footerView {
+    if (_footerView) [_footerView removeFromSuperview];
+    _footerView = footerView;
+    [_contentView addSubview:_footerView];
+    [self setNeedsLayout];
+}
+
 #pragma mark - Labels setters
 
 - (void)setTitle:(NSString *)title {
@@ -519,6 +587,75 @@ UIWindow static *_popoverWindow;
 - (void)setPadding:(CGFloat)padding {
     _padding = padding;
     [self setNeedsLayout];
+}
+
+#pragma mark - Custom view setters
+- (void)setHeaderMode:(AXPopoverCustomViewMode)headerMode {
+    _headerMode = headerMode;
+    self.headerView = [self modedViewWithMode:_headerMode];
+}
+
+- (void)setIndicatorColor:(UIColor *)indicatorColor {
+    _indicatorColor = indicatorColor;
+    if ([_headerView isKindOfClass:[UIActivityIndicatorView class]]) {
+        [_headerView setValue:_indicatorColor forKeyPath:@"color"];
+    } else if([_headerView isKindOfClass:[AXPopoverBarProgressView class]]) {
+        [_headerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"lineColor"];
+        [_headerView setValue:_indicatorColor forKeyPath:@"progressColor"];
+    } else if ([_headerView isKindOfClass:[AXPopoverCircleProgressView class]]) {
+        [_headerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"progressColor"];
+        [_headerView setValue:_indicatorColor forKeyPath:@"progressBgnColor"];
+    }
+    if ([_footerView isKindOfClass:[UIActivityIndicatorView class]]) {
+        [_footerView setValue:_indicatorColor forKeyPath:@"color"];
+    } else if([_footerView isKindOfClass:[AXPopoverBarProgressView class]]) {
+        [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"lineColor"];
+        [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.1] forKeyPath:@"progressColor"];
+    } else if ([_footerView isKindOfClass:[AXPopoverCircleProgressView class]]) {
+        [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"progressColor"];
+        [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.1] forKeyPath:@"progressBgnColor"];
+    }
+}
+
+- (void)setProgress:(CGFloat)progress {
+    _progress = progress;
+    if ([_headerView isKindOfClass:[AXPopoverCircleProgressView class]] || [_headerView isKindOfClass:[AXPopoverBarProgressView class]]) {
+        [_headerView setValue:@(_progress) forKeyPath:@"progress"];
+    }
+    if ([_footerView isKindOfClass:[AXPopoverCircleProgressView class]] || [_footerView isKindOfClass:[AXPopoverBarProgressView class]]) {
+        [_footerView setValue:@(_progress) forKeyPath:@"progress"];
+    }
+}
+#pragma mark - Additional buttons
+
+- (void)setItems:(NSArray *)items {
+    _items = [items copy];
+    self.footerView = [self additionalButtonsViewWithItems:_items];
+}
+
+- (void)setHeightOfButtons:(CGFloat)heightOfButtons {
+    _heightOfButtons = heightOfButtons;
+    self.footerView = [self additionalButtonsViewWithItems:_items];
+}
+
+- (void)setMinWidthOfButtons:(CGFloat)minWidthOfButtons {
+    _minWidthOfButtons = minWidthOfButtons;
+    self.footerView = [self additionalButtonsViewWithItems:_items];
+}
+
+- (void)setItemTintColor:(UIColor *)itemTintColor {
+    _itemTintColor = itemTintColor;
+    self.footerView = [self additionalButtonsViewWithItems:_items];
+}
+
+- (void)setItemFont:(UIFont *)itemFont {
+    _itemFont = itemFont;
+    self.footerView = [self additionalButtonsViewWithItems:_items];
+}
+
+- (void)setItemCornerRadius:(CGFloat)itemCornerRadius {
+    _itemCornerRadius = itemCornerRadius;
+    self.footerView = [self additionalButtonsViewWithItems:_items];
 }
 
 #pragma mark - Shows&Hides
@@ -917,6 +1054,80 @@ UIWindow static *_popoverWindow;
     self.transform = transform;
 }
 
+- (UIView *)modedViewWithMode:(AXPopoverCustomViewMode)mode {
+    switch (mode) {
+        case AXPopoverIndeterminate:
+        {
+            UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            [indicator startAnimating];
+            indicator.color = _indicatorColor;
+            return indicator;
+        }
+        case AXPopoverDeterminate:
+        {
+            AXPopoverCircleProgressView *progressView = [[AXPopoverCircleProgressView alloc] init];
+            progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.8];
+            progressView.progressBgnColor = [_indicatorColor colorWithAlphaComponent:0.1];
+            progressView.annularEnabled = NO;
+            return progressView;
+        }
+        case AXPopoverDeterminateAnnularEnabled:
+        {
+            AXPopoverCircleProgressView *progressView = [[AXPopoverCircleProgressView alloc] init];
+            progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.8];
+            progressView.progressBgnColor = [_indicatorColor colorWithAlphaComponent:0.1];
+            progressView.annularEnabled = YES;
+            return progressView;
+        }
+        case AXPopoverDeterminateHorizontalBar:
+        {
+            AXPopoverBarProgressView *progressView = [[AXPopoverBarProgressView alloc] init];
+            progressView.lineColor = [_indicatorColor colorWithAlphaComponent:0.5];
+            progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.8];
+            return progressView;
+        }
+        default:
+            return nil;
+    }
+}
+
+#ifndef kAXPopoverItemTag
+#define kAXPopoverItemTag 1000
+#endif
+
+- (UIView *)additionalButtonsViewWithItems:(NSArray *)items {
+    CGFloat prefredButtonWidth = (_preferredWidth-_padding*(items.count -1))/items.count;
+    if (prefredButtonWidth<_minWidthOfButtons) {
+        prefredButtonWidth = _minWidthOfButtons;
+    }
+    CGFloat totalWidth = items.count*prefredButtonWidth + (items.count - 1)*_padding;
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, totalWidth, _heightOfButtons)];
+    footerView.backgroundColor = [UIColor clearColor];
+    for (NSInteger i = 0; i < items.count; i++) {
+        NSString *item = items[i];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+        [button setTitle:item forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor clearColor];
+        button.tintColor = _itemTintColor;
+        button.titleLabel.font = _itemFont;
+        button.layer.cornerRadius = _itemCornerRadius;
+        button.layer.borderWidth = 1.0;
+        button.layer.borderColor = _itemTintColor.CGColor;
+        button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
+        [button setFrame:CGRectMake(_padding*i+prefredButtonWidth*i, 0, prefredButtonWidth, _heightOfButtons)];
+        [footerView addSubview:button];
+        button.tag = kAXPopoverItemTag + i + 1;
+        [button addTarget:self action:@selector(handleItemAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return footerView;
+}
+
+- (void)handleItemAction:(UIButton *)sender {
+    if (_itemHandler) {
+        _itemHandler(sender, sender.tag - kAXPopoverItemTag);
+    }
+}
+
 - (void)removeGestures __deprecated {
     [self.popoverWindow removeGestureRecognizer:self.tap];
     [self.popoverWindow removeGestureRecognizer:self.pan];
@@ -925,19 +1136,6 @@ UIWindow static *_popoverWindow;
 }
 @end
 @implementation AXPopoverView (Label)
-- (void)initializerLabel {
-    _titleFont = [UIFont systemFontOfSize:14];
-    _detailFont = [UIFont systemFontOfSize:12];
-    _titleTextColor = [UIColor colorWithWhite:0 alpha:0.7];
-    _detailTextColor = [UIColor colorWithWhite:0 alpha:0.5];
-    _preferredWidth = CGRectGetWidth([UIScreen mainScreen].bounds) - (self.contentViewInsets.left + self.contentViewInsets.right + self.offsets.x*2);
-    _contentInsets = UIEdgeInsetsZero;
-    _padding = 4;
-    _fadeContentEnabled = NO;
-    [_contentView addSubview:self.titleLabel];
-    [_contentView addSubview:self.detailLabel];
-}
-#pragma mark - Public
 + (instancetype)showLabelInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail
 {
     return [self showLabelInRect:rect animated:animated duration:duration title:title detail:detail configuration:nil];
@@ -1087,5 +1285,233 @@ UIWindow static *_popoverWindow;
     }
     if (popoverView.showsOnPopoverWindow && self.isKeyWindow && self.referenceCount == 0) [self.appKeyWindow makeKeyAndVisible];
     [self setAppKeyWindow:nil];
+}
+@end
+#pragma mark -
+#pragma mark - Private classes
+#pragma mark -
+@implementation AXPopoverBarProgressView
+- (instancetype)init {
+    if (self = [super initWithFrame:CGRectMake(0, 0, 120, 12)]) {
+        [self initializer];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self initializer];
+    }
+    return self;
+}
+
+- (void)initializer {
+    self.backgroundColor = [UIColor clearColor];
+    self.opaque = NO;
+    
+    _progress = 0.0;
+    _progressColor = [UIColor whiteColor];
+    _lineColor = [UIColor whiteColor];
+    _trackColor = [UIColor clearColor];
+}
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetLineWidth(context, 2);
+    CGContextSetStrokeColorWithColor(context,_lineColor.CGColor);
+    CGContextSetFillColorWithColor(context, _trackColor.CGColor);
+    
+    // Draw background
+    CGFloat radius = (rect.size.height / 2) - 2;
+    CGContextMoveToPoint(context, 2, rect.size.height/2);
+    CGContextAddArcToPoint(context, 2, 2, radius + 2, 2, radius);
+    CGContextAddLineToPoint(context, rect.size.width - radius - 2, 2);
+    CGContextAddArcToPoint(context, rect.size.width - 2, 2, rect.size.width - 2, rect.size.height / 2, radius);
+    CGContextAddArcToPoint(context, rect.size.width - 2, rect.size.height - 2, rect.size.width - radius - 2, rect.size.height - 2, radius);
+    CGContextAddLineToPoint(context, radius + 2, rect.size.height - 2);
+    CGContextAddArcToPoint(context, 2, rect.size.height - 2, 2, rect.size.height/2, radius);
+    CGContextFillPath(context);
+    
+    // Draw border
+    CGContextMoveToPoint(context, 2, rect.size.height/2);
+    CGContextAddArcToPoint(context, 2, 2, radius + 2, 2, radius);
+    CGContextAddLineToPoint(context, rect.size.width - radius - 2, 2);
+    CGContextAddArcToPoint(context, rect.size.width - 2, 2, rect.size.width - 2, rect.size.height / 2, radius);
+    CGContextAddArcToPoint(context, rect.size.width - 2, rect.size.height - 2, rect.size.width - radius - 2, rect.size.height - 2, radius);
+    CGContextAddLineToPoint(context, radius + 2, rect.size.height - 2);
+    CGContextAddArcToPoint(context, 2, rect.size.height - 2, 2, rect.size.height/2, radius);
+    CGContextStrokePath(context);
+    
+    CGContextSetFillColorWithColor(context, _progressColor.CGColor);
+    radius = radius - 2;
+    CGFloat amount = _progress * rect.size.width;
+    
+    // Progress in the middle area
+    if (amount >= radius + 4 && amount <= (rect.size.width - radius - 4)) {
+        CGContextMoveToPoint(context, 4, rect.size.height/2);
+        CGContextAddArcToPoint(context, 4, 4, radius + 4, 4, radius);
+        CGContextAddLineToPoint(context, amount, 4);
+        CGContextAddLineToPoint(context, amount, radius + 4);
+        
+        CGContextMoveToPoint(context, 4, rect.size.height/2);
+        CGContextAddArcToPoint(context, 4, rect.size.height - 4, radius + 4, rect.size.height - 4, radius);
+        CGContextAddLineToPoint(context, amount, rect.size.height - 4);
+        CGContextAddLineToPoint(context, amount, radius + 4);
+        
+        CGContextFillPath(context);
+    }
+    
+    // Progress in the right arc
+    else if (amount > radius + 4) {
+        CGFloat x = amount - (rect.size.width - radius - 4);
+        
+        CGContextMoveToPoint(context, 4, rect.size.height/2);
+        CGContextAddArcToPoint(context, 4, 4, radius + 4, 4, radius);
+        CGContextAddLineToPoint(context, rect.size.width - radius - 4, 4);
+        CGFloat angle = -acos(x/radius);
+        if isnan(angle) {
+            angle = 0.0;
+        }
+        CGContextAddArc(context, rect.size.width - radius - 4, rect.size.height / 2, radius, M_PI, angle, 0);
+        CGContextAddLineToPoint(context, amount, rect.size.height/2);
+        
+        CGContextMoveToPoint(context, 4, rect.size.height/2);
+        CGContextAddArcToPoint(context, 4, rect.size.height - 4, radius + 4, rect.size.height - 4, radius);
+        CGContextAddLineToPoint(context, rect.size.width - radius - 4, rect.size.height - 4);
+        angle = acos(x/radius);
+        if isnan(angle) {
+            angle = 0.0;
+        }
+        CGContextAddArc(context, rect.size.width - radius - 4, rect.size.height / 2, radius, -M_PI, angle, 1);
+        CGContextAddLineToPoint(context, amount, rect.size.height/2);
+        
+        CGContextFillPath(context);
+    } else if (amount < radius + 4 && amount > 0) {// Progress is in the left arc
+        CGContextMoveToPoint(context, 4, rect.size.height/2);
+        CGContextAddArcToPoint(context, 4, 4, radius + 4, 4, radius);
+        CGContextAddLineToPoint(context, radius + 4, rect.size.height/2);
+        
+        CGContextMoveToPoint(context, 4, rect.size.height/2);
+        CGContextAddArcToPoint(context, 4, rect.size.height - 4, radius + 4, rect.size.height - 4, radius);
+        CGContextAddLineToPoint(context, radius + 4, rect.size.height/2);
+        
+        CGContextFillPath(context);
+    }
+}
+- (void)setProgress:(CGFloat)progress {
+    _progress = progress;
+    [self setNeedsDisplay];
+}
+
+- (void)setLineColor:(UIColor *)lineColor {
+    _lineColor = lineColor;
+    [self setNeedsDisplay];
+}
+
+- (void)setProgressColor:(UIColor *)progressColor {
+    _progressColor = progressColor;
+    [self setNeedsDisplay];
+}
+
+- (void)setTrackColor:(UIColor *)trackColor {
+    _trackColor = trackColor;
+    [self setNeedsDisplay];
+}
+@end
+@implementation AXPopoverCircleProgressView
+- (instancetype)init {
+    if (self = [super initWithFrame:CGRectMake(0, 0, 37, 37)]) {
+        [self initializer];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self initializer];
+    }
+    return self;
+}
+
+- (void)initializer {
+    self.backgroundColor = [UIColor clearColor];
+    self.opaque = NO;
+    
+    _progress = 0.0;
+    _progressBgnColor = [UIColor colorWithWhite:1 alpha:.1];
+    _progressColor = [UIColor whiteColor];
+    _annularEnabled = NO;
+}
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    // Get a rect
+    CGRect allRect = self.bounds;
+    CGRect circleRect = CGRectInset(allRect, 2.0, 2.0);
+    // Get current context
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    // Draw
+    if (_annularEnabled) {
+        // draw background
+        BOOL isPre_iOS_7_0 = kCFCoreFoundationVersionNumber <= kCFCoreFoundationVersionNumber_iOS_7_0;
+        CGFloat lineWidth = isPre_iOS_7_0 ? 5.0 : 2.0;
+        UIBezierPath *backgroundPath = [UIBezierPath bezierPath];
+        backgroundPath.lineCapStyle = kCGLineCapButt;
+        CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+        CGFloat radius = (self.bounds.size.width - lineWidth) / 2;
+        // 90degree
+        CGFloat startAngle = -(M_PI) / 2;
+        CGFloat endAngle = startAngle + (2.0 * M_PI);
+        [backgroundPath addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
+        [_progressBgnColor set];
+        [backgroundPath stroke];
+        // draw progress
+        UIBezierPath *progressPath = [UIBezierPath bezierPath];
+        progressPath.lineCapStyle = isPre_iOS_7_0 ? kCGLineCapRound : kCGLineCapSquare;
+        progressPath.lineWidth = lineWidth;
+        endAngle = _progress * 2.0 * M_PI + startAngle;
+        [progressPath addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
+        [_progressColor set];
+        [progressPath stroke];
+    } else {
+        // draw background
+        [_progressColor setStroke];
+        [_progressBgnColor setFill];
+        CGContextSetLineWidth(context, 2.0);
+        CGContextFillEllipseInRect(context, circleRect);
+        CGContextStrokeEllipseInRect(context, circleRect);
+        // draw progress
+        CGPoint center = CGPointMake(allRect.size.width / 2, allRect.size.height / 2);
+        CGFloat radius = (allRect.size.width - 4.0) / 2;
+        CGFloat startAngle = -(M_PI / 2);
+        CGFloat endAngle = _progress * 2.0 * M_PI + startAngle;
+        [_progressColor setFill];
+        CGContextMoveToPoint(context, center.x, center.y);
+        CGContextAddArc(context, center.x, center.y, radius, startAngle, endAngle, 0);
+        CGContextClosePath(context);
+        CGContextFillPath(context);
+    }
+}
+
+- (void)setProgress:(CGFloat)progress {
+    _progress = progress;
+    [self setNeedsDisplay];
+}
+
+- (void)setProgressBgnColor:(UIColor *)progressBgnColor {
+    _progressBgnColor = progressBgnColor;
+    [self setNeedsDisplay];
+}
+
+- (void)setProgressColor:(UIColor *)progressColor {
+    _progressColor = progressColor;
+    [self setNeedsDisplay];
+}
+
+- (void)setAnnularEnabled:(BOOL)annularEnabled {
+    _annularEnabled = annularEnabled;
+    [self setNeedsDisplay];
 }
 @end

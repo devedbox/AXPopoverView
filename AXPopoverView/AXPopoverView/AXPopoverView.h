@@ -1,10 +1,27 @@
 //
-//  AXPopoverBubbleView.h
+//  AXPopoverView.h
 //  AXPopoverView
 //
-//  Created by ai on 15/11/16.
+//  Created by AiXing on 15/11/16.
 //  Copyright © 2015年 AiXing. All rights reserved.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
 
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
@@ -22,6 +39,13 @@ UIKIT_EXTERN NSString *const AXPopoverPriorityVertical;
 /// @param popoverView a popover view will show.
 /// @return Void
 typedef void(^AXPopoverViewConfiguration)(AXPopoverView *popoverView);
+/// Handler call back block when button item is being cliked.
+///
+/// @param sender a button item.
+/// @param index index of button item.
+///
+/// @return Void
+typedef void(^AXPopoverViewItemHandler)(UIButton *sender, NSUInteger index);
 ///
 /// AXPopoverViewDelegate
 ///
@@ -95,6 +119,19 @@ typedef NS_ENUM(NSUInteger, AXPopoverTranslucentStyle) {
     AXPopoverTranslucentDefault,
     /// Light translucent style.
     AXPopoverTranslucentLight
+};
+/// Mode of custom header view.
+typedef NS_ENUM(NSInteger, AXPopoverCustomViewMode) {
+    /// Shows a custom view
+    AXPopoverCustomView,
+    /// Progress is shown using an UIActivityIndicatorView. This is the default.
+    AXPopoverIndeterminate,
+    /// Progress is shown using a round, pie-chart like, progress view.
+    AXPopoverDeterminate,
+    /// Progress is shown using a horizontal progress bar
+    AXPopoverDeterminateHorizontalBar,
+    /// Progress is shown using a ring-shaped progress view.
+    AXPopoverDeterminateAnnularEnabled
 };
 /// Popover view animation block.
 /// @discusstion Using this block to customize showing/hiding animation of popover view.
@@ -175,6 +212,13 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 @property(copy, nonatomic) dispatch_block_t showsCompletion;
 /// Hides completion block.
 @property(copy, nonatomic) dispatch_block_t hidesCompletion;
+/// Prefered width of content subviews. Defaults:
+/// (screenWidth - (contentViewInsets.left + contentViewInsets.right))
+@property(assign, nonatomic) CGFloat preferredWidth UI_APPEARANCE_SELECTOR;
+/// Subviews content insets. Defaults to {0, 0, 0, 0}
+@property(assign, nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
+/// Padding of content subviews. Defaults to 4.
+@property(assign, nonatomic) CGFloat padding UI_APPEARANCE_SELECTOR;
 //
 // ---------------------------------------------------------------------------------------
 //  @name Labels properties.
@@ -192,15 +236,42 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 @property(strong, nonatomic) UIFont *detailFont UI_APPEARANCE_SELECTOR;
 /// Detail label text color.
 @property(strong, nonatomic) UIColor *detailTextColor UI_APPEARANCE_SELECTOR;
-/// Prefered width of detail label. Defaults:
-/// (screenWidth - (contentViewInsets.left + contentViewInsets.right))
-@property(assign, nonatomic) CGFloat preferredWidth UI_APPEARANCE_SELECTOR;
-/// Content insets. Defaults to {0, 0, 0, 0}
-@property(assign, nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
-/// Padding of labels. Defaults to 4.
-@property(assign, nonatomic) CGFloat padding UI_APPEARANCE_SELECTOR;
 /// Fade the content. Defaults to NO.
 @property(assign, nonatomic) BOOL fadeContentEnabled __deprecated_msg(" Fade content is always disable.");
+//
+// ---------------------------------------------------------------------------------------
+//  @name Additional buttons.
+// ---------------------------------------------------------------------------------------
+//
+/// Items of buttons.
+@property(copy, nonatomic) NSArray *items;
+/// Height of button.
+@property(assign, nonatomic) CGFloat heightOfButtons UI_APPEARANCE_SELECTOR;
+/// Minimum width of buttons.
+@property(assign, nonatomic) CGFloat minWidthOfButtons UI_APPEARANCE_SELECTOR;
+/// Tint color of button item.
+@property(strong, nonatomic) UIColor *itemTintColor UI_APPEARANCE_SELECTOR;
+/// Font of button item.
+@property(strong, nonatomic) UIFont *itemFont UI_APPEARANCE_SELECTOR;
+/// CornerRadius of button item.
+@property(assign, nonatomic) CGFloat itemCornerRadius UI_APPEARANCE_SELECTOR;
+/// Handler block.
+@property(copy, nonatomic) AXPopoverViewItemHandler itemHandler;
+//
+// ---------------------------------------------------------------------------------------
+//  @name Custom views.
+// ---------------------------------------------------------------------------------------
+//
+/// Custom header view.
+@property(strong, nonatomic) UIView *headerView;
+/// Custom footer view.
+@property(strong, nonatomic) UIView *footerView;
+/// Custom header view mode.
+@property(assign, nonatomic) AXPopoverCustomViewMode headerMode UI_APPEARANCE_SELECTOR;
+/// Progress.
+@property(assign, nonatomic) CGFloat progress;
+/// Indicator color.
+@property(strong, nonatomic) UIColor *indicatorColor UI_APPEARANCE_SELECTOR;
 #pragma mark - Methods
 /// Show the popover view in a rect in the new popover window.
 /// @discusstion the rect is a specific rect in the popover window which is normlly same as the application
@@ -418,4 +489,30 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 ///
 /// @return Void
 - (void)unregisterPopoverView:(AXPopoverView *)popoverView;
+@end
+///
+/// AXPopoverBarProgressView
+///
+@interface AXPopoverBarProgressView : UIView
+/// Progress value
+@property(assign, nonatomic) CGFloat progress;
+/// Line color
+@property(strong, nonatomic) UIColor *lineColor;
+/// Progress color
+@property(strong, nonatomic) UIColor *progressColor;
+/// Track color
+@property(strong, nonatomic) UIColor *trackColor;
+@end
+///
+/// AXPopoverCircleProgressView
+///
+@interface AXPopoverCircleProgressView : UIView
+/// Progress value
+@property(assign, nonatomic) CGFloat progress;
+/// Progress color
+@property(strong, nonatomic) UIColor *progressColor;
+/// Progress background color
+@property(strong, nonatomic) UIColor *progressBgnColor;
+/// Annular enabled
+@property(assign, nonatomic) BOOL annularEnabled;
 @end
