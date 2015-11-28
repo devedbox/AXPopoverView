@@ -132,9 +132,15 @@ This code is distributed under the terms and conditions of the [MIT license](LIC
 
 Updating... 
 
-### `0.2.0`@2015.11.27 22:34
+### `0.2.0`@`2015.11.27 22:34`
 Deleted `AXPopoverLabel` and merged `AXPopoverLabel` to `AXPopoverView`. You can use `AXPopoverView` instead of 
 `AXPopoverLabel`. Enjoy!!!
-
+### `0.3.0`@`2015.11.28 16:00`
+Added:
+>* 1. indicator view.
+>* 2. progress view.
+>* 3. button items.
+>* 4. custom header view and footer view for customization.
+Updated pod spec file to `0.3.0`
 
 
