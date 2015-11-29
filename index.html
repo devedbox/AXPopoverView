@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Axpopoverview by devedbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Axpopoverview</h1>
+      <h2 class="project-tagline">AXPopoverView</h2>
+      <a href="https://github.com/devedbox/AXPopoverView" class="btn">View on GitHub</a>
+      <a href="https://github.com/devedbox/AXPopoverView/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/devedbox/AXPopoverView/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="axpopoverview" class="anchor" href="#axpopoverview" aria-hidden="true"><span class="octicon octicon-link"></span></a>AXPopoverView<a href="https://travis-ci.org/devedbox/AXPopoverView"><img src="https://travis-ci.org/devedbox/AXPopoverView.svg?branch=master" alt="Build Status"></a><a href="http://cocoapods.org/pods/AXPopoverView"><img src="https://img.shields.io/cocoapods/v/AXPopoverView.svg?style=flat" alt="Version"></a><a href="http://cocoapods.org/pods/AXPopoverView"><img src="https://img.shields.io/cocoapods/l/AXPopoverView.svg?style=flat" alt="License"></a><a href="http://cocoapods.org/pods/AXPopoverView"><img src="https://img.shields.io/cocoapods/p/AXPopoverView.svg?style=flat" alt="Platform"></a>
+</h1>
+
+<h2>
+<a id="summary" class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h2>
+
+<p><code>AXPopoverView</code> is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. <code>AXPopoverView</code> contains how to use custom view to customize the popover view. The popover view (mostly used as <code>Label</code> or <code>Other</code>) is a convenient and hommization way for developer to use.</p>
+
+<p><a href="http://7xop5v.com1.z0.glb.clouddn.com/popover.gif"><img src="http://7xop5v.com1.z0.glb.clouddn.com/popover.gif" alt=""></a>
+<a href="http://7xop5v.com1.z0.glb.clouddn.com/movement.gif"><img src="http://7xop5v.com1.z0.glb.clouddn.com/movement.gif" alt=""></a>
+<a href="http://7xop5v.com1.z0.glb.clouddn.com/movement_2.gif"><img src="http://7xop5v.com1.z0.glb.clouddn.com/movement_2.gif" alt=""></a></p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<blockquote>
+<ul>
+<li>Popover animation</li>
+<li>Customizable</li>
+<li>Translucent blur effect support</li>
+<li>Customizable animator block support</li>
+<li>UI_APPEARANCE_SELECTOR configuration</li>
+<li>Scrollable</li>
+</ul>
+</blockquote>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<p><code>AXPopoverView</code> works on any iOS version after <code>iOS 7.0</code>. It depends on the following Apple frameworks, which should already be included with most Xcode templates:</p>
+
+<blockquote>
+<ul>
+<li>Foundation.framework</li>
+<li>UIKit.framework</li>
+<li>CoreGraphics.framework</li>
+</ul>
+</blockquote>
+
+<p>You will need the latest developer tools in order to build AXPopoverView. Old Xcode versions might work, but compatibility will not be explicitly maintained.</p>
+
+<h2>
+<a id="adding-axpopoverview-to-your-project" class="anchor" href="#adding-axpopoverview-to-your-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adding AXPopoverView to your project</h2>
+
+<h3>
+<a id="cocoapods" class="anchor" href="#cocoapods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cocoapods</h3>
+
+<p><a href="http://cocoapods.org">CocoaPods</a> is the recommended way to add AXPopoverView to your project.</p>
+
+<ol>
+<li>Add a pod entry for AXPopoverView to your Podfile <code>pod 'AXPopoverView', '~&gt; 0.2.0'</code>
+</li>
+<li>Install the pod(s) by running <code>pod install</code>.</li>
+<li>Include AXPopoverView wherever you need it with <code>#import "AXPopoverView.h"</code>.</li>
+</ol>
+
+<h3>
+<a id="source-files" class="anchor" href="#source-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Source files</h3>
+
+<p>Alternatively you can directly add the <code>AXPopoverView.h</code> and <code>AXPopoverView.m</code> source files to your project.</p>
+
+<ol>
+<li>Download the <a href="https://github.com/devedbox/AXPopoverView/archive/master.zip">latest code version</a> or add the repository as a git submodule to your git-tracked project. </li>
+<li>Open your project in Xcode, then drag and drop <code>AXPopoverView.h</code> and <code>AXPopoverView.m</code> onto your project (use the "Product Navigator view"). Make sure to select Copy items when asked if you extracted the code archive outside of your project. </li>
+<li>Include AXPopoverView wherever you need it with <code>#import "AXPopoverView.h"</code>.</li>
+</ol>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p><code>AXPopoverView</code> support <code>UI_APPEARANCE_SELECTOR</code> to configure look of popover view will display on the screen. You should add your customizable code to <code>configuration block</code> when you using the <code>+ instance methods</code>.</p>
+
+<h3>
+<a id="showinghiding" class="anchor" href="#showinghiding" aria-hidden="true"><span class="octicon octicon-link"></span></a>Showing&amp;hiding</h3>
+
+<p>Using <code>showInRect:animated:completion:</code> <code>hideAnimated:afterDelay:completion:</code> to show popover view or hide. You can also using convenient methods to show the popover label like this:</p>
+
+<div class="highlight highlight-source-objc"><pre>[AXPopoverLabel <span class="pl-c1">showFromView:</span>sender <span class="pl-c1">animated:</span><span class="pl-c1">YES</span> <span class="pl-c1">duration:</span><span class="pl-c1">2.0</span> <span class="pl-c1">title:</span><span class="pl-s"><span class="pl-pds">@"</span>Your title.<span class="pl-pds">"</span></span> <span class="pl-c1">detail:</span><span class="pl-s"><span class="pl-pds">@"</span>Your detail contents.<span class="pl-pds">"</span></span> <span class="pl-c1">configuration:</span><span class="pl-c1">nil</span>];</pre></div>
+
+<p>Oh, that's easy!!!</p>
+
+<h3>
+<a id="appearance-configuration" class="anchor" href="#appearance-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>appearance configuration</h3>
+
+<p>Using the selector masked as <code>UI_APPEARANCE_SELECTOR</code> to custimize the popover view when application has started.</p>
+
+<pre lang="objcetive-c"><code>[[AXPopoverView appearance] setBackgroundColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];
+[[AXPopoverView appearance] setBackgroundDrawingColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];
+[[AXPopoverView appearance] setPreferredArrowDirection:AXPopoverArrowDirectionTop];
+[[AXPopoverView appearance] setTitleTextColor:[UIColor whiteColor]];
+[[AXPopoverView appearance] setDetailTextColor:[UIColor whiteColor]];
+[[AXPopoverView appearance] setArrowConstant:6];
+[[AXPopoverView appearance] setTranslucentStyle:AXPopoverTranslucentDefault];
+[[AXPopoverView appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView * _Nonnull popoverView, BOOL animated, CGRect targetRect) {
+    if (animated) {
+        CGRect fromFrame = CGRectZero;
+        fromFrame.origin = popoverView.animatedFromPoint;
+        popoverView.transform = CGAffineTransformMakeScale(0, 0);
+        popoverView.layer.anchorPoint = popoverView.arrowPosition;
+        [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^{
+            popoverView.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finish) {
+            // Call `viewDidShow:` when the animation finished.
+            if (finish) [popoverView viewDidShow:animated];
+        }];
+    }
+} hiding:nil]];
+</code></pre>
+
+<h3>
+<a id="block-configuration" class="anchor" href="#block-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>block configuration</h3>
+
+<p>Simply using a block to customize a specific popover view will show.</p>
+
+<pre lang="objcetive-c"><code>[AXPopoverView showFromView:sender animated:YES duration:2.0 title:@"Your title." detail:@"Your detail contents." configuration:^(AXPopoverView *popoverView) {
+popoverView.showsOnPopoverWindow = NO;
+popoverView.translucent = NO;
+popoverView.preferredArrowDirection = AXPopoverArrowDirectionTop;
+popoverView.translucentStyle = AXPopoverTranslucentLight;
+}];
+</code></pre>
+
+<p>You can also use as this:</p>
+
+<div class="highlight highlight-source-objc"><pre>AXPopoverView *popoverView = [AXPopoverView <span class="pl-c1">new</span>];
+popoverView.title = <span class="pl-s"><span class="pl-pds">@"</span>Your title.<span class="pl-pds">"</span></span>;
+popoverView.detail = <span class="pl-s"><span class="pl-pds">@"</span>Your detail contents.<span class="pl-pds">"</span></span>;
+popoverView.showsOnPopoverWindow = <span class="pl-c1">NO</span>;
+popoverView.translucent = <span class="pl-c1">NO</span>;
+popoverView.preferredArrowDirection = AXPopoverArrowDirectionTop;
+popoverView.translucentStyle = AXPopoverTranslucentLight;
+[popoverView <span class="pl-c1">showFromView:</span>sender <span class="pl-c1">animated:</span><span class="pl-c1">YES</span> <span class="pl-c1">duration:</span><span class="pl-c1">2.0</span>];</pre></div>
+
+<h3>
+<a id="ui-updates" class="anchor" href="#ui-updates" aria-hidden="true"><span class="octicon octicon-link"></span></a>UI Updates</h3>
+
+<p>UI updates should always be done on the main thread. like <code>setOffsets:</code>, <code>setArrowAngle:</code>, <code>setTitleFont:</code>, <code>setDetailFont:</code>, <code>setTranslucent:</code>, <code>setArrowCornerRadius:</code> and so on.</p>
+
+<p>If you need to run your long-running task in the main thread, you should perform it with a slight delay, so UIKit will have enough time to update the UI (i.e., draw the HUD) before you block the main thread with your task.</p>
+
+<div class="highlight highlight-source-objc"><pre><span class="pl-k">if</span> ([<span class="pl-c1">NSThread</span> <span class="pl-c1">isMainThread</span>]) {
+<span class="pl-c">/// Do updaing.</span>
+} <span class="pl-k">else</span> {
+<span class="pl-c1">dispatch_async</span>(<span class="pl-c1">dispatch_get_main_queue</span>(), ^{
+<span class="pl-c">/// Do updating.</span>
+});
+}</pre></div>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>This code is distributed under the terms and conditions of the <a href="LICENSE">MIT license</a>. </p>
+
+<h2>
+<a id="change-log" class="anchor" href="#change-log" aria-hidden="true"><span class="octicon octicon-link"></span></a>Change-log</h2>
+
+<p>Updating... </p>
+
+<h3>
+<a id="02020151127-2234" class="anchor" href="#02020151127-2234" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>0.2.0</code>@<code>2015.11.27 22:34</code>
+</h3>
+
+<p>Deleted <code>AXPopoverLabel</code> and merged <code>AXPopoverLabel</code> to <code>AXPopoverView</code>. You can use <code>AXPopoverView</code> instead of 
+<code>AXPopoverLabel</code>. Enjoy!!!</p>
+
+<h3>
+<a id="03020151128-1600" class="anchor" href="#03020151128-1600" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>0.3.0</code>@<code>2015.11.28 16:00</code>
+</h3>
+
+<p>Added:</p>
+
+<blockquote>
+<ul>
+<li>1. indicator view.</li>
+<li>2. progress view.</li>
+<li>3. button items.</li>
+<li>4. custom header view and footer view for customization.</li>
+</ul>
+</blockquote>
+
+<p>Updated pod spec file to <code>0.3.0</code></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/devedbox/AXPopoverView">Axpopoverview</a> is maintained by <a href="https://github.com/devedbox">devedbox</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
