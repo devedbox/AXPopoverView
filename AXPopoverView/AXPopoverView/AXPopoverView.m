@@ -1217,6 +1217,20 @@ UIWindow static *_popoverWindow;
             progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.8];
             return progressView;
         }
+        case AXPopoverSuccess:
+        {
+            UIImage *image = [self tintImage:[UIImage imageNamed:@"AXPopoverView.bundle/ax_success"] WithColor:_indicatorColor];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            [imageView sizeToFit];
+            return imageView;
+        }
+        case AXPopoverError:
+        {
+            UIImage *image = [self tintImage:[UIImage imageNamed:@"AXPopoverView.bundle/ax_error"] WithColor:_indicatorColor];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            [imageView sizeToFit];
+            return imageView;
+        }
         default:
             return nil;
     }
@@ -1258,6 +1272,22 @@ UIWindow static *_popoverWindow;
     if (_itemHandler) {
         _itemHandler(sender, sender.tag - kAXPopoverItemTag);
     }
+}
+
+- (UIImage *)tintImage:(UIImage *)image WithColor:(UIColor *)color
+{
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, 0, image.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    CGContextSetBlendMode(context, kCGBlendModeNormal);
+    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
+    CGContextClipToMask(context, rect, image.CGImage);
+    [color setFill];
+    CGContextFillRect(context, rect);
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 - (void)removeGestures __deprecated {

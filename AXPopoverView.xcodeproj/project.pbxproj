@@ -17,6 +17,7 @@
 		01E7EAA71BFB6DC3001176A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01E7EAA51BFB6DC3001176A2 /* LaunchScreen.storyboard */; };
 		01E7EAB11BFB6E3E001176A2 /* AXPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */; };
 		01EEF3601C09E31500A24C47 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 01EEF35F1C09E31500A24C47 /* test.jpg */; };
+		01EEF3621C0AB01000A24C47 /* AXPopoverView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 01EEF3611C0AB01000A24C47 /* AXPopoverView.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		01E7EAAF1BFB6E3E001176A2 /* AXPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXPopoverView.h; sourceTree = "<group>"; };
 		01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXPopoverView.m; sourceTree = "<group>"; };
 		01EEF35F1C09E31500A24C47 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
+		01EEF3611C0AB01000A24C47 /* AXPopoverView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AXPopoverView.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			children = (
 				01E7EAAF1BFB6E3E001176A2 /* AXPopoverView.h */,
 				01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */,
+				01EEF3611C0AB01000A24C47 /* AXPopoverView.bundle */,
 			);
 			path = AXPopoverView;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01EEF3621C0AB01000A24C47 /* AXPopoverView.bundle in Resources */,
 				01E7EAA71BFB6DC3001176A2 /* LaunchScreen.storyboard in Resources */,
 				01E7EAA41BFB6DC3001176A2 /* Assets.xcassets in Resources */,
 				01EEF3601C09E31500A24C47 /* test.jpg in Resources */,

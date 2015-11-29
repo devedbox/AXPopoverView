@@ -131,7 +131,11 @@ typedef NS_ENUM(NSInteger, AXPopoverCustomViewMode) {
     /// Progress is shown using a horizontal progress bar
     AXPopoverDeterminateHorizontalBar,
     /// Progress is shown using a ring-shaped progress view.
-    AXPopoverDeterminateAnnularEnabled
+    AXPopoverDeterminateAnnularEnabled,
+    /// Show a custom view with success style.
+    AXPopoverSuccess,
+    /// Show a custom view with error style.
+    AXPopoverError
 };
 /// Popover view animation block.
 /// @discusstion Using this block to customize showing/hiding animation of popover view.
