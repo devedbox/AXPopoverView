@@ -76,6 +76,9 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
 
 UIWindow static *_popoverWindow;
 
+static NSString *const kAXPopoverHidesOptionAnimatedKey = @"ax_hide_option_animated";
+static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
+
 @implementation AXPopoverView
 - (instancetype)init {
     if (self = [super init]) {
@@ -773,7 +776,7 @@ UIWindow static *_popoverWindow;
     }
 }
 
-- (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(dispatch_block_t)completion
+- (void)hideAnimated:(BOOL)animated completion:(dispatch_block_t)completion
 {
     if (_isHiding) return;
     UIView *view;
@@ -820,15 +823,23 @@ UIWindow static *_popoverWindow;
     } completion:nil];
 }
 
+- (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(dispatch_block_t)completion
+{
+    if (completion) {
+        _hidesCompletion = [completion copy];
+    }
+    [self performSelector:@selector(delayHideWithOptions:) withObject:@{kAXPopoverHidesOptionAnimatedKey:@(animated)} afterDelay:delay];
+}
+
 - (void)showInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration {
     [self showInRect:rect animated:animated completion:^{
-        [self performSelector:@selector(delayHide) withObject:nil afterDelay:duration];
+        [self hideAnimated:animated afterDelay:duration completion:nil];
     }];
 }
 
 - (void)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration {
     [self showFromView:view animated:animated completion:^{
-        [self performSelector:@selector(delayHide) withObject:nil afterDelay:duration];
+        [self hideAnimated:animated afterDelay:duration completion:nil];
     }];
 }
 
@@ -837,8 +848,8 @@ UIWindow static *_popoverWindow;
     [self showInRect:rect animated:animated completion:completion];
 }
 
-- (void)delayHide {
-    [self hideAnimated:YES afterDelay:0 completion:nil];
+- (void)delayHideWithOptions:(NSDictionary *)option {
+    [self hideAnimated:[[option objectForKey:kAXPopoverHidesOptionAnimatedKey] boolValue] completion:nil];
 }
 
 - (void)viewWillShow:(BOOL)animated {
