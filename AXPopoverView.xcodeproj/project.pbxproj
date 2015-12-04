@@ -101,9 +101,9 @@
 		01E7EAAE1BFB6E3E001176A2 /* AXPopoverView */ = {
 			isa = PBXGroup;
 			children = (
+				01EEF3611C0AB01000A24C47 /* AXPopoverView.bundle */,
 				01E7EAAF1BFB6E3E001176A2 /* AXPopoverView.h */,
 				01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */,
-				01EEF3611C0AB01000A24C47 /* AXPopoverView.bundle */,
 			);
 			path = AXPopoverView;
 			sourceTree = "<group>";

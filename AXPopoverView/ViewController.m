@@ -30,6 +30,7 @@
     footerView.backgroundColor = [UIColor greenColor];
     _popoverView.headerView = headerView;
     _popoverView.footerView = footerView;
+    _popoverView.showsOnPopoverWindow = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,26 +39,28 @@
 }
 #pragma mark - Actions
 - (IBAction)topLeft:(UIButton *)sender {
-     _popover = [AXPopoverView showLabelFromView:sender animated:YES duration:10.0 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速" configuration:^(AXPopoverView *popoverView) {
+     _popover = [AXPopoverView showLabelFromView:sender animated:YES duration:17.0 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速" configuration:^(AXPopoverView *popoverView) {
          popoverView.showsOnPopoverWindow = NO;
          popoverView.translucent = YES;
+         popoverView.lockBackground = YES;
+         popoverView.dimBackground = YES;
          popoverView.preferredArrowDirection = AXPopoverArrowDirectionTop;
-//         popoverView.translucentStyle = AXPopoverTranslucentLight;
+         popoverView.translucentStyle = AXPopoverTranslucentLight;
          popoverView.headerMode = AXPopoverIndeterminate;
-         popoverView.titleTextColor = [UIColor whiteColor];
-         popoverView.detailTextColor = [UIColor whiteColor];
-         popoverView.indicatorColor = [UIColor whiteColor];
-         popoverView.itemTintColor = [UIColor whiteColor];
-         popoverView.items = @[@"你好"];
+         popoverView.titleTextColor = [UIColor blackColor];
+         popoverView.detailTextColor = [UIColor blackColor];
+         popoverView.indicatorColor = [UIColor blackColor];
+         popoverView.itemTintColor = [UIColor blackColor];
+         popoverView.items = @[@"你好", @"你好啊"];
          popoverView.itemHandler = ^(UIButton *sender, NSUInteger index) {
              [AXPopoverView showLabelInRect:CGRectMake(self.view.bounds.size.width*.5-5, 10, 10, 10) animated:YES duration:2.5 title:@"消息" detail:@"你好，这是点击｀你好｀之后的消息" configuration:^(AXPopoverView *popoverView2) {
                  popoverView2.showsOnPopoverWindow = NO;
                  popoverView2.translucent = YES;
                  popoverView2.preferredArrowDirection = AXPopoverArrowDirectionTop;
-//                 popoverView2.translucentStyle = AXPopoverTranslucentLight;
-                 popoverView2.titleTextColor = [UIColor whiteColor];
-                 popoverView2.detailTextColor = [UIColor whiteColor];
-                 popoverView2.indicatorColor = [UIColor whiteColor];
+                 popoverView2.translucentStyle = AXPopoverTranslucentLight;
+                 popoverView2.titleTextColor = [UIColor blackColor];
+                 popoverView2.detailTextColor = [UIColor blackColor];
+                 popoverView2.indicatorColor = [UIColor blackColor];
              }];
          };
          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -66,11 +69,11 @@
                  popoverView.headerMode = AXPopoverDeterminate;
                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                      popoverView.headerMode = AXPopoverDeterminateHorizontalBar;
-                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                          popoverView.headerMode = AXPopoverSuccess;
-                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                              popoverView.headerMode = AXPopoverError;
-                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                  popoverView.headerMode = AXPopoverCustomView;
                              });
                          });

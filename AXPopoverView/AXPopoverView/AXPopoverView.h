@@ -121,7 +121,7 @@ typedef NS_ENUM(NSUInteger, AXPopoverTranslucentStyle) {
     AXPopoverTranslucentLight
 };
 /// Mode of custom header view.
-typedef NS_ENUM(NSInteger, AXPopoverCustomViewMode) {
+typedef NS_ENUM(NSUInteger, AXPopoverCustomViewMode) {
     /// Shows a custom view
     AXPopoverCustomView,
     /// Progress is shown using an UIActivityIndicatorView. This is the default.
@@ -136,6 +136,13 @@ typedef NS_ENUM(NSInteger, AXPopoverCustomViewMode) {
     AXPopoverSuccess,
     /// Show a custom view with error style.
     AXPopoverError
+};
+/// Style of additional buttons.
+typedef NS_ENUM(NSUInteger, AXPopoverAdditionalButtonStyle) {
+    /// Lay on the horizontal direction.
+    AXPopoverAdditionalButtonHorizontal,
+    /// Lay on the vertical direction.
+    AXPopoverAdditionalButtonVertical
 };
 /// Popover view animation block.
 /// @discusstion Using this block to customize showing/hiding animation of popover view.
@@ -191,7 +198,7 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 @property(assign, nonatomic, getter=isTranslucent) BOOL translucent;
 /// Translucent style.
 @property(assign, nonatomic) AXPopoverTranslucentStyle translucentStyle UI_APPEARANCE_SELECTOR;
-/// Shows on popover window.
+/// Shows on popover window. Defaults to NO.
 /// @discusstion If `showsOnPopoverWindow` is `YES`, the popover view will show on a new window.
 ///              If `showsOnPopoverWindow` is `NO`, the popover view will show on the application
 ///              main window. Defaults to `YES`.
@@ -228,17 +235,17 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 //  @name Labels properties.
 // ---------------------------------------------------------------------------------------
 //
-/// Title of popover label.
+/// Title of popover label. 
 @property(copy, nonatomic) NSString *title;
 /// Detail of popover label.
 @property(copy, nonatomic) NSString *detail;
-/// Font of title label. Defaults to system 14.
+/// Font of title label. Defaults to system 14 font size.
 @property(strong, nonatomic) UIFont *titleFont UI_APPEARANCE_SELECTOR;
-/// Title label text color.
+/// Title label text color. Defaults to black with 0.7 alpha.
 @property(strong, nonatomic) UIColor *titleTextColor UI_APPEARANCE_SELECTOR;
-/// Font of detail label. Defaults to system 12.
+/// Font of detail label. Defaults to system 12 font size.
 @property(strong, nonatomic) UIFont *detailFont UI_APPEARANCE_SELECTOR;
-/// Detail label text color.
+/// Detail label text color. Defaults to black with 0.5 alpha.
 @property(strong, nonatomic) UIColor *detailTextColor UI_APPEARANCE_SELECTOR;
 /// Fade the content. Defaults to NO.
 @property(assign, nonatomic) BOOL fadeContentEnabled __deprecated_msg(" Fade content is always disable.");
@@ -249,17 +256,23 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 //
 /// Items of buttons.
 @property(copy, nonatomic) NSArray *items;
-/// Height of button.
+/// Button style. Defaults to `AXPopoverAdditionalButtonHorizontal`.
+@property(assign, nonatomic) AXPopoverAdditionalButtonStyle itemStyle;
+/// Prefered width for single item., Default is 240.
+@property(assign, nonatomic) CGFloat preferedWidthForSingleItem;
+/// Should use popover prefered width on single item. Defaults to YES;
+@property(assign, nonatomic) BOOL shouldUsePopoverPreferedWidthOnSingleItem;
+/// Height of button. Defaults to 30 pt.
 @property(assign, nonatomic) CGFloat heightOfButtons UI_APPEARANCE_SELECTOR;
-/// Minimum width of buttons.
+/// Minimum width of buttons. Defaults to 44 pt.
 @property(assign, nonatomic) CGFloat minWidthOfButtons UI_APPEARANCE_SELECTOR;
-/// Tint color of button item.
+/// Tint color of button item. Defaults to black color.
 @property(strong, nonatomic) UIColor *itemTintColor UI_APPEARANCE_SELECTOR;
-/// Font of button item.
+/// Font of button item. Defaults to system 12 font size.
 @property(strong, nonatomic) UIFont *itemFont UI_APPEARANCE_SELECTOR;
-/// CornerRadius of button item.
+/// CornerRadius of button item. Defaults to 3.f.
 @property(assign, nonatomic) CGFloat itemCornerRadius UI_APPEARANCE_SELECTOR;
-/// Handler block.
+/// Handler block. Defauts to NULL.
 @property(copy, nonatomic) AXPopoverViewItemHandler itemHandler;
 //
 // ---------------------------------------------------------------------------------------

@@ -115,12 +115,13 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     _backgroundDrawingColor = [UIColor colorWithRed:0.996f green:0.867f blue:0.522f alpha:1.00f];
     _removeFromSuperViewOnHide = YES;
     _animator = [[AXPopoverViewAnimator alloc] init];
-    _showsOnPopoverWindow = YES;
+    _showsOnPopoverWindow = NO;
     _lockBackground = NO;
     _hideOnTouch = YES;
     self.translucent = YES;
     [self addSubview:self.contentView];
     [self setUpWindow];
+    
     _titleFont = [UIFont systemFontOfSize:14];
     _detailFont = [UIFont systemFontOfSize:12];
     _titleTextColor = [UIColor colorWithWhite:0 alpha:0.7];
@@ -130,12 +131,15 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     _padding = 4;
     _fadeContentEnabled = NO;
     
-    _indicatorColor = [UIColor whiteColor];
+    _indicatorColor = [UIColor blackColor];
     _heightOfButtons = 30;
     _minWidthOfButtons = 44;
-    _itemTintColor = [UIColor whiteColor];
+    _itemTintColor = [UIColor blackColor];
     _itemFont = _detailFont;
     _itemCornerRadius = 3.0;
+    _itemStyle = AXPopoverAdditionalButtonHorizontal;
+    _preferedWidthForSingleItem = 240.f;
+    _shouldUsePopoverPreferedWidthOnSingleItem = YES;
     
     [_contentView addSubview:self.titleLabel];
     [_contentView addSubview:self.detailLabel];
@@ -167,7 +171,11 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
             }
         }
         if (_lockBackground) {
-            return self;
+            if (hitView) {
+                return hitView;
+            } else {
+                return self;
+            }
         }
     }
     return hitView;
@@ -669,19 +677,19 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         if ([_headerView isKindOfClass:[UIActivityIndicatorView class]]) {
             [_headerView setValue:_indicatorColor forKeyPath:@"color"];
         } else if([_headerView isKindOfClass:[AXPopoverBarProgressView class]]) {
-            [_headerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"lineColor"];
+            [_headerView setValue:[_indicatorColor colorWithAlphaComponent:0.7] forKeyPath:@"lineColor"];
             [_headerView setValue:_indicatorColor forKeyPath:@"progressColor"];
         } else if ([_headerView isKindOfClass:[AXPopoverCircleProgressView class]]) {
-            [_headerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"progressColor"];
+            [_headerView setValue:[_indicatorColor colorWithAlphaComponent:0.7] forKeyPath:@"progressColor"];
             [_headerView setValue:_indicatorColor forKeyPath:@"progressBgnColor"];
         }
         if ([_footerView isKindOfClass:[UIActivityIndicatorView class]]) {
             [_footerView setValue:_indicatorColor forKeyPath:@"color"];
         } else if([_footerView isKindOfClass:[AXPopoverBarProgressView class]]) {
-            [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"lineColor"];
+            [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.7] forKeyPath:@"lineColor"];
             [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.1] forKeyPath:@"progressColor"];
         } else if ([_footerView isKindOfClass:[AXPopoverCircleProgressView class]]) {
-            [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.8] forKeyPath:@"progressColor"];
+            [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.7] forKeyPath:@"progressColor"];
             [_footerView setValue:[_indicatorColor colorWithAlphaComponent:0.1] forKeyPath:@"progressBgnColor"];
         }
     });
@@ -731,6 +739,16 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 - (void)setItemCornerRadius:(CGFloat)itemCornerRadius {
     _itemCornerRadius = itemCornerRadius;
+    self.footerView = [self additionalButtonsViewWithItems:_items];
+}
+
+- (void)setPreferedWidthForSingleItem:(CGFloat)preferedWidthForSingleItem {
+    _preferedWidthForSingleItem = preferedWidthForSingleItem;
+    self.footerView = [self additionalButtonsViewWithItems:_items];
+}
+
+- (void)setItemStyle:(AXPopoverAdditionalButtonStyle)itemStyle {
+    _itemStyle = itemStyle;
     self.footerView = [self additionalButtonsViewWithItems:_items];
 }
 
@@ -818,9 +836,11 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         _animator.hiding(self, animated, _targetRect);
         [self viewHiding:YES];
     }
-    [UIView animateWithDuration:animationDuration animations:^{
-        _backgroundView.alpha = 0.0;
-    } completion:nil];
+    if (self.popoverWindow.referenceCount == 1) {
+        [UIView animateWithDuration:animationDuration animations:^{
+            _backgroundView.alpha = 0.0;
+        } completion:nil];
+    }
 }
 
 - (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(dispatch_block_t)completion
@@ -997,7 +1017,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 - (void)setUpWindow {
     _backgroundView = [[UIView alloc] initWithFrame:self.popoverWindow.bounds];
-    _backgroundView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+    _backgroundView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
     _backgroundView.userInteractionEnabled = NO;
     _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.popoverWindow addSubview:_backgroundView];
@@ -1009,23 +1029,23 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     UIEdgeInsets margins = UIEdgeInsetsMake(rect.origin.y, rect.origin.x, self.popoverWindow.bounds.size.height - CGRectGetMaxY(rect), self.popoverWindow.bounds.size.width - CGRectGetMaxX(rect));
     NSMutableArray *availableDirections = [NSMutableArray array];
     if ([_priority isEqualToString:AXPopoverPriorityHorizontal]) {
-        if (margins.left > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 左边显示
+        if (margins.left > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// Show on left.
             [availableDirections addObject:@(AXPopoverArrowDirectionRight)];
-        } if (margins.right > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 右边显示
+        } if (margins.right > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// Show on right.
             [availableDirections addObject:@(AXPopoverArrowDirectionLeft)];
-        } if (margins.top > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// 优先在上方显示
+        } if (margins.top > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// Show on top.
             [availableDirections addObject:@(AXPopoverArrowDirectionBottom)];
-        } if (margins.bottom > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// 下方显示
+        } if (margins.bottom > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// Show on bottom.
             [availableDirections addObject:@(AXPopoverArrowDirectionTop)];
         }
     } else {
-        if (margins.top > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// 优先在上方显示
+        if (margins.top > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// Show on top.
             [availableDirections addObject:@(AXPopoverArrowDirectionBottom)];
-        } if (margins.bottom > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// 下方显示
+        } if (margins.bottom > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// Show on bottom.
             [availableDirections addObject:@(AXPopoverArrowDirectionTop)];
-        } if (margins.left > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 左边显示
+        } if (margins.left > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// Show on left.
             [availableDirections addObject:@(AXPopoverArrowDirectionRight)];
-        } if (margins.right > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// 右边显示
+        } if (margins.right > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// Show on right.
             [availableDirections addObject:@(AXPopoverArrowDirectionLeft)];
         }
     }
@@ -1106,6 +1126,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     CGFloat constantX = constant*sin(angle*M_PI/360);
     CGFloat constantY = constant*cos(angle*M_PI/360);
     CGFloat xConstant = x - arrowWidth_2;
+    if (xConstant < 0) return;
     if (xConstant - constant < _cornerRadius) {
         CGContextAddLineToPoint(cxt, MAX(xConstant, _cornerRadius), CGRectGetMinY(self.bounds) + height);
     } else {
@@ -1114,6 +1135,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     }
     CGContextAddLineToPoint(cxt, x, CGRectGetMinY(self.bounds));
     xConstant = x + arrowWidth_2;
+    if (xConstant > CGRectGetMaxX(self.bounds)) return;
     if (xConstant + constant > CGRectGetWidth(self.bounds) - _cornerRadius) {
         CGContextAddLineToPoint(cxt, MIN(xConstant, CGRectGetWidth(self.bounds) - _cornerRadius), CGRectGetMinY(self.bounds) + height);
     } else {
@@ -1129,6 +1151,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     CGFloat constantX = constant*sin(angle*M_PI/360);
     CGFloat constantY = constant*cos(angle*M_PI/360);
     CGFloat xConstant = x + arrowWidth_2;
+    if (xConstant > CGRectGetMaxX(self.bounds)) return;
     if (xConstant + constant > CGRectGetWidth(self.bounds) - _cornerRadius) {
         CGContextAddLineToPoint(cxt, MIN(xConstant, CGRectGetWidth(self.bounds) - _cornerRadius), CGRectGetMaxY(self.bounds) - height);
     } else {
@@ -1137,6 +1160,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     }
     CGContextAddLineToPoint(cxt, x, CGRectGetMaxY(self.bounds));
     xConstant = x - arrowWidth_2;
+    if (xConstant < 0) return;
     if (xConstant - constant < _cornerRadius) {
         CGContextAddLineToPoint(cxt, MAX(xConstant, _cornerRadius), CGRectGetMaxY(self.bounds) - height);
     } else {
@@ -1152,6 +1176,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     CGFloat constantY = constant*sin(angle*M_PI/360);
     CGFloat constantX = constant*cos(angle*M_PI/360);
     CGFloat Yconstant = y + arrowHtight_2;
+    if (Yconstant > CGRectGetMaxY(self.bounds)) return;
     if (Yconstant + constant > CGRectGetHeight(self.bounds) - _cornerRadius) {
         CGContextAddLineToPoint(cxt, CGRectGetMinX(self.bounds) + width, MIN(Yconstant, CGRectGetHeight(self.bounds) - _cornerRadius));
     } else {
@@ -1160,6 +1185,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     }
     CGContextAddLineToPoint(cxt, CGRectGetMinX(self.bounds), y);
     Yconstant = y - arrowHtight_2;
+    if (Yconstant < 0) return;
     if (Yconstant - constant < _cornerRadius) {
         CGContextAddLineToPoint(cxt, CGRectGetMinX(self.bounds) + width, MAX(Yconstant, _cornerRadius));
     } else {
@@ -1175,6 +1201,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     CGFloat constantY = constant*sin(angle*M_PI/360);
     CGFloat constantX = constant*cos(angle*M_PI/360);
     CGFloat Yconstant = y - arrowHtight_2;
+    if (Yconstant < 0) return;
     if (Yconstant - constant < _cornerRadius) {
         CGContextAddLineToPoint(cxt, CGRectGetMaxX(self.bounds) - width, MAX(Yconstant, _cornerRadius));
     } else {
@@ -1183,6 +1210,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     }
     CGContextAddLineToPoint(cxt, CGRectGetMaxX(self.bounds), y);
     Yconstant = y + arrowHtight_2;
+    if (Yconstant > CGRectGetMaxY(self.bounds)) return;
     if (Yconstant + constant > CGRectGetHeight(self.bounds) - _cornerRadius) {
         CGContextAddLineToPoint(cxt, CGRectGetMaxX(self.bounds) - width, MIN(Yconstant, CGRectGetHeight(self.bounds) - _cornerRadius));
     } else {
@@ -1204,42 +1232,45 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
             [indicator startAnimating];
             indicator.color = _indicatorColor;
             return indicator;
-        }
-        case AXPopoverDeterminate:
+        } case AXPopoverDeterminate:
         {
             AXPopoverCircleProgressView *progressView = [[AXPopoverCircleProgressView alloc] init];
             progressView.annularEnabled = NO;
-            progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.8];
+            progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.7];
             progressView.progressBgnColor = [_indicatorColor colorWithAlphaComponent:0.1];
             return progressView;
-        }
-        case AXPopoverDeterminateAnnularEnabled:
+        } case AXPopoverDeterminateAnnularEnabled:
         {
             AXPopoverCircleProgressView *progressView = [[AXPopoverCircleProgressView alloc] init];
             progressView.annularEnabled = YES;
-            progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.8];
+            progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.7];
             progressView.progressBgnColor = [_indicatorColor colorWithAlphaComponent:0.1];
             return progressView;
-        }
-        case AXPopoverDeterminateHorizontalBar:
+        } case AXPopoverDeterminateHorizontalBar:
         {
             AXPopoverBarProgressView *progressView = [[AXPopoverBarProgressView alloc] init];
             progressView.lineColor = [_indicatorColor colorWithAlphaComponent:0.5];
-            progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.8];
+            progressView.progressColor = [_indicatorColor colorWithAlphaComponent:0.7];
             return progressView;
-        }
-        case AXPopoverSuccess:
+        } case AXPopoverSuccess:
         {
-            UIImage *image = [self tintImage:[UIImage imageNamed:@"AXPopoverView.bundle/ax_success"] WithColor:_indicatorColor];
+            UIImage *image = [self tintImage:[UIImage imageNamed:@"AXPopoverView.bundle/ax_success"] WithColor:[_indicatorColor colorWithAlphaComponent:0.7]];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
             [imageView sizeToFit];
+            CGRect rect = imageView.frame;
+            rect.size.width = rect.size.width * (37/rect.size.height);
+            rect.size.height = 37;
+            imageView.frame = rect;
             return imageView;
-        }
-        case AXPopoverError:
+        } case AXPopoverError:
         {
-            UIImage *image = [self tintImage:[UIImage imageNamed:@"AXPopoverView.bundle/ax_error"] WithColor:_indicatorColor];
+            UIImage *image = [self tintImage:[UIImage imageNamed:@"AXPopoverView.bundle/ax_error"] WithColor:[_indicatorColor colorWithAlphaComponent:0.7]];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
             [imageView sizeToFit];
+            CGRect rect = imageView.frame;
+            rect.size.width = rect.size.width * (37/rect.size.height);
+            rect.size.height = 37;
+            imageView.frame = rect;
             return imageView;
         }
         default:
@@ -1253,30 +1284,64 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 - (UIView *)additionalButtonsViewWithItems:(NSArray *)items {
     if (!items || items.count == 0) return nil;
-    CGFloat prefredButtonWidth = (_preferredWidth-_padding*(items.count -1))/items.count;
-    if (prefredButtonWidth<_minWidthOfButtons) {
-        prefredButtonWidth = _minWidthOfButtons;
+    switch (_itemStyle) {
+        case AXPopoverAdditionalButtonHorizontal:
+        {
+            CGFloat prefredButtonWidth = 0.f;
+            if (items.count == 1) {
+                if (_shouldUsePopoverPreferedWidthOnSingleItem) {
+                    prefredButtonWidth = _preferredWidth;
+                } else {
+                    prefredButtonWidth = _preferedWidthForSingleItem;
+                }
+            } else {
+                prefredButtonWidth = (_preferredWidth-_padding*(items.count -1))/items.count;
+            }
+            if (prefredButtonWidth<_minWidthOfButtons) {
+                prefredButtonWidth = _minWidthOfButtons;
+            }
+            CGFloat totalWidth = items.count*prefredButtonWidth + (items.count - 1)*_padding;
+            UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, totalWidth, _heightOfButtons)];
+            footerView.backgroundColor = [UIColor clearColor];
+            for (NSInteger i = 0; i < items.count; i++) {
+                NSString *item = items[i];
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+                [button setTitle:item forState:UIControlStateNormal];
+                button.backgroundColor = [_itemTintColor colorWithAlphaComponent:0.1];
+                button.tintColor = _itemTintColor;
+                button.titleLabel.font = _itemFont;
+                button.layer.cornerRadius = _itemCornerRadius;
+                button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
+                [button setFrame:CGRectMake(_padding*i+prefredButtonWidth*i, 0, prefredButtonWidth, _heightOfButtons)];
+                [footerView addSubview:button];
+                button.tag = kAXPopoverItemTag + i + 1;
+                [button addTarget:self action:@selector(handleItemAction:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            return footerView;
+        }
+        case AXPopoverAdditionalButtonVertical:
+        {
+            UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _shouldUsePopoverPreferedWidthOnSingleItem?_preferredWidth:_preferedWidthForSingleItem, _heightOfButtons * items.count + (items.count - 1)*_padding)];
+            footerView.backgroundColor = [UIColor clearColor];
+            for (NSUInteger i = 0; i < items.count; i ++) {
+                NSString *item = items[i];
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+                [button setTitle:item forState:UIControlStateNormal];
+                button.backgroundColor = [_itemTintColor colorWithAlphaComponent:0.1];
+                button.tintColor = _itemTintColor;
+                button.titleLabel.font = _itemFont;
+                button.layer.cornerRadius = _itemCornerRadius;
+                button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
+                [button setFrame:CGRectMake(0, _padding*i+_heightOfButtons*i, _shouldUsePopoverPreferedWidthOnSingleItem?_preferredWidth:_preferedWidthForSingleItem, _heightOfButtons)];
+                [footerView addSubview:button];
+                button.tag = kAXPopoverItemTag + i + 1;
+                [button addTarget:self action:@selector(handleItemAction:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            return footerView;
+        }
+        default:
+            return nil;
     }
-    CGFloat totalWidth = items.count*prefredButtonWidth + (items.count - 1)*_padding;
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, totalWidth, _heightOfButtons)];
-    footerView.backgroundColor = [UIColor clearColor];
-    for (NSInteger i = 0; i < items.count; i++) {
-        NSString *item = items[i];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [button setTitle:item forState:UIControlStateNormal];
-        button.backgroundColor = [UIColor clearColor];
-        button.tintColor = _itemTintColor;
-        button.titleLabel.font = _itemFont;
-        button.layer.cornerRadius = _itemCornerRadius;
-        button.layer.borderWidth = 1.0;
-        button.layer.borderColor = _itemTintColor.CGColor;
-        button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
-        [button setFrame:CGRectMake(_padding*i+prefredButtonWidth*i, 0, prefredButtonWidth, _heightOfButtons)];
-        [footerView addSubview:button];
-        button.tag = kAXPopoverItemTag + i + 1;
-        [button addTarget:self action:@selector(handleItemAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return footerView;
 }
 
 - (void)handleItemAction:(UIButton *)sender {
@@ -1316,14 +1381,14 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 + (instancetype)showLabelInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(nullable AXPopoverViewConfiguration)config
 {
-    AXPopoverView *label = [[AXPopoverView alloc] initWithFrame:CGRectZero];
-    label.title = title;
-    label.detail = detail;
+    AXPopoverView *popoverView = [[AXPopoverView alloc] initWithFrame:CGRectZero];
+    popoverView.title = title;
+    popoverView.detail = detail;
     if (config) {
-        config(label);
+        config(popoverView);
     }
-    [label showInRect:rect animated:animated duration:duration];
-    return label;
+    [popoverView showInRect:rect animated:animated duration:duration];
+    return popoverView;
 }
 
 + (instancetype)showLabelFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail
@@ -1333,14 +1398,14 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 + (instancetype)showLabelFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(nullable AXPopoverViewConfiguration)config
 {
-    AXPopoverView *label = [[AXPopoverView alloc] initWithFrame:CGRectZero];
-    label.title = title;
-    label.detail = detail;
+    AXPopoverView *popoverView = [[AXPopoverView alloc] initWithFrame:CGRectZero];
+    popoverView.title = title;
+    popoverView.detail = detail;
     if (config) {
-        config(label);
+        config(popoverView);
     }
-    [label showFromView:view animated:animated duration:duration];
-    return label;
+    [popoverView showFromView:view animated:animated duration:duration];
+    return popoverView;
 }
 @end
 @implementation AXPopoverViewAnimator
@@ -1465,7 +1530,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 #pragma mark -
 @implementation AXPopoverBarProgressView
 - (instancetype)init {
-    if (self = [super initWithFrame:CGRectMake(0, 0, 120, 12)]) {
+    if (self = [super initWithFrame:CGRectMake(0, 0, 240, 12)]) {
         [self initializer];
     }
     return self;
@@ -1492,7 +1557,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGContextSetLineWidth(context, 2);
+    CGContextSetLineWidth(context, 1);
     CGContextSetStrokeColorWithColor(context,_lineColor.CGColor);
     CGContextSetFillColorWithColor(context, _trackColor.CGColor);
     
@@ -1652,12 +1717,12 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         // draw background
         [_progressColor setStroke];
         [_progressBgnColor setFill];
-        CGContextSetLineWidth(context, 2.0f);
+        CGContextSetLineWidth(context, 1.0f);
         CGContextFillEllipseInRect(context, circleRect);
         CGContextStrokeEllipseInRect(context, circleRect);
         // Draw progress
         CGPoint center = CGPointMake(allRect.size.width / 2, allRect.size.height / 2);
-        CGFloat radius = (allRect.size.width - 4) / 2;
+        CGFloat radius = (allRect.size.width - 8) / 2;
         CGFloat startAngle = - ((float)M_PI / 2); // 90 degrees
         CGFloat endAngle = (self.progress * 2 * (float)M_PI) + startAngle;
         [_progressColor setFill];
