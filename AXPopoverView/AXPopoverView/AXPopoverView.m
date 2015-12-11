@@ -45,9 +45,9 @@ if ([NSThread isMainThread]) {\
     dispatch_block_t _hidesCompletion;
     BOOL _isShowing;
     BOOL _isHiding;
-    SEL _method;
-    id _target;
-    id _object;
+    SEL  _method;
+    id   _target;
+    id   _object;
 }
 /// Previous app key window.
 @property(weak, nonatomic) UIWindow *previousKeyWindow __deprecated;
@@ -62,7 +62,7 @@ if ([NSThread isMainThread]) {\
 @property(strong, nonatomic) UIVisualEffectView *effectView;
 #else
 /// Blur effect bar.
-@property(strong, nonatomic) UIToolbar *effectBar;
+@property(strong, nonatomic) UIToolbar          *effectBar;
 #endif
 #pragma mark - Label
 /// Title label
@@ -73,6 +73,12 @@ if ([NSThread isMainThread]) {\
 
 NSString *const AXPopoverPriorityHorizontal = @"AXPopoverPriorityHorizontal";
 NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
+
+static NSUInteger const kAXPopoverPriorityLow = 250;
+static NSUInteger const kAXPopoverPriorityMiddle = 500;
+static NSUInteger const kAXPopoverPriorityHigh = 750;
+static NSUInteger const kAXPopoverPriorityPerfect = 1000;
+static char      *const kAXPopoverPriorityKey = "kAXPopoverPriorityKey";
 
 UIWindow static *_popoverWindow;
 
@@ -1029,24 +1035,60 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     UIEdgeInsets margins = UIEdgeInsetsMake(rect.origin.y, rect.origin.x, self.popoverWindow.bounds.size.height - CGRectGetMaxY(rect), self.popoverWindow.bounds.size.width - CGRectGetMaxX(rect));
     NSMutableArray *availableDirections = [NSMutableArray array];
     if ([_priority isEqualToString:AXPopoverPriorityHorizontal]) {
-        if (margins.left > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// Show on left.
+        CGFloat margin=.0;
+        if (margins.left >= CGRectGetWidth(self.bounds)) {// Show on left.
             [availableDirections addObject:@(AXPopoverArrowDirectionRight)];
-        } if (margins.right > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// Show on right.
-            [availableDirections addObject:@(AXPopoverArrowDirectionLeft)];
-        } if (margins.top > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// Show on top.
-            [availableDirections addObject:@(AXPopoverArrowDirectionBottom)];
-        } if (margins.bottom > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// Show on bottom.
-            [availableDirections addObject:@(AXPopoverArrowDirectionTop)];
+            margin = margins.left;
+        } if (margins.right >= CGRectGetWidth(self.bounds)) {// Show on right.
+            if (margins.right >= margin) {
+                [availableDirections insertObject:@(AXPopoverArrowDirectionLeft) atIndex:0];
+            } else {
+                [availableDirections addObject:@(AXPopoverArrowDirectionLeft)];
+            }
+            margin = margins.right;
+        } if (margins.top >= CGRectGetHeight(self.bounds)) {// Show on top.
+            if (margins.top >= margin) {
+                [availableDirections insertObject:@(AXPopoverArrowDirectionBottom) atIndex:0];
+            } else {
+                [availableDirections addObject:@(AXPopoverArrowDirectionBottom)];
+            }
+            margin = margins.top;
+        } if (margins.bottom >= CGRectGetHeight(self.bounds)) {// Show on bottom.
+            if (margins.bottom >= margin) {
+                [availableDirections insertObject:@(AXPopoverArrowDirectionTop) atIndex:0];
+            } else {
+                [availableDirections addObject:@(AXPopoverArrowDirectionTop)];
+            }
         }
     } else {
-        if (margins.top > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// Show on top.
-            [availableDirections addObject:@(AXPopoverArrowDirectionBottom)];
-        } if (margins.bottom > CGRectGetHeight(self.bounds) && (margins.left - _offsets.x > _cornerRadius || margins.right > _cornerRadius)) {// Show on bottom.
-            [availableDirections addObject:@(AXPopoverArrowDirectionTop)];
-        } if (margins.left > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// Show on left.
-            [availableDirections addObject:@(AXPopoverArrowDirectionRight)];
-        } if (margins.right > CGRectGetWidth(self.bounds) && (margins.top - _offsets.y > _cornerRadius || margins.bottom > _cornerRadius)) {// Show on right.
-            [availableDirections addObject:@(AXPopoverArrowDirectionLeft)];
+        CGFloat margin=.0;
+        if (margins.top >= CGRectGetHeight(self.bounds)) {// Show on top.
+            if (margins.top >= margin) {
+                [availableDirections insertObject:@(AXPopoverArrowDirectionBottom) atIndex:0];
+            } else {
+                [availableDirections addObject:@(AXPopoverArrowDirectionBottom)];
+            }
+            margin = margins.top;
+        } if (margins.bottom >= CGRectGetHeight(self.bounds)) {// Show on bottom.
+            if (margins.bottom >= margin) {
+                [availableDirections insertObject:@(AXPopoverArrowDirectionTop) atIndex:0];
+            } else {
+                [availableDirections addObject:@(AXPopoverArrowDirectionTop)];
+            }
+            margin = margins.bottom;
+        } if (margins.left >= CGRectGetWidth(self.bounds)) {// Show on left.
+            if (margins.left >= margin) {
+                [availableDirections insertObject:@(AXPopoverArrowDirectionRight) atIndex:0];
+            } else {
+                [availableDirections addObject:@(AXPopoverArrowDirectionRight)];
+            }
+            margin = margins.left;
+        } if (margins.right >= CGRectGetWidth(self.bounds)) {// Show on right.
+            if (margins.right >= margin) {
+                [availableDirections insertObject:@(AXPopoverArrowDirectionLeft) atIndex:0];
+            } else {
+                [availableDirections addObject:@(AXPopoverArrowDirectionLeft)];
+            }
         }
     }
     if (availableDirections.count > 0) {
@@ -1058,7 +1100,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         } else
             return [[availableDirections firstObject] integerValue];
     }
-    return AXPopoverArrowDirectionTop;
+    return AXPopoverArrowDirectionAny;
 }
 
 - (void)updateFrameWithRect:(CGRect)rct {
