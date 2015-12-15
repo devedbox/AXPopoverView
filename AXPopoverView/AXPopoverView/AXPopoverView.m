@@ -74,12 +74,6 @@ if ([NSThread isMainThread]) {\
 NSString *const AXPopoverPriorityHorizontal = @"AXPopoverPriorityHorizontal";
 NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
 
-static NSUInteger const kAXPopoverPriorityLow = 250;
-static NSUInteger const kAXPopoverPriorityMiddle = 500;
-static NSUInteger const kAXPopoverPriorityHigh = 750;
-static NSUInteger const kAXPopoverPriorityPerfect = 1000;
-static char      *const kAXPopoverPriorityKey = "kAXPopoverPriorityKey";
-
 UIWindow static *_popoverWindow;
 
 static NSString *const kAXPopoverHidesOptionAnimatedKey = @"ax_hide_option_animated";

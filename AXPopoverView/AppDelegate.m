@@ -15,7 +15,6 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [[AXPopoverView appearance] setBackgroundColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];
@@ -26,7 +25,7 @@
     [[AXPopoverView appearance] setArrowConstant:6];
     [[AXPopoverView appearance] setTranslucentStyle:AXPopoverTranslucentDefault];
     [[AXPopoverView appearance] setItemTintColor:[[UIColor blackColor] colorWithAlphaComponent:0.8]];
-    [[AXPopoverView appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView * _Nonnull popoverView, BOOL animated, CGRect targetRect) {
+    [[AXPopoverView appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect) {
         if (animated) {
             CGRect fromFrame = CGRectZero;
             fromFrame.origin = popoverView.animatedFromPoint;
