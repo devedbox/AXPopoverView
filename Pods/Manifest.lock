@@ -1,0 +1,22 @@
+PODS:
+  - AGGeometryKit (1.2.2):
+    - AGGeometryKit/CALayerProperties (= 1.2.2)
+    - AGGeometryKit/UIViewProperties (= 1.2.2)
+  - AGGeometryKit+POP (0.1):
+    - AGGeometryKit+POP/Default (= 0.1)
+  - AGGeometryKit+POP/Default (0.1):
+    - AGGeometryKit (~> 1.0)
+    - pop (~> 1.0.4)
+  - AGGeometryKit/CALayerProperties (1.2.2)
+  - AGGeometryKit/UIViewProperties (1.2.2)
+  - pop (1.0.8)
+
+DEPENDENCIES:
+  - AGGeometryKit+POP
+
+SPEC CHECKSUMS:
+  AGGeometryKit: 46e712c5a3958e23b98fef15e57df1149670f231
+  AGGeometryKit+POP: 7024e195ca657033dc61fbec2a38a1254c6d10a7
+  pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
+
+COCOAPODS: 0.39.0
