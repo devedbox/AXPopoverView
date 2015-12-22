@@ -573,22 +573,50 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 }
 
 - (void)setHeaderView:(UIView *)headerView {
+    [self setHeaderView:headerView animated:NO];
+}
+
+- (void)setFooterView:(UIView *)footerView {
+    [self setFooterView:footerView animated:NO];
+}
+
+- (void)setHeaderView:(UIView *)headerView animated:(BOOL)animated {
     if (_headerView) [_headerView removeFromSuperview];
     _headerView = headerView;
     
     AX_POPOVER_MAIN_THREAD(^(){
         [_contentView addSubview:_headerView];
-        [self setNeedsLayout];
+        if (animated) {
+            CGRect rect_o = self.frame;
+            [self layoutSubviews];
+            CGRect rect = self.frame;
+            self.frame = rect_o;
+            [UIView animateWithDuration:0.25 animations:^{
+                self.frame = rect;
+            }];
+        } else {
+            [self setNeedsLayout];
+        }
     });
 }
 
-- (void)setFooterView:(UIView *)footerView {
+- (void)setFooterView:(UIView *)footerView animated:(BOOL)animated {
     if (_footerView) [_footerView removeFromSuperview];
     _footerView = footerView;
     
     AX_POPOVER_MAIN_THREAD(^(){
         [_contentView addSubview:_footerView];
-        [self setNeedsLayout];
+        if (animated) {
+            CGRect rect_o = self.frame;
+            [self layoutSubviews];
+            CGRect rect = self.frame;
+            self.frame = rect_o;
+            [UIView animateWithDuration:0.25 animations:^{
+                self.frame = rect;
+            }];
+        } else {
+            [self setNeedsLayout];
+        }
     });
 }
 
@@ -667,8 +695,12 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 #pragma mark - Custom view setters
 - (void)setHeaderMode:(AXPopoverCustomViewMode)headerMode {
+    [self setHeaderMode:headerMode animated:NO];
+}
+
+- (void)setHeaderMode:(AXPopoverCustomViewMode)headerMode animated:(BOOL)animated {
     _headerMode = headerMode;
-    self.headerView = [self modedViewWithMode:_headerMode];
+    [self setHeaderView:[self modedViewWithMode:_headerMode] animated:animated];
 }
 
 - (void)setIndicatorColor:(UIColor *)indicatorColor {

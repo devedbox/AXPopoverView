@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "AXPopoverView.h"
+#import <AGGeometryKit/AGGeometryKit.h>
+#import <AGGeometryKit+POP/POPAnimatableProperty+AGGeometryKit.h>
 
 @interface AppDelegate ()
 
@@ -25,49 +27,73 @@
     [[AXPopoverView appearance] setArrowConstant:6];
     [[AXPopoverView appearance] setTranslucentStyle:AXPopoverTranslucentDefault];
     [[AXPopoverView appearance] setItemTintColor:[[UIColor blackColor] colorWithAlphaComponent:0.8]];
-//    [[AXPopoverView appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect) {
-//        if (animated) {
-//            CGRect fromFrame = CGRectZero;
-//            fromFrame.origin = popoverView.animatedFromPoint;
-//            popoverView.transform = CGAffineTransformMakeScale(0, 0);
-//            popoverView.layer.anchorPoint = popoverView.arrowPosition;
-//            [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^{
-//                popoverView.transform = CGAffineTransformIdentity;
-//            } completion:^(BOOL finish) {
-//                // Call `viewDidShow:` when the animation finished.
-//                if (finish) [popoverView viewDidShow:animated];
-//            }];
-//        }
-//    } hiding:nil]];
     [[AXPopoverView appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect) {
         if (animated) {
-            CGPoint anchorPoint = popoverView.layer.anchorPoint;
-            switch (popoverView.arrowDirection) {
-                case AXPopoverArrowDirectionBottom:
-                    anchorPoint.y = 1;
-                    break;
-                case AXPopoverArrowDirectionLeft:
-                    anchorPoint.x = 0;
-                    break;
-                case AXPopoverArrowDirectionRight:
-                    anchorPoint.x = 1;
-                    break;
-                case AXPopoverArrowDirectionTop:
-                    anchorPoint.y = 0;
-                    break;
-                default:
-                    break;
-            }
-            CATransform3D transform = CATransform3DMakeRotation(-M_PI_4, 1, 0, 0);
+            CGRect fromFrame = CGRectZero;
+            fromFrame.origin = popoverView.animatedFromPoint;
+            popoverView.transform = CGAffineTransformMakeScale(0, 0);
+            popoverView.layer.anchorPoint = popoverView.arrowPosition;
             [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^{
-//                popoverView.transform = CGAffineTransformIdentity;
-                popoverView.layer.transform = transform;
+                popoverView.transform = CGAffineTransformIdentity;
             } completion:^(BOOL finish) {
                 // Call `viewDidShow:` when the animation finished.
                 if (finish) [popoverView viewDidShow:animated];
             }];
         }
     } hiding:nil]];
+    /*
+    [[AXPopoverView appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect) {
+        if (animated) {
+            CGPoint anchorPoint = popoverView.layer.anchorPoint;
+            NSString *propertyName1=@"";
+            NSString *propertyName2=@"";
+            switch (popoverView.arrowDirection) {
+                case AXPopoverArrowDirectionBottom:
+                    propertyName1 = kPOPLayerAGKQuadTopLeft;
+                    propertyName2 = kPOPLayerAGKQuadTopRight;
+                    break;
+                case AXPopoverArrowDirectionLeft:
+                    propertyName1 = kPOPLayerAGKQuadBottomRight;
+                    propertyName2 = kPOPLayerAGKQuadTopRight;
+                    break;
+                case AXPopoverArrowDirectionRight:
+                    propertyName1 = kPOPLayerAGKQuadTopLeft;
+                    propertyName2 = kPOPLayerAGKQuadBottomLeft;
+                    break;
+                case AXPopoverArrowDirectionTop:
+                    propertyName1 = kPOPLayerAGKQuadBottomLeft;
+                    propertyName2 = kPOPLayerAGKQuadBottomRight;
+                    break;
+                default:
+                    break;
+            }
+//            CATransform3D transform = CATransform3DMakeRotation(-M_PI_4, 1, 0, 0);
+//            [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^{
+////                popoverView.transform = CGAffineTransformIdentity;
+//                popoverView.layer.transform = transform;
+//            } completion:^(BOOL finish) {
+//                // Call `viewDidShow:` when the animation finished.
+//                if (finish) [popoverView viewDidShow:animated];
+//            }];
+//            CGPoint pointOfTouchInside = [recognizer locationInView:view];
+            [popoverView.layer ensureAnchorPointIsSetToZero];
+            POPSpringAnimation *anim1 = [popoverView.layer pop_animationForKey:propertyName1];
+            
+            if(anim1 == nil)
+            {
+                anim1 = [POPSpringAnimation animation];
+                anim1.property = [POPAnimatableProperty AGKPropertyWithName:propertyName1];
+                [popoverView.layer pop_addAnimation:anim1 forKey:propertyName1];
+            }
+            
+            anim1.velocity = [NSValue valueWithCGPoint:[recognizer velocityInView:self.view]];
+            anim1.toValue = [NSValue valueWithCGPoint:controlPointView.center];
+            anim1.springBounciness = 1;
+            anim1.springSpeed = 7;
+            anim1.dynamicsFriction = 7;
+        }
+    } hiding:nil]];
+     */
     [[AXPopoverView appearance] setPreferredArrowDirection:AXPopoverArrowDirectionTop];
     if (!_window) {
         _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -76,8 +102,6 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:_window.bounds];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.image = [UIImage imageNamed:@"test.jpg"];
-    CATransform3D transform = CATransform3DMakeRotation(-M_PI_4, 1, 0, 0);
-    imageView.layer.transform = transform;
     [_window addSubview:imageView];
     [_window insertSubview:imageView atIndex:0];
     return YES;

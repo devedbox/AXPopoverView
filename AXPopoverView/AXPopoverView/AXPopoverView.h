@@ -289,6 +289,21 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 @property(assign, nonatomic) CGFloat progress;
 /// Indicator color.
 @property(strong, nonatomic) UIColor *indicatorColor UI_APPEARANCE_SELECTOR;
+/// Set header view with animation.
+///
+/// @param headerView a new header view.
+/// @oaram animated   a boolean value of animating.
+- (void)setHeaderView:(UIView *)headerView animated:(BOOL)animated;
+/// Set footer view with animation.
+///
+/// @param footerView a new footer view.
+/// @oaram animated   a boolean value of animating.
+- (void)setFooterView:(UIView *)footerView animated:(BOOL)animated;
+/// Set header mode with animation.
+///
+/// @param headerMode a new header mode.
+/// @oaram animated   a boolean value of animating.
+- (void)setHeaderMode:(AXPopoverCustomViewMode)headerMode animated:(BOOL)animated;
 #pragma mark - Methods
 /// Show the popover view in a rect in the new popover window.
 /// @discusstion the rect is a specific rect in the popover window which is normlly same as the application

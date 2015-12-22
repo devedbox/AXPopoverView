@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "AXPopoverView"
-  s.version      = "0.3.10"
+  s.version      = "0.3.11"
   s.summary      = "`AXPopoverView` is an iOS customizable view that displays a bubble style view."
 
   s.description  = <<-DESC
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/devedbox/AXPopoverView.git", :tag => "0.3.10" }
+  s.source       = { :git => "https://github.com/devedbox/AXPopoverView.git", :tag => "0.3.11" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

@@ -64,17 +64,17 @@
              }];
          };
          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             popoverView.headerMode = AXPopoverDeterminateAnnularEnabled;
+             [popoverView setHeaderMode:AXPopoverDeterminateAnnularEnabled animated:YES];
              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                 popoverView.headerMode = AXPopoverDeterminate;
+                 [popoverView setHeaderMode:AXPopoverDeterminate animated:YES];
                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                     popoverView.headerMode = AXPopoverDeterminateHorizontalBar;
+                     [popoverView setHeaderMode:AXPopoverDeterminateHorizontalBar animated:YES];
                      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                         popoverView.headerMode = AXPopoverSuccess;
+                         [popoverView setHeaderMode:AXPopoverSuccess animated:YES];
                          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                             popoverView.headerMode = AXPopoverError;
+                             [popoverView setHeaderMode:AXPopoverError animated:YES];
                              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                 popoverView.headerMode = AXPopoverCustomView;
+                                 [popoverView setHeaderMode:AXPopoverCustomView animated:YES];
                              });
                          });
                      });
