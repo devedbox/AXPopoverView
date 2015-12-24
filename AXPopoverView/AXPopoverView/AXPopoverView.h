@@ -152,7 +152,14 @@ typedef NS_ENUM(NSUInteger, AXPopoverAdditionalButtonStyle) {
 /// @param targetRect  the target rect in the window to show popover view.
 ///
 /// @return Void
-typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated, CGRect targetRect);
+typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated, CGRect targetRect, NSDictionary *userInfo);
+/// Popover view initial block.
+/// @discusstion Using this block to customize popover view before showing.
+///
+/// @param popoverView the popover view to animate.
+///
+/// @return A customed user info using in showing block.
+typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popoverView);
 ///
 /// AXPopoverView.
 ///
@@ -178,6 +185,8 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 @property(assign, nonatomic) CGFloat arrowConstant UI_APPEARANCE_SELECTOR;
 /// Conent view.
 @property(readonly, nonatomic) UIView *contentView;
+/// Snapshots view.
+@property(readonly, nonatomic) UIView *snapshotView;
 /// Corner radius of arrow.
 @property(assign, nonatomic)   CGFloat arrowCornerRadius UI_APPEARANCE_SELECTOR;
 /// Position of arrow.
@@ -531,16 +540,21 @@ typedef void(^AXPopoverViewAnimation)(AXPopoverView *popoverView, BOOL animated,
 + (instancetype)showLabelInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverViewConfiguration)config;
 @end
 @interface AXPopoverViewAnimator : NSObject
+/// Initial state block.
+@property(copy, nonatomic) AXPopoverViewAnimationInitializing initializing;
 /// Showing animation block
 @property(copy, nonatomic) AXPopoverViewAnimation showing;
 /// Hiding animation block
 @property(copy, nonatomic) AXPopoverViewAnimation hiding;
 /// Get a custom animator of popover view to show/hide popover view by a custom animation way.
 ///
+/// @param initializing a initial block to configure the popover view at beginning.
 /// @param showing a showing animation block.
 /// @param hiding  a hiding animation block.
 ///
 /// @return An animator contains showing and hiding animation block.
++ (instancetype)animatorWithInitializing:(AXPopoverViewAnimationInitializing)initializing showing:(AXPopoverViewAnimation)showing hiding:(AXPopoverViewAnimation)hiding;
+/// Get a custom animator of popover view to show/hide popover view by a custom animation way with showing and hiding blocks.
 + (instancetype)animatorWithShowing:(AXPopoverViewAnimation)showing hiding:(AXPopoverViewAnimation)hiding;
 @end
 @interface UIWindow(AXPopover)

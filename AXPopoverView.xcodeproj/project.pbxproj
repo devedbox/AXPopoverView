@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0186B85B1C2BEF1600E824D7 /* AXPopoverView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186B85A1C2BEF1600E824D7 /* AXPopoverView+Animation.m */; };
 		019F4EE31C054CED00A7633C /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F4EE21C054CED00A7633C /* TableViewController.m */; };
 		019F4EE61C0557A300A7633C /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019F4EE51C0557A300A7633C /* ScrollViewController.m */; };
 		01E7EA991BFB6DC3001176A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E7EA981BFB6DC3001176A2 /* main.m */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0186B8591C2BEF1600E824D7 /* AXPopoverView+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AXPopoverView+Animation.h"; sourceTree = "<group>"; };
+		0186B85A1C2BEF1600E824D7 /* AXPopoverView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AXPopoverView+Animation.m"; sourceTree = "<group>"; };
 		019F4EE11C054CED00A7633C /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		019F4EE21C054CED00A7633C /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		019F4EE41C0557A300A7633C /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 				01EEF3611C0AB01000A24C47 /* AXPopoverView.bundle */,
 				01E7EAAF1BFB6E3E001176A2 /* AXPopoverView.h */,
 				01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */,
+				0186B8591C2BEF1600E824D7 /* AXPopoverView+Animation.h */,
+				0186B85A1C2BEF1600E824D7 /* AXPopoverView+Animation.m */,
 			);
 			path = AXPopoverView;
 			sourceTree = "<group>";
@@ -261,6 +266,7 @@
 				019F4EE31C054CED00A7633C /* TableViewController.m in Sources */,
 				01E7EAB11BFB6E3E001176A2 /* AXPopoverView.m in Sources */,
 				01E7EA9C1BFB6DC3001176A2 /* AppDelegate.m in Sources */,
+				0186B85B1C2BEF1600E824D7 /* AXPopoverView+Animation.m in Sources */,
 				01E7EA991BFB6DC3001176A2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,6 +386,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = KEEPStudio.AXPopoverView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -396,6 +403,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = KEEPStudio.AXPopoverView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

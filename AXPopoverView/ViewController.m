@@ -44,9 +44,10 @@
          popoverView.translucent = YES;
          popoverView.lockBackground = YES;
          popoverView.dimBackground = YES;
-         popoverView.preferredArrowDirection = AXPopoverArrowDirectionTop;
+         popoverView.preferredArrowDirection = AXPopoverArrowDirectionLeft;
          popoverView.translucentStyle = AXPopoverTranslucentLight;
          popoverView.headerMode = AXPopoverIndeterminate;
+         popoverView.preferredWidth = 200.0;
          popoverView.titleTextColor = [UIColor blackColor];
          popoverView.detailTextColor = [UIColor blackColor];
          popoverView.indicatorColor = [UIColor blackColor];

@@ -48,6 +48,7 @@ if ([NSThread isMainThread]) {\
     SEL  _method;
     id   _target;
     id   _object;
+    CGPathRef _path;
 }
 /// Previous app key window.
 @property(weak, nonatomic) UIWindow *previousKeyWindow __deprecated;
@@ -233,9 +234,9 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     // top left arc drawing
     CGContextAddArcToPoint(cxt, CGRectGetMinX(rect) + leftOffsets, CGRectGetMinY(rect) + topOffsets, CGRectGetMinX(rect) + _cornerRadius + leftOffsets, CGRectGetMinY(rect) + topOffsets, _cornerRadius);
     if (_translucent) {
-        CGPathRef bubblePath = CGContextCopyPath(cxt);
+        _path = CGContextCopyPath(cxt);
         CAShapeLayer *maskLayer = [CAShapeLayer layer];
-        maskLayer.path = bubblePath;
+        maskLayer.path = _path;
         
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
         _effectView.layer.mask = maskLayer;
@@ -364,6 +365,23 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     _contentView.backgroundColor = [UIColor clearColor];
     _contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     return _contentView;
+}
+
+- (UIView *)snapshotView {
+    UIView *view;
+    if (_showsOnPopoverWindow) {
+        view = [self.popoverWindow resizableSnapshotViewFromRect:self.frame afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
+    } else {
+        view = [self.popoverWindow.appKeyWindow resizableSnapshotViewFromRect:self.frame afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
+    }
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+    CAShapeLayer *layer = [CAShapeLayer layer];
+    layer.path = _path;
+    view.layer.mask = layer;
+#else
+    view.layer.mask = layer;
+#endif
+    return view;
 }
 
 - (CGSize)minSize {
@@ -791,6 +809,10 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     _targetRect = rect;
     [self.popoverWindow registerPopoverView:self];
     [self layoutSubviews];
+    NSDictionary *userInfo=nil;
+    if (_animator.initializing) {
+        userInfo = _animator.initializing(self);
+    }
     if (completion) _showsCompletion = [completion copy];
     if (!_animator.showing) {
         self.layer.anchorPoint = self.arrowPosition;
@@ -809,8 +831,10 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         }];
     } else {
         [self viewWillShow:animated];
-        _animator.showing(self, animated, _targetRect);
-        [self viewShowing:animated];
+        _animator.showing(self, animated, _targetRect, userInfo);
+        if (_isShowing) {
+            [self viewShowing:animated];
+        }
     }
     // animated to dim background
     if (_dimBackground) {
@@ -831,16 +855,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     if (_isHiding) return;
     UIView *view;
     if (_translucent) {// using snapshot
-        if (_showsOnPopoverWindow) {
-            view = [self.popoverWindow resizableSnapshotViewFromRect:self.frame afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
-        } else {
-            view = [self.popoverWindow.appKeyWindow resizableSnapshotViewFromRect:self.frame afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
-        }
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
-        view.layer.mask = self.effectView.layer.mask;
-#else
-        view.layer.mask = self.effectBar.layer.mask;
-#endif
+        view = self.snapshotView;
         view.frame = self.frame;
         if (_showsOnPopoverWindow) {
             [self.popoverWindow addSubview:view];
@@ -865,8 +880,10 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         }];
     } else {
         [self viewWillHide:animated];
-        _animator.hiding(self, animated, _targetRect);
-        [self viewHiding:YES];
+        _animator.hiding(self, animated, _targetRect, nil);
+        if (_isHiding) {
+            [self viewHiding:YES];
+        }
     }
     if (self.popoverWindow.referenceCount == 1) {
         [UIView animateWithDuration:animationDuration animations:^{
@@ -938,9 +955,13 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     self.alpha = 1.0;
     self.hidden = NO;
     _backgroundView.alpha = 1.0;
-    self.layer.anchorPoint = CGPointMake(0.5, 0.5);
     [self setNeedsLayout];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    for (UIView *view in self.popoverWindow.appKeyWindow.subviews) {
+        if ([view isKindOfClass:NSClassFromString(@"_UIReplicantView")]) {
+            [view removeFromSuperview];
+        }
+    }
     [self.popoverWindow unregisterPopoverView:self];
     if (_hidesCompletion) _hidesCompletion();
     if (_delegate && [_delegate respondsToSelector:@selector(popoverViewDidHide:animated:)]) {
@@ -1483,17 +1504,24 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 }
 @end
 @implementation AXPopoverViewAnimator
-- (instancetype)initWithShowing:(AXPopoverViewAnimation)showing hiding:(AXPopoverViewAnimation)hiding
+- (instancetype)initWithInitializing:(AXPopoverViewAnimationInitializing)initializing showing:(AXPopoverViewAnimation)showing hiding:(AXPopoverViewAnimation)hiding
 {
     if (self = [super init]) {
+        _initializing = [initializing copy];
         _showing = [showing copy];
         _hiding = [hiding copy];
     }
     return self;
 }
+
++ (instancetype)animatorWithInitializing:(AXPopoverViewAnimationInitializing)initializing showing:(AXPopoverViewAnimation)showing hiding:(AXPopoverViewAnimation)hiding
+{
+    return [[self alloc] initWithInitializing:initializing showing:showing hiding:hiding];
+}
+
 + (instancetype)animatorWithShowing:(AXPopoverViewAnimation)showing hiding:(AXPopoverViewAnimation)hiding
 {
-    return [[self alloc] initWithShowing:showing hiding:hiding];
+    return [self animatorWithInitializing:nil showing:showing hiding:hiding];
 }
 @end
 @implementation UIWindow(AXPopover)
