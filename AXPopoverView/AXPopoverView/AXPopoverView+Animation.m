@@ -129,11 +129,9 @@
             }
             
             anim1.springBounciness = 12;
-            anim1.springSpeed = 4;
-            anim1.dynamicsFriction = 10;
+            anim1.springSpeed = 20;
             anim2.springBounciness = 12;
-            anim2.springSpeed = 4;
-            anim2.dynamicsFriction = 10;
+            anim2.springSpeed = 20;
             anim1.toValue = toValue1;
             anim2.toValue = toValue2;
         } else {

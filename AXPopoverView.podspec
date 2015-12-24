@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "AXPopoverView"
-  s.version      = "0.4.0"
+  s.version      = "0.4.1"
   s.summary      = "`AXPopoverView` is an iOS customizable view that displays a bubble style view."
 
   s.description  = <<-DESC
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/devedbox/AXPopoverView.git", :tag => "0.4.0" }
+  s.source       = { :git => "https://github.com/devedbox/AXPopoverView.git", :tag => "0.4.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -132,6 +132,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency "AGGeometryKit+POP"
-
+  s.dependency 'AGGeometryKit+POP'
+  s.dependency 'pop', '~> 1.0.4'
+  s.dependency 'AGGeometryKit', '~> 1.0'
 end
