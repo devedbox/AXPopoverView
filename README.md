@@ -141,5 +141,6 @@ Added:
 >* 4. custom header view and footer view for customization.
 
 Updated pod spec file to `0.3.0`
-
+### `0.4.0`@`2015.12.24 17:40`
+Added animator of animation to customize a showing/hiding animation. Both are using block. See `AXPopoverView+Animator` for more details.
 
