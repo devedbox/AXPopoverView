@@ -5,7 +5,9 @@
 ##Summary
 `AXPopoverView` is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. `AXPopoverView` contains how to use custom view to customize the popover view. The popover view (mostly used as `Label` or `Other`) is a convenient and hommization way for developer to use.
 
-[![sample](http://7xop5v.com1.z0.glb.clouddn.com/555.gif)](http://7xop5v.com1.z0.glb.clouddn.com/pod0.3.0.gif)
+[![sample](http://image17-c.poco.cn/mypoco/myphoto/20151225/09/1786703522015122509434309.gif?371x657_110)](http://image17-c.poco.cn/mypoco/myphoto/20151225/09/1786703522015122509434309.gif?371x657_110)
+[![sample](http://image17-c.poco.cn/mypoco/myphoto/20151225/09/17867035220151225095123023.gif?371x657_110)](http://image17-c.poco.cn/mypoco/myphoto/20151225/09/17867035220151225095123023.gif?371x657_110)
+[![sample](http://image17-c.poco.cn/mypoco/myphoto/20151225/09/17867035220151225095137092.gif?371x657_110)](http://image17-c.poco.cn/mypoco/myphoto/20151225/09/17867035220151225095137092.gif?371x657_110)
 
 ## Features
 >* Popover animation
