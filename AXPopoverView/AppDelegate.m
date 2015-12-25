@@ -7,8 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "AXPopoverView.h"
-#import "AXPopoverView+Animation.h"
+#import "AXPopoverKit.h"
 
 @interface AppDelegate ()
 

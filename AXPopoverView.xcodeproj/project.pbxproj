@@ -29,6 +29,7 @@
 		019F4EE21C054CED00A7633C /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		019F4EE41C0557A300A7633C /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
 		019F4EE51C0557A300A7633C /* ScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewController.m; sourceTree = "<group>"; };
+		01CDB9BB1C2CCD960087BB5D /* AXPopoverKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXPopoverKit.h; sourceTree = "<group>"; };
 		01E7EA941BFB6DC3001176A2 /* AXPopoverView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AXPopoverView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01E7EA981BFB6DC3001176A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		01E7EA9A1BFB6DC3001176A2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -111,11 +112,12 @@
 		01E7EAAE1BFB6E3E001176A2 /* AXPopoverView */ = {
 			isa = PBXGroup;
 			children = (
-				01EEF3611C0AB01000A24C47 /* AXPopoverView.bundle */,
+				01CDB9BB1C2CCD960087BB5D /* AXPopoverKit.h */,
 				01E7EAAF1BFB6E3E001176A2 /* AXPopoverView.h */,
 				01E7EAB01BFB6E3E001176A2 /* AXPopoverView.m */,
 				0186B8591C2BEF1600E824D7 /* AXPopoverView+Animation.h */,
 				0186B85A1C2BEF1600E824D7 /* AXPopoverView+Animation.m */,
+				01EEF3611C0AB01000A24C47 /* AXPopoverView.bundle */,
 			);
 			path = AXPopoverView;
 			sourceTree = "<group>";

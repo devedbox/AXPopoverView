@@ -1,8 +1,8 @@
 //
-//  AXPopoverView+Animation.h
+//  AXPopoverKit.h
 //  AXPopoverView
 //
-//  Created by ai on 15/12/24.
+//  Created by ai on 15/12/25.
 //  Copyright © 2015年 AiXing. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,9 +23,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "AXPopoverView.h"
+#ifndef AXPopoverKit_h
+#define AXPopoverKit_h
 
-@interface AXPopoverView (Animation)
-+ (AXPopoverViewAnimator *)turnFlipAnimator;
-+ (AXPopoverViewAnimator *)flipSpringAnimator;
-@end
+#import "AXPopoverView.h"
+#import "AXPopoverView+Animation.h"
+
+#endif /* AXPopoverKit_h */
