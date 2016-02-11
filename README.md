@@ -29,7 +29,7 @@ You will need the latest developer tools in order to build AXPopoverView. Old Xc
 
 ## Adding AXPopoverView to your project
 
-### Cocoapods
+### CocoaPods
 
 [CocoaPods](http://cocoapods.org) is the recommended way to add AXPopoverView to your project.
 
