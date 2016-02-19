@@ -609,9 +609,9 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
             [self layoutSubviews];
             CGRect rect = self.frame;
             self.frame = rect_o;
-            [UIView animateWithDuration:0.25 animations:^{
+            [UIView animateWithDuration:.5 delay:.05 usingSpringWithDamping:.9 initialSpringVelocity:.9 options:7 animations:^{
                 self.frame = rect;
-            }];
+            } completion:NULL];
         } else {
             [self setNeedsLayout];
         }
@@ -809,7 +809,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     _targetRect = rect;
     [self.popoverWindow registerPopoverView:self];
     [self layoutSubviews];
-    NSDictionary *userInfo=nil;
+    NSDictionary *__block userInfo=nil;
     if (_animator.initializing) {
         userInfo = _animator.initializing(self);
     }
@@ -818,9 +818,9 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         self.layer.anchorPoint = self.arrowPosition;
         self.transform = CGAffineTransformMakeScale(0.f, 0.f);
         _backgroundView.alpha = 0.0;
-        NSTimeInterval animationDutation = animated?0.5:0.0;
+        NSTimeInterval animationDutation = animated?0.65:0.0;
         [self viewWillShow:animated];
-        [UIView animateWithDuration:animationDutation delay:0.05 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:7 animations:^{
+        [UIView animateWithDuration:animationDutation delay:0.05 usingSpringWithDamping:0.7 initialSpringVelocity:0.5 options:7 animations:^{
             self.hidden = NO;
             self.transform = CGAffineTransformIdentity;
             [self viewShowing:animated];

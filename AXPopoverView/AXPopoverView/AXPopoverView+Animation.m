@@ -157,27 +157,55 @@
             [popoverView viewShowing:animated];
             [popoverView viewDidShow:animated];
         }
-    } hiding:nil];
+    } hiding:NULL];
 }
 
 + (AXPopoverViewAnimator *)flipSpringAnimator {
     return
     [AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect, NSDictionary *userInfo) {
         if (animated) {
-            CGRect fromFrame = CGRectZero;
-            fromFrame.origin = popoverView.animatedFromPoint;
+//            CGRect fromFrame = CGRectZero;
+//            fromFrame.origin = popoverView.animatedFromPoint;
             popoverView.transform = CGAffineTransformMakeScale(0, 0);
             popoverView.layer.anchorPoint = popoverView.arrowPosition;
             [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^{
                 popoverView.transform = CGAffineTransformIdentity;
-            } completion:^(BOOL finish) {
+            } completion:^(BOOL finished) {
                 // Call `viewDidShow:` when the animation finished.
-                if (finish) [popoverView viewDidShow:animated];
+                if (finished) [popoverView viewDidShow:animated];
             }];
         } else {
             [popoverView viewHiding:animated];
             [popoverView viewDidShow:animated];
         }
-    } hiding:nil];
+    } hiding:NULL];
+}
+/// TODO: Finish pop animator.
++ (AXPopoverViewAnimator *)popFlipSpringAnimator {
+    return
+    [AXPopoverViewAnimator animatorWithInitializing:^NSDictionary *(AXPopoverView *popoverView) {
+        popoverView.layer.anchorPoint = popoverView.arrowPosition;
+        return @{};
+    } showing:^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect, NSDictionary *userInfo) {
+        if (animated) {
+            POPSpringAnimation *ani = [popoverView.layer pop_animationForKey:@"_frame"];
+            if (!ani) {
+                ani = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+            }
+            ani.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)];
+            ani.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
+            ani.completionBlock = ^(POPAnimation *ani, BOOL finished){
+                // Call `viewDidShow:` when the animation finished.
+                if (finished) [popoverView viewDidShow:animated];
+            };
+            ani.springBounciness = 8;
+            ani.springSpeed = 10;
+            [popoverView.layer pop_removeAllAnimations];
+            [popoverView.layer pop_addAnimation:ani forKey:@"_frame"];
+        } else {
+            [popoverView viewHiding:animated];
+            [popoverView viewDidShow:animated];
+        }
+    } hiding:NULL];
 }
 @end

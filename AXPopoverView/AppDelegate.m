@@ -25,8 +25,8 @@
     [[AXPopoverView appearance] setArrowConstant:6];
     [[AXPopoverView appearance] setTranslucentStyle:AXPopoverTranslucentDefault];
     [[AXPopoverView appearance] setItemTintColor:[[UIColor blackColor] colorWithAlphaComponent:0.8]];
-    [[AXPopoverView appearance] setAnimator:[AXPopoverView flipSpringAnimator]];
-    [[AXPopoverView appearance] setAnimator:[AXPopoverView turnFlipAnimator]];
+//    [[AXPopoverView appearance] setAnimator:[AXPopoverView flipSpringAnimator]];
+//    [[AXPopoverView appearance] setAnimator:[AXPopoverView turnFlipAnimator]];
     [[AXPopoverView appearance] setPreferredArrowDirection:AXPopoverArrowDirectionTop];
     if (!_window) {
         _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
