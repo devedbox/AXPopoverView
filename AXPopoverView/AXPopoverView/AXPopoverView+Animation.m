@@ -25,7 +25,7 @@
 
 #import "AXPopoverView+Animation.h"
 #import <AGGeometryKit/AGGeometryKit.h>
-#import <AGGeometryKit+POP/POPAnimatableProperty+AGGeometryKit.h>
+#import "POPAnimatableProperty+AGGeometryKit.h"
 
 @implementation AXPopoverView (Animation)
 + (AXPopoverViewAnimator *)turnFlipAnimator {
