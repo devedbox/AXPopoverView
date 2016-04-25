@@ -169,25 +169,25 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 //  @name Base view properties.
 // ---------------------------------------------------------------------------------------
 //
-/// Origin of frame when display the view.
+/// Origin of frame when display the view. Defaults to (8, 8).
 @property(assign, nonatomic) CGPoint offsets UI_APPEARANCE_SELECTOR;
 /// Min size of popover view.
 @property(readonly, nonatomic) CGSize minSize;
-/// Arrow direction priority.
+/// Arrow direction priority. Defaults to AXPopoverPriorityVertical.
 @property(copy, nonatomic)   NSString *priority UI_APPEARANCE_SELECTOR;
 /// Angle of arrrow. Defaults to 90.
 @property(assign, nonatomic) CGFloat arrowAngle UI_APPEARANCE_SELECTOR;
-/// Dim the background or not. Defaults to not.
+/// Dim the background or not. Defaults to NO.
 @property(assign, nonatomic) BOOL dimBackground;
-/// Corner radius of popover view.
+/// Corner radius of popover view. Defaults to 10.
 @property(assign, nonatomic) CGFloat cornerRadius UI_APPEARANCE_SELECTOR;
-/// Arrow length.
+/// Arrow length. Defaults to 10.
 @property(assign, nonatomic) CGFloat arrowConstant UI_APPEARANCE_SELECTOR;
 /// Conent view.
 @property(readonly, nonatomic) UIView *contentView;
 /// Snapshots view.
 @property(readonly, nonatomic) UIView *snapshotView;
-/// Corner radius of arrow.
+/// Corner radius of arrow. Defaults to 10.
 @property(assign, nonatomic)   CGFloat arrowCornerRadius UI_APPEARANCE_SELECTOR;
 /// Position of arrow.
 @property(readonly, nonatomic) CGPoint arrowPosition;
@@ -197,22 +197,21 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 @property(readonly, nonatomic) UIEdgeInsets contentViewInsets;
 /// Delegate.
 @property(assign, nonatomic) id<AXPopoverViewDelegate>delegate;
-/// Direction of arrow.
+/// Direction of arrow. Defaults to AXPopoverArrowDirectionBottom.
 @property(readonly, nonatomic)   AXPopoverArrowDirection arrowDirection;
-/// Prefered direction of arrow.
+/// Prefered direction of arrow. Defaults to AXPopoverArrowDirectionAny.
 @property(assign, nonatomic)     AXPopoverArrowDirection preferredArrowDirection UI_APPEARANCE_SELECTOR;
-/// Should remove from super view when hidden or not.
+/// Should remove from super view when hidden or not. Defaults to YES.
 @property(assign, nonatomic, getter=isRemoveFromSuperViewOnHide) BOOL removeFromSuperViewOnHide __deprecated_msg(" Default is always YES.");
 /// Translucent the popover view. Do this will ignore the background of popover view. Defaults to `YES`.
 @property(assign, nonatomic, getter=isTranslucent) BOOL translucent;
 /// Translucent style.
 @property(assign, nonatomic) AXPopoverTranslucentStyle translucentStyle UI_APPEARANCE_SELECTOR;
 /// Shows on popover window. Defaults to NO.
-/// @discusstion If `showsOnPopoverWindow` is `YES`, the popover view will show on a new window.
-///              If `showsOnPopoverWindow` is `NO`, the popover view will show on the application
-///              main window. Defaults to `YES`.
-@property(assign, nonatomic, getter=isShowsOnPopoverWindow) BOOL showsOnPopoverWindow;
-/// Lock background.
+/// @discusstion The popover view will show on the application
+///              main window. The value will be NO forever.
+@property(readonly, nonatomic, getter=isShowsOnPopoverWindow) BOOL showsOnPopoverWindow __deprecated_msg("The value will be NO forever.");
+/// Lock background. Defaults to NO.
 /// @discusstion If shows window is `popoverWindow`, the `lockBackground` is always `YES`.
 ///              `LockBackground` set to `YES/NO` will work only when shows window is `APP Window`.
 ///              Set to `YES` to forbid touch area outside the `popoverView`.

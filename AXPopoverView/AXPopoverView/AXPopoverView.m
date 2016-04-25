@@ -165,7 +165,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *hitView = [super hitTest:point withEvent:event];
-    if (!self.showsOnPopoverWindow) {
+    if (!_showsOnPopoverWindow) {
         if (_hideOnTouch) {
             if (point.x < 0 || point.y < 0 || point.x > CGRectGetWidth(self.frame) || point.y > CGRectGetHeight(self.frame)) {
                 [self hideAnimated:YES afterDelay:0.05 completion:nil];
@@ -1581,7 +1581,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 - (void)registerPopoverView:(AXPopoverView *)popoverView {
     if (!self.isKeyWindow) self.appKeyWindow = [UIApplication sharedApplication].keyWindow;
-    
+    /*
     if (popoverView.showsOnPopoverWindow) {
         if (popoverView.superview == self) {
             @synchronized(self) {
@@ -1599,6 +1599,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         }
         if (!self.isKeyWindow) [self makeKeyAndVisible];
     } else {
+     */
         if (popoverView.superview == self.appKeyWindow) {
             @synchronized(self) {
                 [self.appKeyWindow bringSubviewToFront:popoverView.backgroundView];
@@ -1614,7 +1615,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
             }
         }
         if (!self.appKeyWindow.isKeyWindow) [self.appKeyWindow makeKeyAndVisible];
-    }
+//    }
 }
 
 - (void)unregisterPopoverView:(AXPopoverView *)popoverView {
@@ -1623,7 +1624,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     @synchronized(self) {
         [self.registeredPopoverViews removeObject:popoverView];
     }
-    if (popoverView.showsOnPopoverWindow && self.isKeyWindow && self.referenceCount == 0) [self.appKeyWindow makeKeyAndVisible];
+    if (/*popoverView.showsOnPopoverWindow && */self.isKeyWindow && self.referenceCount == 0) [self.appKeyWindow makeKeyAndVisible];
     [self setAppKeyWindow:nil];
 }
 @end

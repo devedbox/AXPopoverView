@@ -51,7 +51,6 @@
 - (void)showPopoverView {
     _popoverView = [AXPopoverView showLabelFromView:_showsView animated:YES duration:CGFLOAT_MAX title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車" configuration:^(AXPopoverView *popoverView) {
         popoverView.preferredWidth = 200;
-        popoverView.showsOnPopoverWindow = NO;
         popoverView.hideOnTouch = NO;
         [popoverView registerScrollView:_scrollView];
     }];

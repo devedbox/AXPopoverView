@@ -38,7 +38,6 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [AXPopoverView showLabelFromView:cell.detailTextLabel animated:YES duration:2.5 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車" configuration:^(AXPopoverView *popoverView) {
         popoverView.preferredWidth = 200;
-        popoverView.showsOnPopoverWindow = NO;
         [popoverView registerScrollView:tableView];
         popoverView.hideOnTouch = NO;
         switch (indexPath.row) {
