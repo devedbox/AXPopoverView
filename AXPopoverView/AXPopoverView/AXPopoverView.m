@@ -802,6 +802,11 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     self.footerView = [self additionalButtonsViewWithItems:_items];
 }
 
+- (void)setItemImageInsets:(UIEdgeInsets)itemImageInsets {
+    _itemImageInsets = itemImageInsets;
+    self.footerView = [self additionalButtonsViewWithItems:_items];
+}
+
 #pragma mark - Shows&Hides
 - (void)showInRect:(CGRect)rect animated:(BOOL)animated completion:(dispatch_block_t)completion
 {
@@ -1393,9 +1398,11 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
             UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, totalWidth, _heightOfButtons)];
             footerView.backgroundColor = [UIColor clearColor];
             for (NSInteger i = 0; i < items.count; i++) {
-                NSString *item = items[i];
+                AXPopoverViewAdditionalButonItem *item = items[i];
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-                [button setTitle:item forState:UIControlStateNormal];
+                [button setTitle:item.title forState:UIControlStateNormal];
+                [button setImage:item.image forState:UIControlStateNormal];
+                button.imageEdgeInsets = _itemImageInsets;
                 button.backgroundColor = [_indicatorColor colorWithAlphaComponent:0.1];
                 [button setBackgroundImage:[self tintImage:[UIImage imageNamed:@"AXPopoverView.bundle/ax_button"] WithColor:[UIColor colorWithWhite:1 alpha:0.2]] forState:UIControlStateNormal];
                 button.tintColor = _itemTintColor;
@@ -1416,9 +1423,11 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
             UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _shouldUsePopoverPreferedWidthOnSingleItem?_preferredWidth:_preferedWidthForSingleItem, _heightOfButtons * items.count + (items.count - 1)*_padding)];
             footerView.backgroundColor = [UIColor clearColor];
             for (NSUInteger i = 0; i < items.count; i ++) {
-                NSString *item = items[i];
+                AXPopoverViewAdditionalButonItem *item = items[i];
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-                [button setTitle:item forState:UIControlStateNormal];
+                [button setTitle:item.title forState:UIControlStateNormal];
+                [button setImage:item.image forState:UIControlStateNormal];
+                button.imageEdgeInsets = _itemImageInsets;
                 button.backgroundColor = [_indicatorColor colorWithAlphaComponent:0.1];
                 [button setBackgroundImage:[self tintImage:[UIImage imageNamed:@"AXPopoverView.bundle/ax_button"] WithColor:[UIColor colorWithWhite:1 alpha:0.2]] forState:UIControlStateNormal];
                 button.tintColor = _itemTintColor;
@@ -1855,4 +1864,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     _annularEnabled = annularEnabled;
     [self setNeedsDisplay];
 }
+@end
+
+@implementation AXPopoverViewAdditionalButonItem
 @end

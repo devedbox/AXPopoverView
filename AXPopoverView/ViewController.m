@@ -50,7 +50,14 @@
          popoverView.detailTextColor = [UIColor blackColor];
          popoverView.indicatorColor = [UIColor blackColor];
          popoverView.itemTintColor = [UIColor blackColor];
-         popoverView.items = @[@"你好", @"你好啊"];
+         AXPopoverViewAdditionalButonItem *item1 = [[AXPopoverViewAdditionalButonItem alloc] init];
+         item1.title = @"你好";
+         item1.image = [UIImage imageNamed:@"share"];
+         AXPopoverViewAdditionalButonItem *item2 = [[AXPopoverViewAdditionalButonItem alloc] init];
+         item2.title = @"好啊";
+         item2.image = [UIImage imageNamed:@"share"];
+         popoverView.items = @[item1, item2];
+         popoverView.itemImageInsets = UIEdgeInsetsMake(0, 0, 0, 20);
          popoverView.itemHandler = ^(UIButton *sender, NSUInteger index) {
              [AXPopoverView showLabelInRect:CGRectMake(self.view.bounds.size.width*.5-5, 10, 10, 10) animated:YES duration:2.5 title:@"消息" detail:@"你好，这是点击｀你好｀之后的消息" configuration:^(AXPopoverView *popoverView2) {
                  popoverView2.translucent = YES;

@@ -33,7 +33,7 @@ UIKIT_EXTERN NSString *const AXPopoverPriorityHorizontal;
 /// Popover arrow direction priority in vertical.
 UIKIT_EXTERN NSString *const AXPopoverPriorityVertical;
 //
-@class AXPopoverView, AXPopoverViewAnimator;
+@class AXPopoverView, AXPopoverViewAnimator, AXPopoverViewAdditionalButonItem;
 /// Configuration call back block to configure popover view when popover view will show.
 ///
 /// @param popoverView a popover view will show.
@@ -263,7 +263,7 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 // ---------------------------------------------------------------------------------------
 //
 /// Items of buttons.
-@property(copy, nonatomic) NSArray *items;
+@property(copy, nonatomic) NSArray<AXPopoverViewAdditionalButonItem *> *items;
 /// Button style. Defaults to `AXPopoverAdditionalButtonHorizontal`.
 @property(assign, nonatomic) AXPopoverAdditionalButtonStyle itemStyle;
 /// Prefered width for single item., Default is 240.
@@ -280,6 +280,8 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 @property(strong, nonatomic) UIFont *itemFont UI_APPEARANCE_SELECTOR;
 /// CornerRadius of button item. Defaults to 3.f.
 @property(assign, nonatomic) CGFloat itemCornerRadius UI_APPEARANCE_SELECTOR;
+/// Content inset of image in additional button. Default is UIEdgeInsetsZero.
+@property(assign, nonatomic) UIEdgeInsets itemImageInsets;
 /// Handler block. Defauts to NULL.
 @property(copy, nonatomic) AXPopoverViewItemHandler itemHandler;
 //
@@ -605,4 +607,13 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 @property(strong, nonatomic) UIColor *progressBgnColor;
 /// Annular enabled
 @property(assign, nonatomic) BOOL annularEnabled;
+@end
+///
+/// AXPopoverViewAdditionalButonItem
+///
+@interface AXPopoverViewAdditionalButonItem : NSObject
+/// Title of item.
+@property(copy, nonatomic) NSString *title;
+/// Image of title.
+@property(copy, nonatomic) UIImage *image;
 @end

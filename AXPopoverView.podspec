@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "AXPopoverView"
-s.version      = "0.4.5"
+s.version      = "0.5.0"
 s.summary      = "`AXPopoverView` is an iOS customizable view that displays a bubble style view."
 
 s.description  = <<-DESC
@@ -21,7 +21,7 @@ s.platform     = :ios, "7.0"
   # s.ios.deployment_target = “7.0”
   # s.osx.deployment_target = "10.7"
   # s.watchos.deployment_target = "2.0"
-s.source       = { :git => "https://github.com/devedbox/AXPopoverView.git", :tag => "0.4.5" }
+s.source       = { :git => "https://github.com/devedbox/AXPopoverView.git", :tag => "0.5.0" }
 s.source_files  = "AXPopoverView/AXPopoverView/*.{h,m}"
   #s.exclude_files = "Classes/Exclude"
   # s.public_header_files = "Classes/**/*.h"
