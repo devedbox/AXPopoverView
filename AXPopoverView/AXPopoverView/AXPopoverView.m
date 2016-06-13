@@ -292,7 +292,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     }
     CGRect rect_footer = _footerView.frame;
     totalWidth=MAX(totalWidth, CGRectGetWidth(rect_footer));
-    if (_footerView!= nil) {
+    if (_footerView!= nil && _headerView != nil) {
         totalHeight+=_padding;
     }
     rect_footer.origin.y = totalHeight;
@@ -769,7 +769,9 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 - (void)setHeightOfButtons:(CGFloat)heightOfButtons {
     _heightOfButtons = heightOfButtons;
-    self.footerView = [self additionalButtonsViewWithItems:_items];
+    if (_items.count > 0) {
+        self.footerView = [self additionalButtonsViewWithItems:_items];
+    }
 }
 
 - (void)setMinWidthOfButtons:(CGFloat)minWidthOfButtons {
@@ -779,32 +781,44 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 - (void)setItemTintColor:(UIColor *)itemTintColor {
     _itemTintColor = itemTintColor;
-    self.footerView = [self additionalButtonsViewWithItems:_items];
+    if (_items.count > 0) {
+        self.footerView = [self additionalButtonsViewWithItems:_items];
+    }
 }
 
 - (void)setItemFont:(UIFont *)itemFont {
     _itemFont = itemFont;
-    self.footerView = [self additionalButtonsViewWithItems:_items];
+    if (_items.count > 0) {
+        self.footerView = [self additionalButtonsViewWithItems:_items];
+    }
 }
 
 - (void)setItemCornerRadius:(CGFloat)itemCornerRadius {
     _itemCornerRadius = itemCornerRadius;
-    self.footerView = [self additionalButtonsViewWithItems:_items];
+    if (_items.count) {
+        self.footerView = [self additionalButtonsViewWithItems:_items];
+    }
 }
 
 - (void)setPreferedWidthForSingleItem:(CGFloat)preferedWidthForSingleItem {
     _preferedWidthForSingleItem = preferedWidthForSingleItem;
-    self.footerView = [self additionalButtonsViewWithItems:_items];
+    if (_items.count > 0) {
+        self.footerView = [self additionalButtonsViewWithItems:_items];
+    }
 }
 
 - (void)setItemStyle:(AXPopoverAdditionalButtonStyle)itemStyle {
     _itemStyle = itemStyle;
-    self.footerView = [self additionalButtonsViewWithItems:_items];
+    if (_items.count > 0) {
+        self.footerView = [self additionalButtonsViewWithItems:_items];
+    }
 }
 
 - (void)setItemImageInsets:(UIEdgeInsets)itemImageInsets {
     _itemImageInsets = itemImageInsets;
-    self.footerView = [self additionalButtonsViewWithItems:_items];
+    if (_items.count > 0) {
+        self.footerView = [self additionalButtonsViewWithItems:_items];
+    }
 }
 
 #pragma mark - Shows&Hides

@@ -24,9 +24,9 @@
     _popoverView.priority = AXPopoverPriorityHorizontal;
     _popoverLabel = [[AXPopoverView alloc] initWithFrame:CGRectMake(0, 0, 300, 150)];
     _popoverLabel.priority = AXPopoverPriorityHorizontal;
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
     headerView.backgroundColor = [UIColor redColor];
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 50)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 100)];
     footerView.backgroundColor = [UIColor greenColor];
     _popoverView.headerView = headerView;
     _popoverView.footerView = footerView;
