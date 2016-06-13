@@ -69,7 +69,7 @@ if ([NSThread isMainThread]) {\
 /// Title label
 @property(strong, nonatomic) UILabel *titleLabel;
 /// Detail label
-@property(strong, nonatomic) UILabel *detailLabel;
+//@property(strong, nonatomic) UILabel *detailLabel;
 @end
 
 NSString *const AXPopoverPriorityHorizontal = @"AXPopoverPriorityHorizontal";
@@ -81,6 +81,7 @@ static NSString *const kAXPopoverHidesOptionAnimatedKey = @"ax_hide_option_anima
 static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 @implementation AXPopoverView
+@synthesize detailLabel = _detailLabel;
 - (instancetype)init {
     if (self = [super init]) {
         [self initializer];
@@ -272,7 +273,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     CGRect rect_detail = _detailLabel.frame;
     CGSize detailSize = CGSizeZero;
     if (_detailLabel.text.length > 0) {
-        detailSize = [_detailLabel.text boundingRectWithSize:CGSizeMake(self.preferredWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:_detailLabel.font} context:nil].size;
+        detailSize = [AXAttributedLabel boundingSizeForLabelWithText:_detailLabel.text font:_detailFont exclusionPaths:nil perferredMaxLayoutWidth:self.preferredWidth];
     }
     rect_detail.size = CGSizeMake(ceil(detailSize.width), ceil(detailSize.height));
     totalWidth = MAX(totalWidth, CGRectGetWidth(rect_detail));
@@ -468,9 +469,18 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     return _titleLabel;
 }
 
-- (UILabel *)detailLabel {
+- (AXAttributedLabel *)detailLabel {
     if (_detailLabel) return _detailLabel;
-    _detailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _detailLabel = [AXAttributedLabel attributedLabel];
+    _detailLabel.shouldInteractWithURLs = YES;
+    _detailLabel.shouldInteractWithAttachments = YES;
+    _detailLabel.showsMenuItems = YES;
+    _detailLabel.allowsPreviewURLs = YES;
+    [_detailLabel setMenuItems:@[[AXMenuItem itemWithTitle:@"复制" handler:^(AXAttributedLabel * _Nonnull label, AXMenuItem * _Nonnull item) {
+        [[UIPasteboard generalPasteboard] setString:[label.text copy]];
+    }]]];
+    _detailLabel.allowsPreviewURLs = YES;
+    _detailLabel.textContainerInset = UIEdgeInsetsZero;
     _detailLabel.textColor = self.detailTextColor;
     _detailLabel.font = self.detailFont;
     _detailLabel.text = self.detail;

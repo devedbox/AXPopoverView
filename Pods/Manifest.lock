@@ -9,14 +9,19 @@ PODS:
     - pop (~> 1.0.4)
   - AGGeometryKit/CALayerProperties (1.2.2)
   - AGGeometryKit/UIViewProperties (1.2.2)
+  - AXAttributedLabel (0.2.5)
   - pop (1.0.8)
 
 DEPENDENCIES:
   - AGGeometryKit+POP
+  - AXAttributedLabel
 
 SPEC CHECKSUMS:
   AGGeometryKit: 46e712c5a3958e23b98fef15e57df1149670f231
-  AGGeometryKit+POP: 7024e195ca657033dc61fbec2a38a1254c6d10a7
+  AGGeometryKit+POP: 72c980191db0646c31bed0b1ffd571e05f9ad029
+  AXAttributedLabel: 1fd8ee1faef2ff76e6c8af76f96f54b1fae02dcb
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 34e9dff85e41243faab89a2451625fb4dcc7dceb
+
+COCOAPODS: 1.0.0.beta.8

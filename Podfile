@@ -2,4 +2,7 @@ platform :ios, '7.0'
 
 inhibit_all_warnings!
 
-pod 'AGGeometryKit+POP'
+target 'AXPopoverView' do
+    pod 'AGGeometryKit+POP'
+    pod 'AXAttributedLabel'
+end

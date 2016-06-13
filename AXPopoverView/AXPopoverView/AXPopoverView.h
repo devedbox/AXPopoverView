@@ -25,6 +25,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import <AXAttributedLabel/AXAttributedLabel.h>
 #ifndef AXP_REQUIRES_SUPER
 #define AXP_REQUIRES_SUPER __attribute((objc_requires_super))
 #endif
@@ -247,6 +248,8 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 @property(copy, nonatomic) NSString *title;
 /// Detail of popover label.
 @property(copy, nonatomic) NSString *detail;
+/// Detail attributed label.
+@property(readonly, nonatomic) AXAttributedLabel *detailLabel;
 /// Font of title label. Defaults to system 14 font size.
 @property(strong, nonatomic) UIFont *titleFont UI_APPEARANCE_SELECTOR;
 /// Title label text color. Defaults to black with 0.7 alpha.
