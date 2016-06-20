@@ -1,1 +1,1 @@
-../../../AGGeometryKit/Source/Categories/CALayer+AGK+Properties.h
+../../../AGGeometryKit/AGGeometryKit/Categories/CALayer+AGK+Properties.h

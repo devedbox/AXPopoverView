@@ -1,1 +1,1 @@
-../../../AGGeometryKit/Source/Classes/AGGeometryKitClasses.h
+../../../AGGeometryKit/AGGeometryKit/Classes/AGGeometryKitClasses.h

@@ -1,7 +1,7 @@
 //
-// Author: Håvard Fossli <hfossli@agens.no>
+// Author: Jørund Almås <jalmaas@agens.no>
 //
-// Copyright (c) 2013 Agens AS (http://agens.no/)
+// Copyright (c) 2015 Agens AS (http://agens.no/)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
-#import "AGKBaseDefines.h"
+#import <UIKit/UIKit.h>
 
-AGK_EXTERN_C_BEGIN
+@interface UIScrollView (AGGeometryKit)
 
-typedef struct AGKLine {
-    CGPoint start, end;
-} AGKLine;
+@property (nonatomic, assign) CGFloat contentSizeWidth;
+@property (nonatomic, assign) CGFloat contentSizeHeight;
+@property (nonatomic, assign) CGFloat contentOffsetX;
+@property (nonatomic, assign) CGFloat contentOffsetY;
+@property (nonatomic, assign) CGFloat contentInsetTop;
+@property (nonatomic, assign) CGFloat contentInsetLeft;
+@property (nonatomic, assign) CGFloat contentInsetBottom;
+@property (nonatomic, assign) CGFloat contentInsetRight;
 
-extern const AGKLine AGKLineZero;
-AGKLine AGKLineMake(CGPoint start, CGPoint end);
-double AGKLineLength(AGKLine l);
-BOOL AGKLineIntersection(AGKLine l1, AGKLine l2, CGPoint *out_pointOfIntersection);
-
-AGK_EXTERN_C_END
+@end

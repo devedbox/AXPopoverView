@@ -273,7 +273,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     CGRect rect_detail = _detailLabel.frame;
     CGSize detailSize = CGSizeZero;
     if (_detailLabel.text.length > 0) {
-        detailSize = [AXAttributedLabel boundingSizeForLabelWithText:_detailLabel.text font:_detailFont exclusionPaths:nil perferredMaxLayoutWidth:self.preferredWidth];
+        detailSize = [_detailLabel boundingSizeForLabelWithText:_detailLabel.text font:_detailFont exclusionPaths:nil perferredMaxLayoutWidth:self.preferredWidth];
     }
     rect_detail.size = CGSizeMake(ceil(detailSize.width), ceil(detailSize.height));
     totalWidth = MAX(totalWidth, CGRectGetWidth(rect_detail));

@@ -1,6 +1,5 @@
 //
-// Authors:
-// Logan Holmes @snown
+// Author: Håvard Fossli <hfossli@agens.no>
 //
 // Copyright (c) 2013 Agens AS (http://agens.no/)
 //
@@ -22,12 +21,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "AGKMatrix.h"
+#import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
+#import <UIKit/UIKit.h>
 
-@interface AGKMatrix (CATransform3D)
+#import "AGKBaseDefines.h"
 
-+ (instancetype)matrixWithCATransform3D:(CATransform3D)transform;
+AGK_EXTERN_C_BEGIN
 
-- (CATransform3D)caTransform3DValue;
+typedef struct AGKLine {
+    CGPoint start, end;
+} AGKLine;
 
-@end
+extern const AGKLine AGKLineZero;
+AGKLine AGKLineMake(CGPoint start, CGPoint end);
+double AGKLineLength(AGKLine l);
+BOOL AGKLineIntersection(AGKLine l1, AGKLine l2, CGPoint *out_pointOfIntersection);
+
+AGK_EXTERN_C_END

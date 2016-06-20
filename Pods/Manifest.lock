@@ -1,26 +1,26 @@
 PODS:
-  - AGGeometryKit (1.2.2):
-    - AGGeometryKit/CALayerProperties (= 1.2.2)
-    - AGGeometryKit/UIViewProperties (= 1.2.2)
+  - AGGeometryKit (1.2.4):
+    - AGGeometryKit/CALayerProperties (= 1.2.4)
+    - AGGeometryKit/UIViewProperties (= 1.2.4)
   - AGGeometryKit+POP (0.1):
     - AGGeometryKit+POP/Default (= 0.1)
   - AGGeometryKit+POP/Default (0.1):
     - AGGeometryKit (~> 1.0)
     - pop (~> 1.0.4)
-  - AGGeometryKit/CALayerProperties (1.2.2)
-  - AGGeometryKit/UIViewProperties (1.2.2)
+  - AGGeometryKit/CALayerProperties (1.2.4)
+  - AGGeometryKit/UIViewProperties (1.2.4)
   - AXAttributedLabel (0.2.5)
-  - pop (1.0.8)
+  - pop (1.0.9)
 
 DEPENDENCIES:
   - AGGeometryKit+POP
   - AXAttributedLabel
 
 SPEC CHECKSUMS:
-  AGGeometryKit: 46e712c5a3958e23b98fef15e57df1149670f231
+  AGGeometryKit: 2c2c39c9f99eb7a966f0aa16b2a97027dacc4761
   AGGeometryKit+POP: 72c980191db0646c31bed0b1ffd571e05f9ad029
   AXAttributedLabel: 1fd8ee1faef2ff76e6c8af76f96f54b1fae02dcb
-  pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
 
 PODFILE CHECKSUM: 34e9dff85e41243faab89a2451625fb4dcc7dceb
 

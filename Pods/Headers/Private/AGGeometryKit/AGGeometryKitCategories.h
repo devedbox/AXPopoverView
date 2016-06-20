@@ -1,1 +1,1 @@
-../../../AGGeometryKit/Source/Categories/AGGeometryKitCategories.h
+../../../AGGeometryKit/AGGeometryKit/Categories/AGGeometryKitCategories.h

@@ -1,1 +1,1 @@
-../../../AGGeometryKit/Source/Categories/UIImage+AGK+CATransform3D.h
+../../../AGGeometryKit/AGGeometryKit/Categories/UIImage+AGK+CATransform3D.h
