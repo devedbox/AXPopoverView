@@ -40,6 +40,7 @@
         popoverView.preferredWidth = 200;
         [popoverView registerScrollView:tableView];
         popoverView.hideOnTouch = NO;
+        popoverView.translucent = YES;
         switch (indexPath.row) {
             case 0:// 上边显示
                 popoverView.preferredArrowDirection = AXPopoverArrowDirectionBottom;

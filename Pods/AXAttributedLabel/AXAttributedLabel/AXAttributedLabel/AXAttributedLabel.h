@@ -92,7 +92,7 @@ NS_CLASS_AVAILABLE(10_0, 7_0) @interface AXAttributedLabel : UITextView
 
 + (instancetype)attributedLabel;
 - (CGRect)boundingRectForTextRange:(NSRange)range;
-+ (CGSize)boundingSizeForLabelWithText:(NSString *)text font:(UIFont *_Nonnull)font exclusionPaths:(NSArray<UIBezierPath *> *_Nullable)exclusionPaths perferredMaxLayoutWidth:(CGFloat)preferredMaxLayoutWidth;
+- (CGSize)boundingSizeForLabelWithText:(NSString *)text font:(UIFont *_Nonnull)font exclusionPaths:(NSArray<UIBezierPath *> *_Nullable)exclusionPaths perferredMaxLayoutWidth:(CGFloat)preferredMaxLayoutWidth;
 
 - (void)setMenuItems:(NSArray<AXMenuItem *>*)menuItems UI_APPEARANCE_SELECTOR;
 - (void)addMenuItem:(AXMenuItem *)item,...;

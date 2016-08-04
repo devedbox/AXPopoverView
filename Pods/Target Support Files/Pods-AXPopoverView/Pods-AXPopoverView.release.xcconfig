@@ -1,6 +1,8 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AGGeometryKit" "${PODS_ROOT}/Headers/Public/AGGeometryKit+POP" "${PODS_ROOT}/Headers/Public/AXAttributedLabel" "${PODS_ROOT}/Headers/Public/pop"
-LIBRARY_SEARCH_PATHS = $(inherited) "$CONFIGURATION_BUILD_DIR/AGGeometryKit" "$CONFIGURATION_BUILD_DIR/AGGeometryKit+POP" "$CONFIGURATION_BUILD_DIR/AXAttributedLabel" "$CONFIGURATION_BUILD_DIR/pop"
+LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/AGGeometryKit" "$PODS_CONFIGURATION_BUILD_DIR/AGGeometryKit+POP" "$PODS_CONFIGURATION_BUILD_DIR/AXAttributedLabel" "$PODS_CONFIGURATION_BUILD_DIR/pop"
 OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AGGeometryKit" -isystem "${PODS_ROOT}/Headers/Public/AGGeometryKit+POP" -isystem "${PODS_ROOT}/Headers/Public/AXAttributedLabel" -isystem "${PODS_ROOT}/Headers/Public/pop"
 OTHER_LDFLAGS = $(inherited) -ObjC -l"AGGeometryKit" -l"AGGeometryKit+POP" -l"AXAttributedLabel" -l"c++" -l"pop" -framework "CoreGraphics" -framework "Foundation" -framework "IOKit" -framework "QuartzCore" -framework "SystemConfiguration" -framework "UIKit"
+PODS_BUILD_DIR = $BUILD_DIR
+PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}/Pods

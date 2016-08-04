@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		068FF1D7C607B4CE69AA9B3463781102 /* POPMath.mm in Sources */ = {isa = PBXBuildFile; fileRef = FE167AF228CE5D503795B92EE5A58C5E /* POPMath.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0783C726F1AE515492E1D396C18F09A7 /* POPAnimationTracerInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF10BC15E45A107F6724E96440964E3 /* POPAnimationTracerInternal.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		0940B43FAAB3F541AEC2EAC88FA0A420 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B868F4982271E662057BDE697EC3B870 /* Foundation.framework */; };
-		0B72D3BB628724ABE3389AE271581A96 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA767584DDB3E02A47B6DA343CCF7FA3 /* QuartzCore.framework */; };
 		0D458A75DF624B3AF39B38B83340808B /* POPAnimationEventInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 10C735B0D132B00850EB6C7582D689FD /* POPAnimationEventInternal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		0D6E71B4F3A78AF1850C00C3D0CEC1F4 /* AGKMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F9493E620AAFCD5E56B04CB63FF4CE3 /* AGKMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0EB2D7C4EF745A1560160590896904C4 /* CALayer+AGK+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F3F0ADA17BE572128086024EE83AED /* CALayer+AGK+Methods.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -24,13 +22,10 @@
 		194B43225AE2A371EC807E13F039F01F /* AGGeometryKit+POP-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF43F00859E6E3F9FA0E91864D699DA /* AGGeometryKit+POP-dummy.m */; };
 		1A889EDC84167E83723B4BE475CE2B1C /* POPAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = C98E01F199BC23EBB40AB73186412B3B /* POPAnimationInternal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1D699253D11387E7C328056C1A18DE51 /* AGKMatrix+CATransform3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 15FB112552BEB4DF62AE53B2B4A9D4C8 /* AGKMatrix+CATransform3D.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1DAB4B6DF71CF9F17FAC35238A26D7CE /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C091F2352CD8142E38B2F9EA272EBEB2 /* IOKit.framework */; };
 		20AE6B8EB2BDE3EAEE82FEEBF88B081D /* POPBasicAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E33904E8C872BA8A19F291AEF63961A3 /* POPBasicAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		23062891CD73D0A3C136345D12A68EFA /* UIView+AGK+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C6FB0D050BB7054509FE02AEED7C0F7 /* UIView+AGK+Properties.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks -DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		2377B24DDE73140474B7BDA4D7CB47B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1E2ED9A24AAA871B7155AC637FAE2B /* UIKit.framework */; };
-		2410BBE652C436F29625C640AA0ABA85 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F67474644A3ADAEF0CAB75EA1FDD6AC /* SystemConfiguration.framework */; };
-		267531D49E6A4B7C6A02E61C91817F87 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA767584DDB3E02A47B6DA343CCF7FA3 /* QuartzCore.framework */; };
 		269698E3D305C0D5401B6D73CAE69CE7 /* TransformationMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEF02EE7F2D113B09904781B489761D /* TransformationMatrix.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		278C93CA6515DA970742CE4DA10CF950 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1E2ED9A24AAA871B7155AC637FAE2B /* UIKit.framework */; };
 		292440CE637317A49E5EAF98BBAFF170 /* UIBezierPath+AGKQuad.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AD1AC4AF021545574BD8924296E5FA /* UIBezierPath+AGKQuad.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		296F329F4594D320AA28BDE89ED1E574 /* POPSpringAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2EEC8E1F6EA106991C3471AF309C5D86 /* POPSpringAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2BC4EED5E0C9E99A85E0AEC1AB18EB5F /* AXAttributedLabel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8283CCF9F7BF751B98D29BBF8690BE05 /* AXAttributedLabel-dummy.m */; };
@@ -38,10 +33,12 @@
 		363983584736EDD9B4D17A1E5CE77DC4 /* AGKMatrix+GLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 93F18765B0D507DBDF2863F1126A8C67 /* AGKMatrix+GLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		382C5E2950E8C2C513EA65734B112F54 /* POPDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = EA026030ED43072511224C7F31CB04B5 /* POPDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		382C6354E7EBB2CD19E3D898FD86176C /* POPAnimationExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E2A707DAB4A925DDBC28642A9ABCC4 /* POPAnimationExtras.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		38F66683D65B6E7F7A373D2B776F9994 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E40361F1AB61E4A105313868E8F69A /* CoreGraphics.framework */; };
 		395ED3BBFFF42C1533AD8C6DF69C0889 /* NSValue+AGKQuad.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D68F0F036959971E9F93F3FF1980F8 /* NSValue+AGKQuad.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3B4E4B346154701F168273C5A2016961 /* CGGeometry+AGGeometryKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 129BD3F5C9D7A6E1CD7492A463DFE372 /* CGGeometry+AGGeometryKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3C3363439F7BCABDC10A5C49A56DFC6F /* UIScrollView+AGK+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 132CE8AEB40EB7ED377D0A4BCC6A6CC9 /* UIScrollView+AGK+Properties.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3C8BB73152C1438969E42B04FD3E7CF0 /* pop-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 16366685A8D91EF32A340A2A234E9EA8 /* pop-dummy.m */; };
+		3D959DA03E350A2F2A04A7A480351F6E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DC592689C94A484A9F1426EEAB91AC /* QuartzCore.framework */; };
 		40C00D2721BDA8115F27BE108258BC7B /* POPAnimatableProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = DA041C7FBD0E2C8EDAC49F4DEC203761 /* POPAnimatableProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44BF075414F393B26B8FC59759AE3CD0 /* UIView+AGK+AngleConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 56014DAD1A094583E987EEFDB847E8AB /* UIView+AGK+AngleConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		452C4958C9F1F215F78EEA908B2EA357 /* AGKLine.h in Headers */ = {isa = PBXBuildFile; fileRef = F806A30F375E11F77DD4196D9C429E65 /* AGKLine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -49,11 +46,10 @@
 		4A1E2A4335A843AB82F286959732007A /* UnitBezier.h in Headers */ = {isa = PBXBuildFile; fileRef = 8974F83A073C215E1A6AF6E2555A4C84 /* UnitBezier.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		4C9411E8D29F5A45AFC8F38A95577A11 /* UIScrollView+AGK+Properties.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E0796B1CCD420A520E1D5DFC44CDA12 /* UIScrollView+AGK+Properties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4ED390C40B54DBE091FEF1B171808726 /* AGKBaseDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = F7232F78B67253680885D9101883A7CE /* AGKBaseDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		506A2E13A91801C594CA952940E16A18 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901F8ADDEABD9F511ED5AE7852C559B0 /* Foundation.framework */; };
 		559D1271C0ED566EC368A5E10117CA85 /* AGKCorner.h in Headers */ = {isa = PBXBuildFile; fileRef = 610C3CA1F361278BB64634B51A4B6070 /* AGKCorner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		571A6FDBE90928D26EA4B0E41AD1A238 /* POPPropertyAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = A9D12ECC5E84D4025F2BBA6A9452EE7C /* POPPropertyAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5C3AD81C1254C92268696447763ADD07 /* AGKMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = B249678887ABC441721AAF98F844F283 /* AGKMatrix.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5E919A474AFF9D25A0A44E7DCEC597B3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B868F4982271E662057BDE697EC3B870 /* Foundation.framework */; };
-		5FE98D660F397B360C61D143FC81F0F5 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1DC0AD6D168E00BD1F2B2BC089D68C4 /* IOKit.framework */; };
 		648723B90C710F057D32A748E61B0161 /* AGKVector3D.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B3EE0AB521F33FAEC9D59639A8DFC4 /* AGKVector3D.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		6504AA65CE72BABEBE72A420D57ACADB /* AGKCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AF08221A55763569DDAA254AA502E1 /* AGKCorner.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		6867563BC35BAEA7032D967F2C884F7E /* POPCGUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 69DCBB4C126BE009A70891B8473CD0CC /* POPCGUtils.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -78,13 +74,16 @@
 		8A8F8063991CAA261463D0318D81ADC3 /* AGKQuad.m in Sources */ = {isa = PBXBuildFile; fileRef = 56EEA28DE18E723C7713D80D5B4805C8 /* AGKQuad.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8B803DD32E56530A919A8FCC8179C58D /* POPAnimatorPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = E66C28824E3C42D258AEF2F5BA6A8C10 /* POPAnimatorPrivate.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		8C044307AFCCB35178AE092502F72958 /* POPPropertyAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C667A4D16EDE2469042DA50B88F0211 /* POPPropertyAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8CC45B9E06F7B41A0B73A53DA63C8C58 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E40361F1AB61E4A105313868E8F69A /* CoreGraphics.framework */; };
 		8D09C64B98132F7987106068F5CFBE59 /* UIView+AGK+Properties.h in Headers */ = {isa = PBXBuildFile; fileRef = 16ED0101D1942DFF0087D710014F915F /* UIView+AGK+Properties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DC96614773F097CBE638D021E6DA5A1 /* AGKVector3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 716C1CC2C07ABA0288B4B761A466B0EC /* AGKVector3D.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8ED76BEABBC9959E8A7D1469C3363182 /* POPCustomAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4217EF4175840A2FA09AEE0518576F17 /* POPCustomAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		9249FB1A8A552AE93B85A28DC3DCF611 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 922384CC75B41953A8DA36C917BE7120 /* UIKit.framework */; };
 		926B1E4820D116645B219711451859F1 /* POPVector.mm in Sources */ = {isa = PBXBuildFile; fileRef = FCAA37E8B91A893D46BCB97B84419A10 /* POPVector.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		9330E0447BE3CA015A351183CE570370 /* UIImage+AGKQuad.m in Sources */ = {isa = PBXBuildFile; fileRef = 51FC1339957A073E8121C627847107DA /* UIImage+AGKQuad.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		961FBCC533DAD4113090632B454118FA /* AGGeometryKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E5F99228166B6D973AB38A4CEE98AB38 /* AGGeometryKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		977EA215C08E122B1F353F404DE802D9 /* AGGeometryKitCoreGraphics.h in Headers */ = {isa = PBXBuildFile; fileRef = C734A2B72B9727D3ED7C63B60FF9732D /* AGGeometryKitCoreGraphics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		989E4A113E23B3BE93A15962CD330F93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901F8ADDEABD9F511ED5AE7852C559B0 /* Foundation.framework */; };
 		9C295E36F0D66C419BD440F5F8CB0BB7 /* POPGeometry.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7CE36F5562C6F05FA7736BF464266570 /* POPGeometry.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		9D4F6340DBD2B3B38DAF570460915577 /* POPSpringSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A1B0BC90D8CF6027C1F90E380B02733 /* POPSpringSolver.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A1A5ACA6A0B143C60C21C778D0FDD07D /* POPAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E8A7997A7410B67C1B1E41F8C6A5CD9 /* POPAction.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -94,21 +93,20 @@
 		A6D7696E0B803D6E5C8D8DCF4A551427 /* AGGeometryKitCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F43DA77E340D1D6BAD74AC510697629 /* AGGeometryKitCategories.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A797ACEB26E0EA8062942B0510C45D58 /* POPPropertyAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = C663FDBFEAC045CA241479AE01FD7241 /* POPPropertyAnimationInternal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		ABA49A5F722FE29151A6135F518FFBA8 /* POPGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 428B9DD651C77B5A094068521E564F13 /* POPGeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD6E44F1F648CBA70B66E985F664DCEF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B3B8C08354DFB2C533E0AB5797380BF /* SystemConfiguration.framework */; };
+		AD924524812CCA47EB6B0587C44372CD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901F8ADDEABD9F511ED5AE7852C559B0 /* Foundation.framework */; };
 		AF9FC1CAF6919D9EC41C231A2339E877 /* POPCGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = E7CB535D886716ED8BB26FD5A75417B6 /* POPCGUtils.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B02CDDE27BD9838A2485B71A37E61A2B /* POPAnimationPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CA5DA53B5948383B475708156CCCAC6 /* POPAnimationPrivate.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B0825B0476A2D13021D6841DF5B4E27D /* POPAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6118A89A38F9F8AD6D6E6C9CA44BDE99 /* POPAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B0D6C17217C62E233D7352C1E1E72B44 /* POPAnimationRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A213C16D8834BF4275E758F3642DB21 /* POPAnimationRuntime.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B178D7D1EA7CA2E3839BE28758A156CC /* POP.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D065554F0CD31E208660A067283E4C /* POP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B2898AE88EE12CE03E86580F0624096E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B868F4982271E662057BDE697EC3B870 /* Foundation.framework */; };
+		B29BC4D862005520B5930C28FA80F628 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 922384CC75B41953A8DA36C917BE7120 /* UIKit.framework */; };
 		B2F0CCC32EAFEBB297F915957D41B19A /* AGKQuad.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC1F1823E256B42C10E2F4A7F4FCA59 /* AGKQuad.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B7E35E844A735F5BB0B7FF22A76A96C2 /* POPAnimationEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C44BB5E13468A95874C7058FDAA679B /* POPAnimationEvent.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		BB5A94CF78AD154F311A7033AEC51BF1 /* POPAnimationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 640C9B5BB081F47D86F335E71A90A236 /* POPAnimationEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BBE854AB9F9A667759808D4B609C26F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B868F4982271E662057BDE697EC3B870 /* Foundation.framework */; };
-		BECA202B18FAF82250F80CEF4DFF7CF2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFAEAFA919422D77F998931BFDA409E /* CoreGraphics.framework */; };
+		BF915E8B5F2A57ECB2D2269EFB400DBC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901F8ADDEABD9F511ED5AE7852C559B0 /* Foundation.framework */; };
 		C473B1BF4D0D5C0CF4E993DDEEA3BD9D /* CALayer+AGKQuad.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F6E2ABC239FDE05C48F061DEB3E1F8 /* CALayer+AGKQuad.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C719D158C09E721549984A727350C42E /* TransformationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C18D5D0CBE065F3E8E31ADF2A69831B4 /* TransformationMatrix.cpp */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		C7667D532C0781B9E0C48319349412B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1E2ED9A24AAA871B7155AC637FAE2B /* UIKit.framework */; };
-		C8DE4D05EA4A2F5518A8EC03A028DFAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B868F4982271E662057BDE697EC3B870 /* Foundation.framework */; };
 		C9A31E0318DC55503EB65B6C91EA6D59 /* POPAnimator.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE5CFCEA3571C6276279C737EAB9203A /* POPAnimator.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		CC364C7B339392019E4081D7E5830961 /* POPBasicAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 490582204F93D710900940EF1A6D67B6 /* POPBasicAnimationInternal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		CD53187FB4DC85378A9878F60CB7628F /* POPCustomAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8585F7590CEC09A8964544C5DEC22BD6 /* POPCustomAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -124,15 +122,17 @@
 		E21C04C632945F5647C632DB2A3478A2 /* AGKCALayerAnimationBlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C21CB260F7C9AD9B21CA02AC1DCB76D /* AGKCALayerAnimationBlockDelegate.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E2D8CCB7A6F52A0D4A70B12E82976C8F /* AGKMatrix+CATransform3D.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A0E99ED448E7347D8A872F717BFE0 /* AGKMatrix+CATransform3D.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E4D2219A8FFFE8456DA0072D12EB4B3E /* POPDecayAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = D11F60FEB0190037C951206FAE6041CD /* POPDecayAnimation.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		E67196A6E4396CFB2A145078CED7C4C6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFAEAFA919422D77F998931BFDA409E /* CoreGraphics.framework */; };
 		E7AE2B55651DBFAEA160BD0BA0F04041 /* POPAnimatableProperty.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5B434FF72EC7FA8A8FDC856C0DF6A94A /* POPAnimatableProperty.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E9A5A418BAAD095D69D4F9070358964B /* CALayer+AGKQuad.h in Headers */ = {isa = PBXBuildFile; fileRef = 90CC32A2B8E1A054638B442F1C003492 /* CALayer+AGKQuad.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E9D6495F1AF0408C6554A6A4A6979AF8 /* POPVector.h in Headers */ = {isa = PBXBuildFile; fileRef = FBC0F30FF2451A9BAC3AC2CB2AC00108 /* POPVector.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		ECFD16B2E6BA3DB2B72D4241963C8481 /* AGKLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE2246F6CFA779E5136EC6E2083920 /* AGKLine.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F0CB13C3053ABFCEC3175FAD4BF4A478 /* UIImage+AGKQuad.h in Headers */ = {isa = PBXBuildFile; fileRef = E524D49DE1B487062151D5F1A415A88B /* UIImage+AGKQuad.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F178FFC81AF1F7CD86D45F7B30895AB3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901F8ADDEABD9F511ED5AE7852C559B0 /* Foundation.framework */; };
 		F3AC1E5A3C8D65882E281927F91FE5CF /* CGGeometry+AGGeometryKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 871D0A1CA14088EC46F86798AB569ACE /* CGGeometry+AGGeometryKit.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F3F59666DE5BBE2B574AC055C23226A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 922384CC75B41953A8DA36C917BE7120 /* UIKit.framework */; };
 		F712F4F1992A398B980C76910AADE144 /* AGGeometryKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D36228FB33C50322B6B909F8BD76F07 /* AGGeometryKit-dummy.m */; };
 		F721B3E7897D41ECDF48825CD319725F /* POPAnimatableProperty+AGGeometryKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6436047F239377F32DACFFF463ECA382 /* POPAnimatableProperty+AGGeometryKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9D7D0F67702D9E28603A26FC2A43B1A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DC592689C94A484A9F1426EEAB91AC /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,14 +182,15 @@
 
 /* Begin PBXFileReference section */
 		007F93D64B832CB40E709D34E6149822 /* UIImage+AGK+CATransform3D.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+AGK+CATransform3D.m"; path = "AGGeometryKit/Categories/UIImage+AGK+CATransform3D.m"; sourceTree = "<group>"; };
+		00E40361F1AB61E4A105313868E8F69A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		03AF08221A55763569DDAA254AA502E1 /* AGKCorner.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AGKCorner.m; path = AGGeometryKit/AGKCorner.m; sourceTree = "<group>"; };
 		0439DA0577DAF2A4418EA40AADC5B2B6 /* CALayer+AGK+Properties.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CALayer+AGK+Properties.h"; path = "AGGeometryKit/Categories/CALayer+AGK+Properties.h"; sourceTree = "<group>"; };
 		04B16E006D24E39B19D282B649B3A9D1 /* AGKTransformPixelMapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AGKTransformPixelMapper.m; path = AGGeometryKit/Classes/AGKTransformPixelMapper.m; sourceTree = "<group>"; };
 		04E2A707DAB4A925DDBC28642A9ABCC4 /* POPAnimationExtras.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationExtras.h; path = pop/POPAnimationExtras.h; sourceTree = "<group>"; };
 		065A71810B7C1F281517887781FFCC3A /* AGKMatrix.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AGKMatrix.m; path = AGGeometryKit/Classes/AGKMatrix.m; sourceTree = "<group>"; };
 		097FA8E7C2D1F477844D7FF46A1A2A6B /* Pods-AXPopoverView-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AXPopoverView-acknowledgements.plist"; sourceTree = "<group>"; };
+		0B3B8C08354DFB2C533E0AB5797380BF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		0C0314DFFBD7E956EAF3A48A9965E5C5 /* POPSpringAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPSpringAnimation.h; path = pop/POPSpringAnimation.h; sourceTree = "<group>"; };
-		0E1E2ED9A24AAA871B7155AC637FAE2B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		10C735B0D132B00850EB6C7582D689FD /* POPAnimationEventInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPAnimationEventInternal.h; path = pop/POPAnimationEventInternal.h; sourceTree = "<group>"; };
 		129BD3F5C9D7A6E1CD7492A463DFE372 /* CGGeometry+AGGeometryKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CGGeometry+AGGeometryKit.h"; path = "AGGeometryKit/CoreGraphics_Extensions/CGGeometry+AGGeometryKit.h"; sourceTree = "<group>"; };
 		131196A09570029FF2392896E21809F2 /* Pods-AXPopoverView-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AXPopoverView-resources.sh"; sourceTree = "<group>"; };
@@ -226,6 +227,7 @@
 		51FC1339957A073E8121C627847107DA /* UIImage+AGKQuad.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+AGKQuad.m"; path = "AGGeometryKit/Categories/UIImage+AGKQuad.m"; sourceTree = "<group>"; };
 		54D68F0F036959971E9F93F3FF1980F8 /* NSValue+AGKQuad.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSValue+AGKQuad.m"; path = "AGGeometryKit/Categories/NSValue+AGKQuad.m"; sourceTree = "<group>"; };
 		56014DAD1A094583E987EEFDB847E8AB /* UIView+AGK+AngleConverter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+AGK+AngleConverter.h"; path = "AGGeometryKit/Categories/UIView+AGK+AngleConverter.h"; sourceTree = "<group>"; };
+		56DC592689C94A484A9F1426EEAB91AC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		56EEA28DE18E723C7713D80D5B4805C8 /* AGKQuad.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AGKQuad.m; path = AGGeometryKit/AGKQuad.m; sourceTree = "<group>"; };
 		5B434FF72EC7FA8A8FDC856C0DF6A94A /* POPAnimatableProperty.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimatableProperty.mm; path = pop/POPAnimatableProperty.mm; sourceTree = "<group>"; };
 		5E0796B1CCD420A520E1D5DFC44CDA12 /* UIScrollView+AGK+Properties.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+AGK+Properties.h"; path = "AGGeometryKit/Categories/UIScrollView+AGK+Properties.h"; sourceTree = "<group>"; };
@@ -246,7 +248,6 @@
 		7AE500ABC47573488F4D544575AB405A /* AXAttributedLabel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AXAttributedLabel-prefix.pch"; sourceTree = "<group>"; };
 		7CBF8C1340371F14815DB2CDFE012138 /* AXAttributedLabel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AXAttributedLabel.xcconfig; sourceTree = "<group>"; };
 		7CE36F5562C6F05FA7736BF464266570 /* POPGeometry.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPGeometry.mm; path = pop/POPGeometry.mm; sourceTree = "<group>"; };
-		7F67474644A3ADAEF0CAB75EA1FDD6AC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		7FEE39F2156B3C64AFF0B99F8F865567 /* POPLayerExtras.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPLayerExtras.h; path = pop/POPLayerExtras.h; sourceTree = "<group>"; };
 		8283CCF9F7BF751B98D29BBF8690BE05 /* AXAttributedLabel-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AXAttributedLabel-dummy.m"; sourceTree = "<group>"; };
 		82E28882676608DAE2040D5B7FD11CF9 /* Pods-AXPopoverView-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AXPopoverView-frameworks.sh"; sourceTree = "<group>"; };
@@ -256,10 +257,11 @@
 		8974F83A073C215E1A6AF6E2555A4C84 /* UnitBezier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UnitBezier.h; path = pop/WebCore/UnitBezier.h; sourceTree = "<group>"; };
 		8C21CB260F7C9AD9B21CA02AC1DCB76D /* AGKCALayerAnimationBlockDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AGKCALayerAnimationBlockDelegate.m; path = AGGeometryKit/Classes/AGKCALayerAnimationBlockDelegate.m; sourceTree = "<group>"; };
 		8CCA9473C8AA3EDAF3E13E1D8703087B /* libAGGeometryKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAGGeometryKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		8CFAEAFA919422D77F998931BFDA409E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		8D36228FB33C50322B6B909F8BD76F07 /* AGGeometryKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AGGeometryKit-dummy.m"; sourceTree = "<group>"; };
 		8ECE2246F6CFA779E5136EC6E2083920 /* AGKLine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AGKLine.m; path = AGGeometryKit/AGKLine.m; sourceTree = "<group>"; };
+		901F8ADDEABD9F511ED5AE7852C559B0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		90CC32A2B8E1A054638B442F1C003492 /* CALayer+AGKQuad.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CALayer+AGKQuad.h"; path = "AGGeometryKit/Categories/CALayer+AGKQuad.h"; sourceTree = "<group>"; };
+		922384CC75B41953A8DA36C917BE7120 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93F18765B0D507DBDF2863F1126A8C67 /* AGKMatrix+GLKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "AGKMatrix+GLKit.h"; path = "AGGeometryKit/Categories/AGKMatrix+GLKit.h"; sourceTree = "<group>"; };
 		96AB153BE320D8E0663A8B3DE27FD293 /* AGKTransformPixelMapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AGKTransformPixelMapper.h; path = AGGeometryKit/Classes/AGKTransformPixelMapper.h; sourceTree = "<group>"; };
@@ -274,14 +276,12 @@
 		A9D12ECC5E84D4025F2BBA6A9452EE7C /* POPPropertyAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPPropertyAnimation.mm; path = pop/POPPropertyAnimation.mm; sourceTree = "<group>"; };
 		AF027972C64B03D49517228374242D2D /* AGGeometryKit+POP.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "AGGeometryKit+POP.xcconfig"; sourceTree = "<group>"; };
 		B1AD1AC4AF021545574BD8924296E5FA /* UIBezierPath+AGKQuad.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIBezierPath+AGKQuad.m"; path = "AGGeometryKit/Categories/UIBezierPath+AGKQuad.m"; sourceTree = "<group>"; };
-		B1DC0AD6D168E00BD1F2B2BC089D68C4 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		B249678887ABC441721AAF98F844F283 /* AGKMatrix.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AGKMatrix.h; path = AGGeometryKit/Classes/AGKMatrix.h; sourceTree = "<group>"; };
-		B868F4982271E662057BDE697EC3B870 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		BA25998FFA7BE334633356071F12E24F /* UIBezierPath+AGKQuad.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+AGKQuad.h"; path = "AGGeometryKit/Categories/UIBezierPath+AGKQuad.h"; sourceTree = "<group>"; };
-		BA767584DDB3E02A47B6DA343CCF7FA3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		BBD188D1128A2CAEBAC55AD610E7774A /* Pods-AXPopoverView-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AXPopoverView-acknowledgements.markdown"; sourceTree = "<group>"; };
 		BCC868463789D8D53D76B566CC6F85E9 /* POPBasicAnimation.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPBasicAnimation.mm; path = pop/POPBasicAnimation.mm; sourceTree = "<group>"; };
 		BE5CFCEA3571C6276279C737EAB9203A /* POPAnimator.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = POPAnimator.mm; path = pop/POPAnimator.mm; sourceTree = "<group>"; };
+		C091F2352CD8142E38B2F9EA272EBEB2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		C18D5D0CBE065F3E8E31ADF2A69831B4 /* TransformationMatrix.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = TransformationMatrix.cpp; path = pop/WebCore/TransformationMatrix.cpp; sourceTree = "<group>"; };
 		C3F60431EFC4447DCE57C7F6568FDADD /* POPDecayAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPDecayAnimation.h; path = pop/POPDecayAnimation.h; sourceTree = "<group>"; };
 		C663FDBFEAC045CA241479AE01FD7241 /* POPPropertyAnimationInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPPropertyAnimationInternal.h; path = pop/POPPropertyAnimationInternal.h; sourceTree = "<group>"; };
@@ -326,7 +326,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8DE4D05EA4A2F5518A8EC03A028DFAB /* Foundation.framework in Frameworks */,
+				F178FFC81AF1F7CD86D45F7B30895AB3 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,10 +334,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E67196A6E4396CFB2A145078CED7C4C6 /* CoreGraphics.framework in Frameworks */,
-				0940B43FAAB3F541AEC2EAC88FA0A420 /* Foundation.framework in Frameworks */,
-				0B72D3BB628724ABE3389AE271581A96 /* QuartzCore.framework in Frameworks */,
-				2377B24DDE73140474B7BDA4D7CB47B1 /* UIKit.framework in Frameworks */,
+				8CC45B9E06F7B41A0B73A53DA63C8C58 /* CoreGraphics.framework in Frameworks */,
+				989E4A113E23B3BE93A15962CD330F93 /* Foundation.framework in Frameworks */,
+				3D959DA03E350A2F2A04A7A480351F6E /* QuartzCore.framework in Frameworks */,
+				9249FB1A8A552AE93B85A28DC3DCF611 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,8 +345,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E919A474AFF9D25A0A44E7DCEC597B3 /* Foundation.framework in Frameworks */,
-				278C93CA6515DA970742CE4DA10CF950 /* UIKit.framework in Frameworks */,
+				AD924524812CCA47EB6B0587C44372CD /* Foundation.framework in Frameworks */,
+				B29BC4D862005520B5930C28FA80F628 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,7 +354,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBE854AB9F9A667759808D4B609C26F3 /* Foundation.framework in Frameworks */,
+				BF915E8B5F2A57ECB2D2269EFB400DBC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,12 +362,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BECA202B18FAF82250F80CEF4DFF7CF2 /* CoreGraphics.framework in Frameworks */,
-				B2898AE88EE12CE03E86580F0624096E /* Foundation.framework in Frameworks */,
-				5FE98D660F397B360C61D143FC81F0F5 /* IOKit.framework in Frameworks */,
-				267531D49E6A4B7C6A02E61C91817F87 /* QuartzCore.framework in Frameworks */,
-				2410BBE652C436F29625C640AA0ABA85 /* SystemConfiguration.framework in Frameworks */,
-				C7667D532C0781B9E0C48319349412B9 /* UIKit.framework in Frameworks */,
+				38F66683D65B6E7F7A373D2B776F9994 /* CoreGraphics.framework in Frameworks */,
+				506A2E13A91801C594CA952940E16A18 /* Foundation.framework in Frameworks */,
+				1DAB4B6DF71CF9F17FAC35238A26D7CE /* IOKit.framework in Frameworks */,
+				F9D7D0F67702D9E28603A26FC2A43B1A /* QuartzCore.framework in Frameworks */,
+				AD6E44F1F648CBA70B66E985F664DCEF /* SystemConfiguration.framework in Frameworks */,
+				F3F59666DE5BBE2B574AC055C23226A2 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,7 +398,7 @@
 		0F75DF6C7C5F002280EC53F48E80B587 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				95CC0BDB0140EE9FF60E5910EF5D94CF /* iOS */,
+				9744423BF62C77FA3DB8D878D084C7AA /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -513,15 +513,15 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		95CC0BDB0140EE9FF60E5910EF5D94CF /* iOS */ = {
+		9744423BF62C77FA3DB8D878D084C7AA /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				8CFAEAFA919422D77F998931BFDA409E /* CoreGraphics.framework */,
-				B868F4982271E662057BDE697EC3B870 /* Foundation.framework */,
-				B1DC0AD6D168E00BD1F2B2BC089D68C4 /* IOKit.framework */,
-				BA767584DDB3E02A47B6DA343CCF7FA3 /* QuartzCore.framework */,
-				7F67474644A3ADAEF0CAB75EA1FDD6AC /* SystemConfiguration.framework */,
-				0E1E2ED9A24AAA871B7155AC637FAE2B /* UIKit.framework */,
+				00E40361F1AB61E4A105313868E8F69A /* CoreGraphics.framework */,
+				901F8ADDEABD9F511ED5AE7852C559B0 /* Foundation.framework */,
+				C091F2352CD8142E38B2F9EA272EBEB2 /* IOKit.framework */,
+				56DC592689C94A484A9F1426EEAB91AC /* QuartzCore.framework */,
+				0B3B8C08354DFB2C533E0AB5797380BF /* SystemConfiguration.framework */,
+				922384CC75B41953A8DA36C917BE7120 /* UIKit.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -853,7 +853,7 @@
 		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
@@ -1003,11 +1003,53 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0B6726467397E3839AD76D6385DA9DFF /* Release */ = {
+		150CDDEC4F6E0A344869DA713C33677A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF5C4CED6211DFE97055255817332A0E /* AGGeometryKit.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit/AGGeometryKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		2A3D2A0377D3B10B6A37D163E6A4F21D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 172601CB5DBD0CF18B0B4612A1BE07F2 /* pop.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/pop/pop-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2E66E06DA6FAA1E202225376A61F0A37 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7CBF8C1340371F14815DB2CDFE012138 /* AXAttributedLabel.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1024,53 +1066,32 @@
 			};
 			name = Release;
 		};
-		0FB72D0162A69373EFF200D96B711A4C /* Debug */ = {
+		33D628BFEA3B35BD66C6B479E3560351 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF027972C64B03D49517228374242D2D /* AGGeometryKit+POP.xcconfig */;
+			baseConfigurationReference = 5EDC11D9107E806AE475F658B852E1E5 /* Pods-AXPopoverView.release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit+POP/AGGeometryKit+POP-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		13E0DBE4E5E18E164FDE30963B10867E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7CBF8C1340371F14815DB2CDFE012138 /* AXAttributedLabel.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/AXAttributedLabel/AXAttributedLabel-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
-		17184EC587A20C97B9F90E668393095B /* Release */ = {
+		436A861201600A4DD392CBB691A7CC64 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 172601CB5DBD0CF18B0B4612A1BE07F2 /* pop.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1087,11 +1108,53 @@
 			};
 			name = Release;
 		};
-		5F9EBA04F8A1C856E78B258B27C02846 /* Debug */ = {
+		6BE248F075FE3E0DB29D2251874BBCA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CBF8C1340371F14815DB2CDFE012138 /* AXAttributedLabel.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AXAttributedLabel/AXAttributedLabel-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6C41784EEAF0F25A235347434AB4E63D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF5C4CED6211DFE97055255817332A0E /* AGGeometryKit.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit/AGGeometryKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		712C37FC4B441582596246B1E0386D37 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F28D1A3A5887AA9373E4A69919974E9A /* Pods-AXPopoverView.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1108,10 +1171,11 @@
 			};
 			name = Debug;
 		};
-		A2744BE561A0CD0F4083C58709B9529A /* Debug */ = {
+		79B0C2E66EFA9917ED6EDDB8FC6A7684 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1125,6 +1189,68 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AF94F0AE926C13C80D0B22A33F2C29B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF027972C64B03D49517228374242D2D /* AGGeometryKit+POP.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit+POP/AGGeometryKit+POP-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CF7953F66E785E8876EB4D370D777D50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1144,79 +1270,17 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		A54BD0A449C74AF19F1A4117FA89ED46 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5EDC11D9107E806AE475F658B852E1E5 /* Pods-AXPopoverView.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		B5EF534E5242C93F80F3826F0BCEE8D7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF5C4CED6211DFE97055255817332A0E /* AGGeometryKit.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit/AGGeometryKit-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		B760AD469C8DA203160EBCFB263BA045 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 172601CB5DBD0CF18B0B4612A1BE07F2 /* pop.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/pop/pop-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		F0CED9141C2FBE313E48B25F0A23070F /* Release */ = {
+		DCAADFCB1D8BFFEF94E9213980619EEF /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AF027972C64B03D49517228374242D2D /* AGGeometryKit+POP.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1233,72 +1297,14 @@
 			};
 			name = Release;
 		};
-		F24A8E2465A7C10A54BE3E33D1A368A8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		FA8A7591976C78EB1BD30CDA43788DE2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF5C4CED6211DFE97055255817332A0E /* AGGeometryKit.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit/AGGeometryKit-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A2744BE561A0CD0F4083C58709B9529A /* Debug */,
-				F24A8E2465A7C10A54BE3E33D1A368A8 /* Release */,
+				CF7953F66E785E8876EB4D370D777D50 /* Debug */,
+				79B0C2E66EFA9917ED6EDDB8FC6A7684 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1306,8 +1312,8 @@
 		35102DBBD744E90E93D60A34D7E8D601 /* Build configuration list for PBXNativeTarget "Pods-AXPopoverView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5F9EBA04F8A1C856E78B258B27C02846 /* Debug */,
-				A54BD0A449C74AF19F1A4117FA89ED46 /* Release */,
+				712C37FC4B441582596246B1E0386D37 /* Debug */,
+				33D628BFEA3B35BD66C6B479E3560351 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1315,8 +1321,8 @@
 		58A331B6DA1F04E83436B7C9CC23B082 /* Build configuration list for PBXNativeTarget "AXAttributedLabel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				13E0DBE4E5E18E164FDE30963B10867E /* Debug */,
-				0B6726467397E3839AD76D6385DA9DFF /* Release */,
+				6BE248F075FE3E0DB29D2251874BBCA3 /* Debug */,
+				2E66E06DA6FAA1E202225376A61F0A37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1324,8 +1330,8 @@
 		90DBBA5BF8311315A63F6309B52AA6C7 /* Build configuration list for PBXNativeTarget "AGGeometryKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FA8A7591976C78EB1BD30CDA43788DE2 /* Debug */,
-				B5EF534E5242C93F80F3826F0BCEE8D7 /* Release */,
+				6C41784EEAF0F25A235347434AB4E63D /* Debug */,
+				150CDDEC4F6E0A344869DA713C33677A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1333,8 +1339,8 @@
 		A86AE64262CC75A48EA65EE1C0A10203 /* Build configuration list for PBXNativeTarget "AGGeometryKit+POP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0FB72D0162A69373EFF200D96B711A4C /* Debug */,
-				F0CED9141C2FBE313E48B25F0A23070F /* Release */,
+				AF94F0AE926C13C80D0B22A33F2C29B0 /* Debug */,
+				DCAADFCB1D8BFFEF94E9213980619EEF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1342,8 +1348,8 @@
 		FDFF982DDE3190BC5423D1CAC8D9D76C /* Build configuration list for PBXNativeTarget "pop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B760AD469C8DA203160EBCFB263BA045 /* Debug */,
-				17184EC587A20C97B9F90E668393095B /* Release */,
+				2A3D2A0377D3B10B6A37D163E6A4F21D /* Debug */,
+				436A861201600A4DD392CBB691A7CC64 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

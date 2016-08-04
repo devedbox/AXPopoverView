@@ -30,6 +30,13 @@
     footerView.backgroundColor = [UIColor greenColor];
     _popoverView.headerView = headerView;
     _popoverView.footerView = footerView;
+    
+//    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+//    effectView.frame = self.view.bounds;
+//    [self.view insertSubview:effectView atIndex:0];
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+//    imageView.image = [UIImage imageNamed:@"test"];
+//    [effectView.contentView addSubview:imageView];
 }
 
 - (void)didReceiveMemoryWarning {

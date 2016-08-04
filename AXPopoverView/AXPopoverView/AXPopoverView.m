@@ -33,6 +33,9 @@ if ([NSThread isMainThread]) {\
     dispatch_async(dispatch_get_main_queue(), block);\
 }
 #endif
+#ifndef __IPHONE_ALLOWED_0
+#define __IPHONE_ALLOWED_0 __IPHONE_8_0
+#endif
 @interface AXPopoverView()
 {
     @protected
@@ -58,7 +61,7 @@ if ([NSThread isMainThread]) {\
 @property(weak, nonatomic) UIPanGestureRecognizer *pan __deprecated;
 /// Scroll view.
 @property(weak, nonatomic) UIScrollView *scrollView;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_ALLOWED_0
 /// Blur effect view.
 @property(strong, nonatomic) UIVisualEffectView *effectView;
 #else
@@ -239,7 +242,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         CAShapeLayer *maskLayer = [CAShapeLayer layer];
         maskLayer.path = _path;
         
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_ALLOWED_0
         _effectView.layer.mask = maskLayer;
 #else
         _effectBar.layer.mask = maskLayer;
@@ -337,7 +340,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 #pragma mark - Getters
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_ALLOWED_0
 - (UIVisualEffectView *)effectView {
     if (_effectView) return _effectView;
     _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
@@ -375,13 +378,9 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     } else {
         view = [self.popoverWindow.appKeyWindow resizableSnapshotViewFromRect:self.frame afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
     }
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.path = _path;
     view.layer.mask = layer;
-#else
-    view.layer.mask = layer;
-#endif
     return view;
 }
 
@@ -557,24 +556,23 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 - (void)setTranslucent:(BOOL)translucent {
     _translucent = translucent;
     
-    AX_POPOVER_MAIN_THREAD(^(){
-        if (translucent) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
-            [self insertSubview:self.effectView atIndex:0];
-            [_effectView.contentView addSubview:_contentView];
+    if (translucent) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_ALLOWED_0
+        [self insertSubview:self.effectView atIndex:0];
+        [_effectView.contentView addSubview:_contentView];
+//        [self addSubview:_contentView];
 #else
-            [self insertSubview:self.effectBar atIndex:0];
+        [self insertSubview:self.effectBar atIndex:0];
 #endif
-        } else {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
-            [self.effectView removeFromSuperview];
-            [self addSubview:self.contentView];
+    } else {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_ALLOWED_0
+        [self.effectView removeFromSuperview];
+        [self addSubview:self.contentView];
 #else
-            [self.effectBar removeFromSuperview];
+        [self.effectBar removeFromSuperview];
 #endif
-        }
-        [self setNeedsDisplay];
-    });
+    }
+    [self setNeedsDisplay];
 }
 
 - (void)setTranslucentStyle:(AXPopoverTranslucentStyle)translucentStyle {
@@ -583,14 +581,14 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     AX_POPOVER_MAIN_THREAD(^(){
         switch (_translucentStyle) {
             case AXPopoverTranslucentLight:
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_ALLOWED_0
                 _effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
 #else
                 _effectBar.barStyle = UIBarStyleDefault;
 #endif
                 break;
             default:
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_ALLOWED_0
                 _effectView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
 #else
                 _effectBar.barStyle = UIBarStyleBlack;
