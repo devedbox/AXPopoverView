@@ -30,7 +30,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [AXPopoverView hideVisiblePopoverViewsAnimated:NO];
+    [AXPopoverView hideVisiblePopoverViewsAnimated:NO fromView:self.scrollView];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showPopoverView) object:nil];
 }
 
@@ -49,10 +49,10 @@
 
 #pragma mark - Shows
 - (void)showPopoverView {
-    _popoverView = [AXPopoverView showLabelFromView:_showsView animated:YES duration:CGFLOAT_MAX title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車" configuration:^(AXPopoverView *popoverView) {
+    _popoverView = [AXPopoverView showLabelFromView:_showsView inView:self.scrollView animated:YES duration:CGFLOAT_MAX title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車" configuration:^(AXPopoverView *popoverView) {
         popoverView.preferredWidth = 200;
         popoverView.hideOnTouch = NO;
-        [popoverView registerScrollView:_scrollView];
+//        [popoverView registerScrollView:_scrollView];
     }];
 }
 @end

@@ -32,7 +32,7 @@
     return
     [AXPopoverViewAnimator animatorWithInitializing:^NSDictionary *(AXPopoverView *popoverView) {
         UIGraphicsBeginImageContext([UIScreen mainScreen].bounds.size);
-        [popoverView.popoverWindow.appKeyWindow drawViewHierarchyInRect:[UIScreen mainScreen].bounds afterScreenUpdates:YES];
+        [popoverView.popoverView drawViewHierarchyInRect:[UIScreen mainScreen].bounds afterScreenUpdates:YES];
         [popoverView.layer ensureAnchorPointIsSetToZero];
         CGFloat constant = CGRectGetHeight(popoverView.frame)/3;
         CGPoint toPoint1=CGPointZero;

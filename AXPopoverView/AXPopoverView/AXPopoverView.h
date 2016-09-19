@@ -208,10 +208,6 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 @property(assign, nonatomic, getter=isTranslucent) BOOL translucent;
 /// Translucent style.
 @property(assign, nonatomic) AXPopoverTranslucentStyle translucentStyle UI_APPEARANCE_SELECTOR;
-/// Shows on popover window. Defaults to NO.
-/// @discusstion The popover view will show on the application
-///              main window. The value will be NO forever.
-@property(readonly, nonatomic, getter=isShowsOnPopoverWindow) BOOL showsOnPopoverWindow __deprecated_msg("The value will be NO forever.");
 /// Lock background. Defaults to NO.
 /// @discusstion If shows window is `popoverWindow`, the `lockBackground` is always `YES`.
 ///              `LockBackground` set to `YES/NO` will work only when shows window is `APP Window`.
@@ -225,7 +221,7 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 /// Animator of show/hide animation.
 @property(strong, nonatomic) AXPopoverViewAnimator *animator UI_APPEARANCE_SELECTOR;
 /// Popover window.
-@property(readonly, nonatomic) UIWindow *popoverWindow;
+@property(readonly, weak, nonatomic) UIView *popoverView;
 /// Background view.
 @property(readonly, nonatomic) UIView   *backgroundView;
 /// Shows completion block.
@@ -322,12 +318,13 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 /// @discusstion the rect is a specific rect in the popover window which is normlly same as the application
 ///              key window.
 ///
-/// @param rect       the rect in the popover winow.
+/// @param rect       the rect in the popover view.
+/// @param view       the view where the popover view lay on.
 /// @param animated   a boolean value to decide show popover view with or without animation.
 /// @param completion a completion call back block when the shows animation finished.
 ///
 /// @return Void
-- (void)showInRect:(CGRect)rect animated:(BOOL)animated completion:(dispatch_block_t)completion;
+- (void)showFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated completion:(dispatch_block_t)completion;
 /// Hide the showing popover view with a delay time internal.
 ///
 /// @param animated a boolean value to decide show popover view with or without animation.
@@ -335,37 +332,40 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 /// @param completion a completion call back block when the hides animation finished.
 ///
 /// @return Void
-- (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(dispatch_block_t)completion;
+- (void)hide:(BOOL)animated afterDelay:(NSTimeInterval)delay completion:(dispatch_block_t)completion;
 /// Show the popover view in a rect in the new popover window with a constant time internal.
 /// @discusstion Show the popover view with a time dutation, and from the popover view shows completely on,
 ///              the popover view will hide automaticly after the time duration.
 ///
-/// @param rect     the rect in the popover window.
+/// @param rect     the rect in the popover view.
+/// @param view       the view where the popover view lay on.
 /// @param animated a boolean value to decide show popover view with or without animation.
 /// @param duration a time internal duration the popover shows constants.
 ///
 /// @return Void
-- (void)showInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration;
+- (void)showFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration;
 /// Show the popover view from a view in the application key and main window with a time duration.
 /// @discusstion This method is suggested cause the frame of `view` will be convered to the popover window
 ///              automaticly.
 ///
-/// @param view a view in the application window.
+/// @param view a view in the application view.
+/// @param aView       the view where the popover view lay on.
 /// @param animated a boolean value to decide show popover view with or without animation.
 /// @param duration a time internal duration the popover shows constants.
 ///
 /// @return Void
-- (void)showFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration;
+- (void)showFromView:(UIView *)view inView:(UIView *)aView animated:(BOOL)animated duration:(NSTimeInterval)duration;
 /// Show the popover view from a view in the application key and main window with a completion call back block.
 /// @discusstion This method is suggested cause the frame of `view` will be convered to the popover window
 ///              automaticly.
 ///
-/// @param view a view in the application window.
+/// @param view a view in the application view.
+/// @param aView       the view where the popover view lay on.
 /// @param animated   a boolean value to decide show popover view with or without animation.
 /// @param completion a completion call back block when the shows animation finished.
 ///
 /// @return Void
-- (void)showFromView:(UIView *)view animated:(BOOL)animated completion:(dispatch_block_t)completion;
+- (void)showFromView:(UIView *)view inView:(UIView *)aView animated:(BOOL)animated completion:(dispatch_block_t)completion;
 /// Added a background task is executing in a new thread, popover view will hide when finished.
 ///
 /// This method also takes care of autorelease pools so your method does not have to be concerned with setting up a
@@ -475,9 +475,10 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 /// @discusstion Call this methods to hide all the popover views which is not referenced.
 ///
 /// @param animated a boolean value of popover view showing with or without animation.
+/// @param fromView the view where the popover view lay on.
 ///
 /// @return Void
-+ (void)hideVisiblePopoverViewsAnimated:(BOOL)animated;
++ (void)hideVisiblePopoverViewsAnimated:(BOOL)animated fromView:(UIView *)popoverView;
 /// Register a scroll veiw and follow the scrolling.
 ///
 /// @param scrollView a scroll view to be registered.
@@ -500,48 +501,52 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 /// @discusstion This method is suggested cause the frame of `view` will be convered to the popover window
 ///              automaticly.
 ///
-/// @param view a view in the application window.
+/// @param view a view in the application view.
+/// @param aView       the view where the popover view lay on.
 /// @param animated a boolean value to decide show popover view with or without animation.
 /// @param duration a time internal duration the popover shows constants.
 /// @param title title of title label.
 /// @param content of detail label.
 ///
 /// @return Void
-+ (instancetype)showLabelFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail;
++ (instancetype)showLabelFromView:(UIView *)view inView:(UIView *)aView animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail;
 /// Show the popover label from a view in the application key and main window with a constant time internal and a configuration block.
 /// @discusstion This method is suggested cause the frame of `view` will be convered to the popover window
 ///              automaticly.
 ///
-/// @param view a view in the application window.
+/// @param view a view in the application view.
+/// @param aView       the view where the popover view lay on.
 /// @param animated a boolean value to decide show popover view with or without animation.
 /// @param duration a time internal duration the popover shows constants.
 /// @param title title of title label.
 /// @param content of detail label.
 ///
 /// @return Void
-+ (instancetype)showLabelFromView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverViewConfiguration)config;
++ (instancetype)showLabelFromView:(UIView *)view inView:(UIView *)aView animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverViewConfiguration)config;
 /// Show the popover label from a rect in the application key and main window with a constant time internal.
 /// @discusstion This method is suggested cause the frame of `view` will be convered to the popover window
 ///              automaticly.
 ///
-/// @param rect     the rect in the popover winow.
+/// @param rect     the rect in the popover view.
+/// @param aView       the view where the popover view lay on.
 /// @param animated a boolean value to decide show popover view with or without animation.
 /// @param duration a time internal duration the popover shows constants.
 /// @param title title of title label.
 /// @param content of detail label.
 ///
 /// @return Void
-+ (instancetype)showLabelInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail;
++ (instancetype)showLabelFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail;
 /// Show the popover label from a rect in the application key and main window with a constant time internal and a configuration block.
 ///
-/// @param rect     the rect in the popover winow.
+/// @param rect     the rect in the popover view.
+/// @param aView       the view where the popover view lay on.
 /// @param animated a boolean value to decide show popover view with or without animation.
 /// @param duration a time internal duration the popover shows constants.
 /// @param title title of title label.
 /// @param content of detail label.
 ///
 /// @return Void
-+ (instancetype)showLabelInRect:(CGRect)rect animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverViewConfiguration)config;
++ (instancetype)showLabelFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated duration:(NSTimeInterval)duration title:(NSString *)title detail:(NSString *)detail configuration:(AXPopoverViewConfiguration)config;
 @end
 @interface AXPopoverViewAnimator : NSObject
 /// Initial state block.
@@ -561,7 +566,7 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 /// Get a custom animator of popover view to show/hide popover view by a custom animation way with showing and hiding blocks.
 + (instancetype)animatorWithShowing:(AXPopoverViewAnimation)showing hiding:(AXPopoverViewAnimation)hiding;
 @end
-@interface UIWindow(AXPopover)
+@interface UIView(AXPopover)
 /// Reference count.
 @property(readonly, nonatomic) NSUInteger referenceCount;
 /// Tap gesture.
@@ -570,8 +575,6 @@ typedef NSDictionary *(^AXPopoverViewAnimationInitializing)(AXPopoverView *popov
 @property(readonly, nonatomic) UIPanGestureRecognizer *pan;
 /// Registered popover views.
 @property(readonly, nonatomic) NSMutableArray *registeredPopoverViews;
-/// Application main key window.
-@property(assign, nonatomic) UIWindow *appKeyWindow;
 /// Register a popover view and added to the popover window.
 ///
 /// @param popoverView a popover view to be registered.

@@ -31,9 +31,14 @@
     _popoverView.headerView = headerView;
     _popoverView.footerView = footerView;
     
+//    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
+//    view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+//    view.alpha = 0.0;
+//    [self.view addSubview:view];
+//    
 //    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
 //    effectView.frame = self.view.bounds;
-//    [self.view insertSubview:effectView atIndex:0];
+//    [view addSubview:effectView];
 //    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
 //    imageView.image = [UIImage imageNamed:@"test"];
 //    [effectView.contentView addSubview:imageView];
@@ -45,7 +50,7 @@
 }
 #pragma mark - Actions
 - (IBAction)topLeft:(UIButton *)sender {
-     _popover = [AXPopoverView showLabelFromView:sender animated:YES duration:17.0 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速法国警15680002585方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面https://www.baidu.com二三十部車，警察和 isis上演生死時速" configuration:^(AXPopoverView *popoverView) {
+    _popover = [AXPopoverView showLabelFromView:sender inView:self.view animated:YES duration:17.0 title:@"法国" detail:@"法国警方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面二三十部車，警察和 isis上演生死時速法国警15680002585方抓获巴黎血案isis恐怖袭击嫌犯的场面，十分惊险的！上面2架直升机，下面https://www.baidu.com二三十部車，警察和 isis上演生死時速" configuration:^(AXPopoverView *popoverView) {
          popoverView.translucent = YES;
          popoverView.lockBackground = YES;
          popoverView.dimBackground = YES;
@@ -66,7 +71,7 @@
          popoverView.items = @[item1, item2];
          popoverView.itemImageInsets = UIEdgeInsetsMake(0, 0, 0, 20);
          popoverView.itemHandler = ^(UIButton *sender, NSUInteger index) {
-             [AXPopoverView showLabelInRect:CGRectMake(self.view.bounds.size.width*.5-5, 10, 10, 10) animated:YES duration:2.5 title:@"消息" detail:@"你好，这是点击｀你好｀之后的消息" configuration:^(AXPopoverView *popoverView2) {
+             [AXPopoverView showLabelFromRect:CGRectMake(self.view.bounds.size.width*.5-5, 10, 10, 10) inView:self.view animated:YES duration:2.5 title:@"消息" detail:@"你好，这是点击｀你好｀之后的消息" configuration:^(AXPopoverView *popoverView2) {
                  popoverView2.translucent = YES;
                  popoverView2.preferredArrowDirection = AXPopoverArrowDirectionTop;
                  popoverView2.translucentStyle = AXPopoverTranslucentLight;
@@ -98,15 +103,15 @@
 }
 
 - (IBAction)topRight:(UIButton *)sender {
-    [_popoverView showInRect:sender.frame animated:YES completion:nil];
+    [_popoverView showFromRect:sender.frame inView:self.view animated:YES completion:nil];
 }
 
 - (IBAction)bottomLeft:(UIButton *)sender {
-    [_popoverView showInRect:sender.frame animated:NO completion:nil];
+    [_popoverView showFromRect:sender.frame inView:self.view animated:NO completion:nil];
 }
 
 - (IBAction)bottomRight:(UIButton *)sender {
-    [_popoverView showInRect:sender.frame animated:YES completion:nil];
+    [_popoverView showFromRect:sender.frame inView:self.view animated:YES completion:nil];
 }
 
 - (void)myTask {
