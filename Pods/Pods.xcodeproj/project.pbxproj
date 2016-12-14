@@ -1003,53 +1003,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		150CDDEC4F6E0A344869DA713C33677A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF5C4CED6211DFE97055255817332A0E /* AGGeometryKit.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit/AGGeometryKit-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		2A3D2A0377D3B10B6A37D163E6A4F21D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 172601CB5DBD0CF18B0B4612A1BE07F2 /* pop.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/pop/pop-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		2E66E06DA6FAA1E202225376A61F0A37 /* Release */ = {
+		0F9F80678D789EEACA8B58C14CF5FF47 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7CBF8C1340371F14815DB2CDFE012138 /* AXAttributedLabel.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1066,11 +1026,36 @@
 			};
 			name = Release;
 		};
-		33D628BFEA3B35BD66C6B479E3560351 /* Release */ = {
+		1755AE7E7F998A446C227A07CDEF14C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF5C4CED6211DFE97055255817332A0E /* AGGeometryKit.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit/AGGeometryKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2038D4F7BBB9D2EAEF1DF75BAD062812 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5EDC11D9107E806AE475F658B852E1E5 /* Pods-AXPopoverView.release.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1087,16 +1072,18 @@
 			};
 			name = Release;
 		};
-		436A861201600A4DD392CBB691A7CC64 /* Release */ = {
+		26678D65F9AA24ABB61C4848DE528AF5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 172601CB5DBD0CF18B0B4612A1BE07F2 /* pop.xcconfig */;
+			baseConfigurationReference = FF5C4CED6211DFE97055255817332A0E /* AGGeometryKit.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/pop/pop-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit/AGGeometryKit-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -1108,53 +1095,13 @@
 			};
 			name = Release;
 		};
-		6BE248F075FE3E0DB29D2251874BBCA3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7CBF8C1340371F14815DB2CDFE012138 /* AXAttributedLabel.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/AXAttributedLabel/AXAttributedLabel-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		6C41784EEAF0F25A235347434AB4E63D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF5C4CED6211DFE97055255817332A0E /* AGGeometryKit.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit/AGGeometryKit-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		712C37FC4B441582596246B1E0386D37 /* Debug */ = {
+		2EBBA9D0B19C8D9DA2F8A084E69527A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F28D1A3A5887AA9373E4A69919974E9A /* Pods-AXPopoverView.debug.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1211,16 +1158,64 @@
 			};
 			name = Release;
 		};
-		AF94F0AE926C13C80D0B22A33F2C29B0 /* Debug */ = {
+		7C89B1592D8EBA50438665E20AC7533C /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AF027972C64B03D49517228374242D2D /* AGGeometryKit+POP.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit+POP/AGGeometryKit+POP-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		A0EE0092C2F1DC478919C4FB3DF9A79B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 172601CB5DBD0CF18B0B4612A1BE07F2 /* pop.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/pop/pop-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A279F0E12C703166328BCCBE6A2A9C93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CBF8C1340371F14815DB2CDFE012138 /* AXAttributedLabel.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AXAttributedLabel/AXAttributedLabel-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -1276,15 +1271,40 @@
 			};
 			name = Debug;
 		};
-		DCAADFCB1D8BFFEF94E9213980619EEF /* Release */ = {
+		D8C1CE65BB0367F7AABFDD0CD52CF3A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AF027972C64B03D49517228374242D2D /* AGGeometryKit+POP.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/AGGeometryKit+POP/AGGeometryKit+POP-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		E94058CEE7E823FB3D5D875F3268562B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 172601CB5DBD0CF18B0B4612A1BE07F2 /* pop.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/pop/pop-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
@@ -1312,8 +1332,8 @@
 		35102DBBD744E90E93D60A34D7E8D601 /* Build configuration list for PBXNativeTarget "Pods-AXPopoverView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				712C37FC4B441582596246B1E0386D37 /* Debug */,
-				33D628BFEA3B35BD66C6B479E3560351 /* Release */,
+				2EBBA9D0B19C8D9DA2F8A084E69527A1 /* Debug */,
+				2038D4F7BBB9D2EAEF1DF75BAD062812 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1321,8 +1341,8 @@
 		58A331B6DA1F04E83436B7C9CC23B082 /* Build configuration list for PBXNativeTarget "AXAttributedLabel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6BE248F075FE3E0DB29D2251874BBCA3 /* Debug */,
-				2E66E06DA6FAA1E202225376A61F0A37 /* Release */,
+				A279F0E12C703166328BCCBE6A2A9C93 /* Debug */,
+				0F9F80678D789EEACA8B58C14CF5FF47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1330,8 +1350,8 @@
 		90DBBA5BF8311315A63F6309B52AA6C7 /* Build configuration list for PBXNativeTarget "AGGeometryKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6C41784EEAF0F25A235347434AB4E63D /* Debug */,
-				150CDDEC4F6E0A344869DA713C33677A /* Release */,
+				1755AE7E7F998A446C227A07CDEF14C3 /* Debug */,
+				26678D65F9AA24ABB61C4848DE528AF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1339,8 +1359,8 @@
 		A86AE64262CC75A48EA65EE1C0A10203 /* Build configuration list for PBXNativeTarget "AGGeometryKit+POP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AF94F0AE926C13C80D0B22A33F2C29B0 /* Debug */,
-				DCAADFCB1D8BFFEF94E9213980619EEF /* Release */,
+				D8C1CE65BB0367F7AABFDD0CD52CF3A4 /* Debug */,
+				7C89B1592D8EBA50438665E20AC7533C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1348,8 +1368,8 @@
 		FDFF982DDE3190BC5423D1CAC8D9D76C /* Build configuration list for PBXNativeTarget "pop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2A3D2A0377D3B10B6A37D163E6A4F21D /* Debug */,
-				436A861201600A4DD392CBB691A7CC64 /* Release */,
+				A0EE0092C2F1DC478919C4FB3DF9A79B /* Debug */,
+				E94058CEE7E823FB3D5D875F3268562B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

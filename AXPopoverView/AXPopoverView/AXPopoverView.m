@@ -28,9 +28,9 @@
 #ifndef AX_POPOVER_MAIN_THREAD
 #define AX_POPOVER_MAIN_THREAD(block) \
 if ([NSThread isMainThread]) {\
-    block();\
+block();\
 } else {\
-    dispatch_async(dispatch_get_main_queue(), block);\
+dispatch_async(dispatch_get_main_queue(), block);\
 }
 #endif
 #ifndef __IPHONE_ALLOWED_0
@@ -38,7 +38,7 @@ if ([NSThread isMainThread]) {\
 #endif
 @interface AXPopoverView()
 {
-    @protected
+@protected
     UIView   *_contentView;
     UIView   *_backgroundView;
     CGPoint   _arrowPosition;
@@ -874,11 +874,10 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         [UIView animateWithDuration:animationDuration animations:^{
             view.alpha = 0.0;
             [self viewHiding:animated];
-        } completion:^(BOOL finished) {
-            if (finished) {
-                [self viewDidHide:animated];
-            }
-        }];
+        } completion:NULL];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self viewDidHide:animated];
+        });
     } else {
         [self viewWillHide:animated];
         _animator.hiding(self, animated, _targetRect, nil);
@@ -915,7 +914,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 
 - (void)showFromView:(UIView *)view inView:(UIView *)aView animated:(BOOL)animated completion:(dispatch_block_t)completion {
     CGRect rect = [aView convertRect:view.frame fromView:view.superview];
-//    CGRect rect = view.frame;
+    //    CGRect rect = view.frame;
     [self showFromRect:rect inView:aView animated:animated completion:completion];
 }
 
@@ -1020,7 +1019,7 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
 }
 
 - (void)addExecutingBlock:(dispatch_block_t)block onQueue:(dispatch_queue_t)queue
-     completionBlock:(dispatch_block_t)completion {
+          completionBlock:(dispatch_block_t)completion {
     dispatch_async(queue, ^(void) {
         block();
         dispatch_async(dispatch_get_main_queue(), ^(void) {
