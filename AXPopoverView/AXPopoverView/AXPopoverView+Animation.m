@@ -203,7 +203,7 @@
             [popoverView.layer pop_removeAllAnimations];
             [popoverView.layer pop_addAnimation:ani forKey:@"_frame"];
         } else {
-            [popoverView viewHiding:animated];
+            [popoverView viewShowing:animated];
             [popoverView viewDidShow:animated];
         }
     } hiding:NULL];
