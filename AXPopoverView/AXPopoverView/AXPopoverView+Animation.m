@@ -154,7 +154,6 @@
         } else {
             AGKQuad quad = [userInfo[@"quad"] AGKQuadValue];
             popoverView.layer.quadrilateral = quad;
-            [popoverView viewShowing:animated];
             [popoverView viewDidShow:animated];
         }
     } hiding:NULL];
@@ -164,8 +163,6 @@
     return
     [AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect, NSDictionary *userInfo) {
         if (animated) {
-//            CGRect fromFrame = CGRectZero;
-//            fromFrame.origin = popoverView.animatedFromPoint;
             popoverView.transform = CGAffineTransformMakeScale(0, 0);
             popoverView.layer.anchorPoint = popoverView.arrowPosition;
             [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^{
@@ -175,10 +172,21 @@
                 if (finished) [popoverView viewDidShow:animated];
             }];
         } else {
-            [popoverView viewShowing:animated];
             [popoverView viewDidShow:animated];
         }
-    } hiding:NULL];
+    } hiding:^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect, NSDictionary *userInfo) {
+        if (animated) {
+            popoverView.layer.anchorPoint = popoverView.arrowPosition;
+            [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^{
+                popoverView.transform = CGAffineTransformMakeScale(0, 0);
+            } completion:^(BOOL finished) {
+                // Call `viewDidHide:` when animation finished.
+                if (finished) [popoverView viewDidHide:animated];
+            }];
+        } else {
+            [popoverView viewDidHide:animated];
+        }
+    }];
 }
 /// TODO: Finish pop animator.
 + (AXPopoverViewAnimator *)popFlipSpringAnimator {
@@ -203,7 +211,6 @@
             [popoverView.layer pop_removeAllAnimations];
             [popoverView.layer pop_addAnimation:ani forKey:@"_frame"];
         } else {
-            [popoverView viewShowing:animated];
             [popoverView viewDidShow:animated];
         }
     } hiding:NULL];
