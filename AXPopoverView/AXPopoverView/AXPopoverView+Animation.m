@@ -175,7 +175,7 @@
                 if (finished) [popoverView viewDidShow:animated];
             }];
         } else {
-            [popoverView viewHiding:animated];
+            [popoverView viewShowing:animated];
             [popoverView viewDidShow:animated];
         }
     } hiding:NULL];
