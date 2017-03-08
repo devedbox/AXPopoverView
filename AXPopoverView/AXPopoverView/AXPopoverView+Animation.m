@@ -163,9 +163,9 @@
     return
     [AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect, NSDictionary *userInfo) {
         if (animated) {
-            popoverView.transform = CGAffineTransformMakeScale(0, 0);
             popoverView.layer.anchorPoint = popoverView.arrowPosition;
-            [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^{
+            popoverView.transform = CGAffineTransformMakeScale(0, 0);
+            [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.8 options:7 animations:^{
                 popoverView.transform = CGAffineTransformIdentity;
             } completion:^(BOOL finished) {
                 // Call `viewDidShow:` when the animation finished.
@@ -176,9 +176,11 @@
         }
     } hiding:^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect, NSDictionary *userInfo) {
         if (animated) {
+            // Ensure the anchor point of the popover view is on the position of the arrow.
             popoverView.layer.anchorPoint = popoverView.arrowPosition;
-            [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^{
-                popoverView.transform = CGAffineTransformMakeScale(0, 0);
+            popoverView.transform = CGAffineTransformIdentity;
+            [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.9 initialSpringVelocity:0.9 options:7 animations:^{
+                popoverView.transform = CGAffineTransformMakeScale(0.001, 0.001);
             } completion:^(BOOL finished) {
                 // Call `viewDidHide:` when animation finished.
                 if (finished) [popoverView viewDidHide:animated];
