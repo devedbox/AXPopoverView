@@ -858,19 +858,20 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         [self unregisterScrollView];
     }
     
-    UIView *view;
-    if (_translucent) {// using snapshot
-        view = self.snapshotView;
-        view.frame = self.frame;
-        [self.popoverView addSubview:view];
-        self.hidden = YES;
-    } else {
-        view = self;
-    }
     NSTimeInterval animationDuration = animated?0.25:0.0;
     if (completion) _hidesCompletion = [completion copy];
     [self viewWillHide:animated];
     if (!_animator.hiding) {
+        UIView *view;
+        if (_translucent) {// using snapshot
+            view = self.snapshotView;
+            view.frame = self.frame;
+            [self.popoverView addSubview:view];
+            self.hidden = YES;
+        } else {
+            view = self;
+        }
+        
         [UIView animateWithDuration:animationDuration animations:^{
             view.alpha = 0.0;
             [self viewHiding:animated];
@@ -897,6 +898,9 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
     if (completion) {
         _hidesCompletion = [completion copy];
     }
+    // Cancel the previous perform request of the delaying hiding.
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(delayHideWithOptions:) object:nil];
+    
     [self performSelector:@selector(delayHideWithOptions:) withObject:@{kAXPopoverHidesOptionAnimatedKey:@(animated)} afterDelay:delay];
 }
 
