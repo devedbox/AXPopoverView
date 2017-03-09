@@ -28,4 +28,5 @@
 @interface AXPopoverView (Animation)
 + (AXPopoverViewAnimator *)turnFlipAnimator;
 + (AXPopoverViewAnimator *)flipSpringAnimator;
++ (AXPopoverViewAnimator *)popFlipSpringAnimator;
 @end
