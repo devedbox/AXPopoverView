@@ -2,7 +2,7 @@
 
 # AXPopoverView[![Build Status](https://travis-ci.org/devedbox/AXPopoverView.svg?branch=master)](https://travis-ci.org/devedbox/AXPopoverView)[![Version](https://img.shields.io/cocoapods/v/AXPopoverView.svg?style=flat)](http://cocoapods.org/pods/AXPopoverView)[![License](https://img.shields.io/cocoapods/l/AXPopoverView.svg?style=flat)](http://cocoapods.org/pods/AXPopoverView)[![Platform](https://img.shields.io/cocoapods/p/AXPopoverView.svg?style=flat)](http://cocoapods.org/pods/AXPopoverView)
 
-##Summary
+## Summary
 `AXPopoverView` is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. `AXPopoverView` contains how to use custom view to customize the popover view. The popover view (mostly used as `Label` or `Other`) is a convenient and hommization way for developer to use.
 
 [![sample](http://image17-c.poco.cn/mypoco/myphoto/20151225/09/1786703522015122509434309.gif?371x657_110)](http://image17-c.poco.cn/mypoco/myphoto/20151225/09/1786703522015122509434309.gif?371x657_110)
@@ -49,7 +49,7 @@ Alternatively you can directly add the `AXPopoverView.h` and `AXPopoverView.m` s
 
 `AXPopoverView` support `UI_APPEARANCE_SELECTOR` to configure look of popover view will display on the screen. You should add your customizable code to `configuration block` when you using the `+ instance methods`.
 
-###Showing&hiding
+### Showing&hiding
 
 Using `showInRect:animated:completion:` `hideAnimated:afterDelay:completion:` to show popover view or hide. You can also using convenient methods to show the popover label like this:
 ```objective-c
@@ -57,7 +57,7 @@ Using `showInRect:animated:completion:` `hideAnimated:afterDelay:completion:` to
 ```
 Oh, that's easy!!!
 
-###appearance configuration
+### appearance configuration
 
 Using the selector masked as `UI_APPEARANCE_SELECTOR` to custimize the popover view when application has started.
 ```objcetive-c
@@ -84,7 +84,7 @@ Using the selector masked as `UI_APPEARANCE_SELECTOR` to custimize the popover v
 } hiding:nil]];
 ```
 
-###block configuration
+### block configuration
 
 Simply using a block to customize a specific popover view will show.
 ```objcetive-c
@@ -107,7 +107,7 @@ popoverView.preferredArrowDirection = AXPopoverArrowDirectionTop;
 popoverView.translucentStyle = AXPopoverTranslucentLight;
 [popoverView showFromView:sender animated:YES duration:2.0];
 ```
-###UI Updates
+### UI Updates
 
 UI updates should always be done on the main thread. like `setOffsets:`, `setArrowAngle:`, `setTitleFont:`, `setDetailFont:`, `setTranslucent:`, `setArrowCornerRadius:` and so on.
 
