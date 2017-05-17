@@ -244,7 +244,23 @@ static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
         
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_ALLOWED_0
         if (AX_POPOVER_VIEW_AVAILABLE_ON(__k_iOS10_0)) {
+            // FIXME: Add mask layer of UIVisileEffectView. The way below does't work on iOS10.0 and higher.
+            // ...
+            // maskLayer.fillRule = kCAFillRuleEvenOdd;
+            // UIView *maskView = [UIView new];
+            // [maskView setFrame:_effectView.bounds];
+            // maskView.backgroundColor = [UIColor blackColor];
+            // maskView.layer.mask = maskLayer;
+            // _effectView.maskView = maskView;
             
+            // Mask all the back drawing views.
+            for (UIView *view in _effectView.subviews) {
+                if ([[NSPredicate predicateWithFormat:@"SELF BEGINSWITH[cd] '_'"] evaluateWithObject:NSStringFromClass(view.class)]) {
+                    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+                    maskLayer.path = _path;
+                    view.layer.mask = maskLayer;
+                }
+            }
         } else {
             _effectView.layer.mask = maskLayer;
         }
