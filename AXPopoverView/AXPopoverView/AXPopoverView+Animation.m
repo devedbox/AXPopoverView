@@ -198,20 +198,23 @@
         return @{};
     } showing:^(AXPopoverView *popoverView, BOOL animated, CGRect targetRect, NSDictionary *userInfo) {
         if (animated) {
-            POPSpringAnimation *ani = [popoverView.layer pop_animationForKey:@"_frame"];
+            POPSpringAnimation *ani = [popoverView pop_animationForKey:@"_frame"];
             if (!ani) {
-                ani = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+                ani = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
             }
-            ani.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)];
-            ani.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
+            ani.fromValue = [NSValue valueWithCGRect:CGRectMake(CGRectGetMinX(targetRect)+CGRectGetWidth(targetRect)*popoverView.arrowPosition.x, CGRectGetMinY(targetRect)+CGRectGetHeight(targetRect)*popoverView.arrowPosition.y, 1, 1)];
+            ani.toValue = [NSValue valueWithCGRect:targetRect];
             ani.completionBlock = ^(POPAnimation *ani, BOOL finished){
                 // Call `viewDidShow:` when the animation finished.
-                if (finished) [popoverView viewDidShow:animated];
+                if (finished) {
+                    [popoverView viewDidShow:animated];
+                    [popoverView pop_removeAllAnimations];
+                }
             };
             ani.springBounciness = 8;
             ani.springSpeed = 10;
-            [popoverView.layer pop_removeAllAnimations];
-            [popoverView.layer pop_addAnimation:ani forKey:@"_frame"];
+            [popoverView pop_removeAllAnimations];
+            [popoverView pop_addAnimation:ani forKey:@"_frame"];
         } else {
             [popoverView viewDidShow:animated];
         }
