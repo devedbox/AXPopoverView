@@ -74,6 +74,29 @@ NSString *const AXPopoverPriorityVertical = @"AXPopoverPriorityVertical";
 
 static NSString *const kAXPopoverHidesOptionAnimatedKey = @"ax_hide_option_animated";
 static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-const-variable"
+static NSUInteger const __k_iOS8_0 = 8000;
+static NSUInteger const __k_iOS9_0 = 9000;
+static NSUInteger const __k_iOS10_0 = 10000;
+#pragma clang diagnostic pop
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
+static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
+    NSString *systemVersion = [[UIDevice currentDevice].systemVersion copy];
+    NSArray *comp = [systemVersion componentsSeparatedByString:@"."];
+    if (comp.count == 0 || comp.count == 1) {
+        systemVersion = [NSString stringWithFormat:@"%@.0.0", systemVersion];
+    } else if (comp.count == 2) {
+        systemVersion = [NSString stringWithFormat:@"%@.0", systemVersion];
+    }
+
+    NSString *plat = [NSString stringWithFormat:@"%@.0.0", @(plfm/1000)];
+    NSComparisonResult result = [systemVersion compare:plat options:NSNumericSearch];
+    return result == NSOrderedSame || result == NSOrderedDescending;
+}
+#pragma clang diagnostic pop
 
 @implementation AXPopoverView
 @synthesize detailLabel = _detailLabel, popoverView = _popoverView;
@@ -220,7 +243,11 @@ static NSString *const kAXPopoverHidesOptionDelayKey = @"ax_hide_option_delay";
         maskLayer.path = _path;
         
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_ALLOWED_0
-        _effectView.layer.mask = maskLayer;
+        if (AX_POPOVER_VIEW_AVAILABLE_ON(__k_iOS10_0)) {
+            
+        } else {
+            _effectView.layer.mask = maskLayer;
+        }
 #else
         _effectBar.layer.mask = maskLayer;
 #endif
