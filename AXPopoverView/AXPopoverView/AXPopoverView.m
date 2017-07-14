@@ -171,7 +171,7 @@ static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *hitView = [super hitTest:point withEvent:event];
-    if (_hideOnTouch) {
+    if (_hideOnTouch&& !_isShowing) {
         if (point.x < 0 || point.y < 0 || point.x > CGRectGetWidth(self.frame) || point.y > CGRectGetHeight(self.frame)) {
             [self hide:YES afterDelay:0.05 completion:nil];
         }
@@ -189,9 +189,13 @@ static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
     // Drawing code
     // bubble Drawing
     CGContextRef cxt = UIGraphicsGetCurrentContext();
+    if (!cxt) {
+        return;
+    }
     CGContextSetFillColorWithColor(cxt, _backgroundDrawingColor.CGColor);
     CGContextSetLineWidth(cxt, 3.0);
     // top line drawing
@@ -1003,6 +1007,9 @@ static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
     self.alpha = 1.0;
     self.hidden = NO;
     _backgroundView.alpha = 1.0;
+    // Disable all the transform infos.
+    [self setTransform:CGAffineTransformIdentity];
+    
     [self setNeedsLayout];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     for (UIView *view in self.popoverView.subviews) {
@@ -1260,6 +1267,9 @@ static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
 
 - (void)addTopArrowPointWithContext:(CGContextRef)cxt arrowAngle:(CGFloat)angle arrowHeight:(CGFloat)height arrowPositionX:(CGFloat)x
 {
+    if (!cxt) {
+        return;
+    }
     CGFloat arrowWidth_2 = height * tan(angle*M_PI/360);
     CGFloat constant = _arrowCornerRadius * tan((45-(angle/4))*M_PI/180);
     CGFloat constantX = constant*sin(angle*M_PI/360);
@@ -1285,6 +1295,9 @@ static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
 
 - (void)addBottomArrowPointWithContext:(CGContextRef)cxt arrowAngle:(CGFloat)angle arrowHeight:(CGFloat)height arrowPositionX:(CGFloat)x
 {
+    if (!cxt) {
+        return;
+    }
     CGFloat arrowWidth_2 = height * tan(angle*M_PI/360);
     CGFloat constant = _arrowCornerRadius * tan((45-(angle/4))*M_PI/180);
     CGFloat constantX = constant*sin(angle*M_PI/360);
@@ -1310,6 +1323,9 @@ static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
 
 - (void)addLeftArrowPointWithContext:(CGContextRef)cxt arrowAngle:(CGFloat)angle arrowWidth:(CGFloat)width arrowPositionY:(CGFloat)y
 {
+    if (!cxt) {
+        return;
+    }
     CGFloat arrowHtight_2 = width * tan(angle*M_PI/360);
     CGFloat constant = _arrowCornerRadius * tan((45-(angle/4))*M_PI/180);
     CGFloat constantY = constant*sin(angle*M_PI/360);
@@ -1335,6 +1351,9 @@ static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
 
 - (void)addRightArrowPointWithContext:(CGContextRef)cxt arrowAngle:(CGFloat)angle arrowWidth:(CGFloat)width arrowPositionY:(CGFloat)y
 {
+    if (!cxt) {
+        return;
+    }
     CGFloat arrowHtight_2 = width * tan(angle*M_PI/360);
     CGFloat constant = _arrowCornerRadius * tan((45-(angle/4))*M_PI/180);
     CGFloat constantY = constant*sin(angle*M_PI/360);
@@ -1503,6 +1522,9 @@ static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
 {
     UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
+    if (!context) {
+        return nil;
+    }
     CGContextTranslateCTM(context, 0, image.size.height);
     CGContextScaleCTM(context, 1.0, -1.0);
     CGContextSetBlendMode(context, kCGBlendModeNormal);
@@ -1664,6 +1686,9 @@ static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
     [super drawRect:rect];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
+    if (!context) {
+        return;
+    }
     
     CGContextSetLineWidth(context, 1);
     CGContextSetStrokeColorWithColor(context,_lineColor.CGColor);
@@ -1798,6 +1823,9 @@ static inline BOOL AX_POPOVER_VIEW_AVAILABLE_ON(NSUInteger plfm) {
     CGRect circleRect = CGRectInset(allRect, 2.0, 2.0);
     // Get current context
     CGContextRef context = UIGraphicsGetCurrentContext();
+    if (!context) {
+        return;
+    }
     // Draw
     if (_annularEnabled) {
         // draw background
